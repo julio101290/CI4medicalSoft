@@ -218,7 +218,7 @@
                                     
                                 </div>
                        
-                                <input type="hidden" id="listaDiagnosticoEnfermedad" name="listaProductos" value="[]">
+                                <input type="hidden" id="listaTratamiento" name="listaTratamiento" value="[]">
                                 <!--=====================================
                                 BOTÓN PARA AGREGAR PRODUCTO
                                 ======================================-->

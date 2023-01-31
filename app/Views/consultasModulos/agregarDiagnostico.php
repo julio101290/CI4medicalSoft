@@ -99,13 +99,15 @@
          */
         var renglon = "<div class=\"form-group row nuevoDiagnosticoEnfermedad\">";
         renglon = renglon + "<div class =\"col-2\"> <button type=\"button\" class=\"btn btn-danger quitarDiagnostico\" ><strong>X</strong></button>  </div>";
-        renglon = renglon + "<div class =\"col-10\"> <input type=\"text\" id=\"nuevaDescripcionProducto\" class=\"form-control idDiagnostico\" idDiagnostico =\"" + idDiagnostico + "\" name=\"idDiagnostico\" value=\"" + descripcionDiagnostico + "\" required=\"\"> </div>";
+        renglon = renglon + "<div class =\"col-10\"> <input type=\"text\" id=\"idDiagnostico\" class=\"form-control registroDiagnostico \" idDiagnostico =\"" + idDiagnostico + "\" name=\"idDiagnostico\" value=\"" + descripcionDiagnostico + "\" required=\"\"> </div>";
         renglon = renglon + "</div>";
 
 
         console.log(renglon);
 
         $(".renglonesDiagnosticos").append(renglon);
+        
+        listarDiagnosticos();
 
     });
 
@@ -119,9 +121,35 @@
         console.log("eliminar prueba");
 
         $(this).parent().parent().remove();
+        
+        listarDiagnosticos();
 
     });
 
+
+    /*
+     * Funcion para leer los registros de los diagnosticos / Enfermedades y guardar en un json en un campo
+     */
+    function listarDiagnosticos() {
+
+        var listaDiagnosticos = [];
+
+        var diagnostico = $(".registroDiagnostico");
+
+
+        for (var i = 0; i < diagnostico.length; i++) {
+
+            listaDiagnosticos.push({"idDiagnostico": $(diagnostico[i]).attr("idDiagnostico"),
+                "descripcion:": $(diagnostico[i]).val()
+            });
+
+
+        }
+        
+        //Asignamos el JSON en el input
+        
+        $("#listaDiagnosticoEnfermedad").val(JSON.stringify(listaDiagnosticos));
+    }
 
 </script>
 
