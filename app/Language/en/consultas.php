@@ -29,8 +29,15 @@ $consultas["diagnosticoEnfermedadColumna1"] = "Diagnostico / Dolencia";
 
 $consultas["medicamentoTratamiento"] = "Medication / Treatment";
 $consultas["tratamientosAnteriores"] = "previous treatments";
-$consultas["medicamentoTratamientoColumna1"] = "Medicamento / Tratamiento";
+$consultas["medicamentoTratamientoColumna1"] = "Medication / Treatment";
+
+$consultas["seleccionarTratamiento"] = "Select Treatments";
+$consultas["tratamientosAnteriores"] = "Previus Treatment";
+$consultas["tratamientos"] = "Treatments / Medications";
+$consultas["tratamientoColumna1"] = "Treatment / Medication";
 $consultas["usoColumna2"] = "Use";
+
+
 
 
 return $consultas;
