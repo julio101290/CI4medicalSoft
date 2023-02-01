@@ -111,3 +111,15 @@ function año($fecha) {
 
     return date("Y", strtotime($fecha));
 }
+
+//GENERA UUID
+function generaUUID() {
+
+
+    $uuid = service('uuid');
+    $uuid4 = $uuid->uuid4();
+    $string = $uuid4->toString();
+    
+    return $string;
+
+}

@@ -9,71 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-paciente" class="form-horizontal">
-                    <input type="hidden" id="idPaciente" name="idPaciente" value="0">
-
-
-
-                    <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label"><?= lang('patients.names') ?></label>
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
-                                <input type="text" name="nombres" id="nombres" class="form-control <?= session('error.nombres') ? 'is-invalid' : '' ?>" value="<?= old('nombres') ?>" placeholder="<?= lang('patients.names') ?>" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label"><?= lang('patients.lastName') ?></label>
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
-                                <input type="text" name="apellidos"  id="apellidos"class="form-control <?= session('error.apellidos') ? 'is-invalid' : '' ?>" value="<?= old('apellidos') ?>" placeholder="<?= lang('patients.lastName') ?>" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="dni" class="col-sm-2 col-form-label"><?= lang('patients.dni') ?></label>
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
-                                </div>
-                                <input type="text" name="dni"  id="dni" class="form-control <?= session('error.dni') ? 'is-invalid' : '' ?>" value="<?= old('dni') ?>" placeholder="<?= lang('patients.dni') ?>" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="phone" class="col-sm-2 col-form-label"><?= lang('patients.phone') ?></label>
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-mobile"></i></span>
-                                </div>
-                                <input type="text" name="telefono" id="telefono" class="form-control <?= session('error.phone') ? 'is-invalid' : '' ?>" value="<?= old('telefono') ?>" placeholder="<?= lang('patients.phone') ?>" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="correoElectronico" class="col-sm-2 col-form-label"><?= lang('patients.email') ?></label>
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                </div>
-                                <input type="text" name="correoElectronico" id="correoElectronico" class="form-control <?= session('error.correoElectronico') ? 'is-invalid' : '' ?>" value="<?= old('correoElectronico') ?>" placeholder="<?= lang('patients.email') ?>" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-                </form>
+       
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><?= lang('boilerplate.global.close') ?></button>

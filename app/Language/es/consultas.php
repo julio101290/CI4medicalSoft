@@ -42,6 +42,9 @@ $consultas["tratamientosAnteriores"] = "Tratamientos Anteriores";
 $consultas["tratamientos"] = "Tratamientos / Medicamentos";
 $consultas["tratamientoColumna1"] = "Tratamiento / Medicamento";
 
+$consultas["nuevoDiagnostico"] = "Nuevo Diagnostico";
+$consultas["nuevoTratamiento"] = "Nuevo Tratamiento";
+$consultas["nuevoPaciente"] = "Nuevo Paciente";
 
 
 

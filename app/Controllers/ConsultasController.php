@@ -18,6 +18,7 @@ class ConsultasController extends BaseController {
         $this->pacientes = new PacientesModel();
         $this->bitacora = new BitacoraModel();
         helper('menu');
+        helper('utilerias');
     }
 
     public function index() {
@@ -71,6 +72,8 @@ class ConsultasController extends BaseController {
         $titulos["fecha"] = $fechaActual;
         $titulos["userName"] = $userName;
         $titulos["idUser"] = $idUser;
+        
+        $titulos["uuid"] = generaUUID();
 
         $titulos["title"] = lang('consultas.title');
         $titulos["subtitle"] = lang('consultas.subtitle');

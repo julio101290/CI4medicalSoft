@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <form id="form-paciente" class="form-horizontal">
-                    <input type="hidden" id="idPaciente" name="idPaciente" value="0">
+                    <input type="hidden" id="idPacienteRegistrar" name="idPacienteRegistrar" value="0">
 
 
 
@@ -124,7 +124,7 @@
 
     $(document).on('click', '#btnGuardarPaciente', function (e) {
 
-        var idPaciente = $("#idPaciente").val();
+        var idPacienteRegistro = $("#idPacienteRegistrar").val();
         var nombres = $("#nombres").val();
         var apellidos = $("#apellidos").val();
         var telefono = $("#telefono").val();
@@ -136,9 +136,9 @@
 
         $("#btnGuardarPaciente").attr("disabled", true);
 
-
+        console.log("nombres",nombres);
         var datos = new FormData();
-        datos.append("idPaciente", idPaciente);
+        datos.append("idPaciente", idPacienteRegistro);
         datos.append("nombres", nombres);
         datos.append("apellidos", apellidos);
         datos.append("telefono", telefono);

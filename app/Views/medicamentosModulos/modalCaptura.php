@@ -21,7 +21,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
                                 </div>
-                                <input type="text" name="descripcion" id="descripcion" class="form-control <?= session('error.descripcion ') ? 'is-invalid' : '' ?>" value="<?= old('descripcion') ?>" placeholder="<?= lang('medicamentos.description') ?>" autocomplete="off">
+                                <input type="text" name="descripcionTratamiento" id="descripcionTratamiento" class="form-control <?= session('error.descripcion ') ? 'is-invalid' : '' ?>" value="<?= old('descripcion') ?>" placeholder="<?= lang('medicamentos.description') ?>" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
     $(document).on('click', '#btnGuardarMedicamento', function (e) {
 
         var idMedicamento = $("#idMedicamento").val();
-        var descripcion = $("#descripcion").val();
+        var descripcion = $("#descripcionTratamiento").val();
       
 
 

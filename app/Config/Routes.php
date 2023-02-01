@@ -124,6 +124,8 @@ $routes->group('admin', function ($routes) {
     $routes->post('citas/traeCita', 'CitasController::traeCita');
 
     $routes->get('consultas/generarConsulta', 'ConsultasController::generarConsulta');
+    
+    $routes->post('consultas/guardar', 'ConsultasController::guardarConsulta');
 });
 
 /*

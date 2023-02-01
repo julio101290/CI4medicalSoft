@@ -18,7 +18,9 @@
                             <select id='paciente'  name='paciente' style='width: 80%;'>
                                 <option value='0'><?= lang('citas.seleccionePaciente') ?></option>
                             </select>
+
                         </div>
+                        <button type="button" class="btn btn-default " data-toggle="modal" data-target="#modalAgregarPaciente"><?= lang('consultas.nuevoPaciente') ?></button>
                     </div>
 
 
@@ -31,9 +33,11 @@
 
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="fechaHora"><?= lang('consultas.medico') ?></label>
+                            <label for="doctor"><?= lang('consultas.medico') ?></label>
                             <input type="text" id="doctor" name="doctor" disabled value="<?= $userName ?>">
-                            <input type="hidden" id="doctor" name="doctor" value="<?= $idUser ?>">
+                            <input type="hidden" id="idDoctor" name="idDoctor" value="<?= $idUser ?>">
+                            <input type="hidden" id="idConsulta" name="idConsulta" value="0">
+                            <input type="hidden" id="uuid" name="uuid" value="<?= $uuid ?>">
                         </div>
                     </div>
 
@@ -140,19 +144,21 @@
                                     ======================================-->
                                     <div class ="col-2"> </div>
                                     <div class ="col-10">  <?= lang('consultas.diagnosticos') ?> </div>
-                                  
+
 
                                 </div>
                                 <hr class="hr" />
-                            
+
                                 <div class="renglonesDiagnosticos">
-                                  
+
                                 </div>
                                 <input type="hidden" id="listaDiagnosticoEnfermedad" name="listaProductos" value="[]">
                                 <!--=====================================
                                 BOTÓN PARA AGREGAR PRODUCTO
                                 ======================================-->
-                                <button type="button" class="btn btn-default " data-toggle="modal" data-target="#modalAgregarDiagnostico"><?= lang('consultas.agregarDiagnostico') ?></button>
+                                <button type="button" class="btn btn-default btnAgregarRegistro" data-toggle="modal" data-target="#modalAgregarDiagnostico"><?= lang('consultas.agregarDiagnostico') ?></button>
+                                <button type="button" class="btn btn-default " data-toggle="modal" data-target="#modalAgregarEnfermedades"><?= lang('consultas.nuevoDiagnostico') ?></button>
+
                                 <hr>
                             </div>
                         </div>
@@ -215,17 +221,30 @@
                                 ENTRADA PARA AGREGAR PRODUCTO
                                 ======================================--> 
                                 <div class="renglonesTratamientos">
-                                    
+
                                 </div>
-                       
+
                                 <input type="hidden" id="listaTratamiento" name="listaTratamiento" value="[]">
                                 <!--=====================================
                                 BOTÓN PARA AGREGAR PRODUCTO
                                 ======================================-->
-                                <button type="button" class="btn btn-default " data-toggle="modal" data-target="#modalAgregarTratamiento"><?= lang('consultas.agregarTratamiento') ?></button>
+                                <button type="button" class="btn btn-default btnAgregarTratamiento" data-toggle="modal" data-target="#modalAgregarTratamiento"><?= lang('consultas.agregarTratamiento') ?></button>
+                                <button type="button" class="btn btn-default " data-toggle="modal" data-target="#modalAgregarMedicamentos"><?= lang('consultas.nuevoTratamiento') ?></button>
                                 <hr>
                             </div>
                         </div>
+
+                        <div class="box-footer">
+
+
+                            <button type="button" class="btn btn-primary pull-right btnGuardarConsultaAjax" data-toggle="modal">  <i class="fa far fa-save"> </i> Guardar Receta Médica</button>
+
+                            <button type="button" class="btn bg-maroon btnImprimirFactura1" data-toggle="modal" required="" data-placement="top" title="Imprimir Examen">
+                                <i class="fa fa-print"> </i>  Guardar e Imprimir
+                            </button>
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -272,6 +291,101 @@
             cache: true
         }
     });
+
+
+
+    $(".btnAgregarRegistro").on("click", function () {
+
+        tableDiagnostico.ajax.reload();
+
+    });
+
+    $(".btnAgregarTratamiento").on("click", function () {
+
+        tableTratamientos.ajax.reload();
+
+    });
+
+
+    /**
+     * Guarda Receta Medica
+     */
+
+    $(".btnGuardarConsultaAjax").on("click", function () {
+
+
+        console.log("Guarda Receta Medica");
+
+    });
+
+
+    function guardarConsulta() {
+
+
+        var UUID = $("#uuid").val();
+        var idPaciente = $("#paciente").val();
+        var fechaHora = $("#fechaHora").val();
+        var idDoctor = $("#idDoctor").val();
+        var motivoConsulta = $("#motivoConsulta").val();
+        var diagnosticos = $("#listaDiagnosticoEnfermedad").val();
+        var tratamientos = $("#listaTratamiento").val();
+
+        var ajaxGuardarConsulta = "ajaxGuardarConsulta";
+
+
+        $(".btnGuardarConsultaAjax").attr("disabled", true);
+
+        console.log("nombres", nombres);
+        var datos = new FormData();
+        datos.append("idPaciente", idPaciente);
+        datos.append("fechaHora", fechaHora);
+        datos.append("idDoctor", idDoctor);
+        datos.append("motivoConsulta", motivoConsulta);
+        datos.append("diagnosticos", diagnosticos);
+        datos.append("tratamientos", tratamientos);
+
+        $.ajax({
+
+            url: "<?= route_to('admin/consultas/guardar') ?>",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            //dataType:"json",
+            success: function (respuesta) {
+
+
+                if (respuesta.match(/Correctamente.*/)) {
+
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: "Guardado Correctamente"
+                    });
+
+
+                } else {
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: respuesta
+                    });
+
+                    $(".btnGuardarConsultaAjax").removeAttr("disabled");
+                 
+
+                }
+
+            }
+
+        }
+
+        )
+
+
+    }
+
 
 
 </script>

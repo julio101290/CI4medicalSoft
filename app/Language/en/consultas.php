@@ -37,6 +37,8 @@ $consultas["tratamientos"] = "Treatments / Medications";
 $consultas["tratamientoColumna1"] = "Treatment / Medication";
 $consultas["usoColumna2"] = "Use";
 
+$consultas["nuevoDiagnostico"] = "New Diagnost";
+
 
 
 

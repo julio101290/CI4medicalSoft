@@ -13,6 +13,9 @@
 <?= $this->include('consultasModulos/agregarTratamiento') ?>
 <?= $this->include('consultasModulos/mostrarDiagnosticosAnteriores') ?>
 <?= $this->include('consultasModulos/mostrarTratamientosAnteriores') ?>
+<?= $this->include('enfermedadesModulos/modalCaptura') ?>
+<?= $this->include('medicamentosModulos/modalCaptura') ?>
+<?= $this->include('pacientesModulos/modalCaptura') ?>
 
 
 
