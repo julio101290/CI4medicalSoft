@@ -35,7 +35,7 @@ class Database extends Config
         'hostname' => '127.0.0.1',
         'username' => 'root',
         'password' => '',
-        'database' => 'medicalSoft2022',
+        'database' => 'medicalSoft',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,

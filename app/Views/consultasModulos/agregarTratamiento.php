@@ -143,8 +143,8 @@
         for (var i = 0; i < tratamiento.length; i++) {
 
             listaTratamientos.push({"idTratamiento": $(tratamiento[i]).attr("idTratamiento"),
-                "descripcion:": $(tratamiento[i]).val(),
-                "uso:": $(uso[i]).val()
+                "descripcion": $(tratamiento[i]).val(),
+                "uso": $(uso[i]).val()
             });
         }
 

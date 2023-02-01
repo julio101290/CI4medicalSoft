@@ -7,23 +7,28 @@ use \App\Models\PacientesModel;
 use \App\Models\BitacoraModel;
 use CodeIgniter\API\ResponseTrait;
 
-class PacientesController extends BaseController {
+class PacientesController extends BaseController
+{
 
     use ResponseTrait;
 
     protected $bitacora;
     protected $pacientes;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->pacientes = new PacientesModel();
         $this->bitacora = new BitacoraModel();
         helper('menu');
     }
 
-    public function index() {
+    public function index()
+    {
 
 
         if ($this->request->isAJAX()) {
+
+
 
             /*
               $start = $this->request->getGet('start');
@@ -34,25 +39,25 @@ class PacientesController extends BaseController {
              */
 
             $datos = $this->pacientes->select('id,nombres,apellidos,dni,telefono,correoElectronico,created_at,updated_at')->where('deleted_at', null);
-// $resultado = $this->bitacora->findAll();
-// $this->bitacora->getResource()->countAllResults(),
-// $this->bitacora->getResource($search)->countAllResults()
-//      var_dump($datos);
+            // $resultado = $this->bitacora->findAll();
+            // $this->bitacora->getResource()->countAllResults(),
+            // $this->bitacora->getResource($search)->countAllResults()
+            //      var_dump($datos);
 
 
             return \Hermawan\DataTables\DataTable::of($datos)->add('action', function ($row) {
-                                return " <div class=\"btn-group\">
+                return " <div class=\"btn-group\">
                           
                   <button class=\"btn btn-warning btnEditarPaciente\" data-toggle=\"modal\" idPaciente=\"$row->id\" data-target=\"#modalAgregarPaciente\">  <i class=\" fa fa-edit \"></i></button>
                   <button class=\"btn btn-danger btnEliminarPaciente\" idPaciente=\"$row->id\"><i class=\"fa fa-times\"></i></button></div>";
-                            }, 'last')
-                            ->toJson();
+            }, 'last')
+                ->toJson();
         }
 
         $titulos["title"] = lang('patients.title');
         $titulos["subtitle"] = lang('patients.subtitle');
 
-//$data["data"] = $datos;
+        //$data["data"] = $datos;
         return view('pacientes', $titulos);
     }
 
@@ -60,7 +65,8 @@ class PacientesController extends BaseController {
      * Lee paciente
      */
 
-    public function traePaciente() {
+    public function traePaciente()
+    {
 
 
         $idPaciente = $this->request->getPost("idPaciente");
@@ -73,7 +79,8 @@ class PacientesController extends BaseController {
      * Guarda o actualiza paciente
      */
 
-    public function guardar() {
+    public function guardar()
+    {
 
 
         helper('auth');
@@ -137,7 +144,8 @@ class PacientesController extends BaseController {
         return;
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
 
         $infoPaciente = $this->pacientes->find($id);
         helper('auth');
@@ -160,7 +168,8 @@ class PacientesController extends BaseController {
      * Trae en formato JSON los pacientes para el select2
      * @return type
      */
-    public function traerPacientesAjax() {
+    public function traerPacientesAjax()
+    {
 
         $request = service('request');
         $postData = $request->getPost();
@@ -174,19 +183,19 @@ class PacientesController extends BaseController {
             // Fetch record
             $pacientes = new PacientesModel();
             $listaPacientes = $pacientes->select('id,nombres,apellidos')
-                    ->orderBy('nombres')
-                    ->findAll(10);
+                ->orderBy('nombres')
+                ->findAll(10);
         } else {
             $searchTerm = $postData['searchTerm'];
 
             // Fetch record
             $pacientes = new PacientesModel();
             $listaPacientes = $pacientes->select('id,nombres,apellidos')
-                    ->where("deleted_at", null)
-                    ->like('nombres', $searchTerm)
-                    ->orLike('apellidos', $searchTerm)
-                    ->orderBy('nombres')
-                    ->findAll(10);
+                ->where("deleted_at", null)
+                ->like('nombres', $searchTerm)
+                ->orLike('apellidos', $searchTerm)
+                ->orderBy('nombres')
+                ->findAll(10);
         }
 
         $data = array();
@@ -201,5 +210,4 @@ class PacientesController extends BaseController {
 
         return $this->response->setJSON($response);
     }
-
 }

@@ -5,6 +5,9 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use \App\Models\PacientesModel;
 use \App\Models\BitacoraModel;
+use \App\Models\ConsultasModel;
+use App\Models\DiagnosticosConsultasModel;
+use App\Models\TratamientosConsultasModel;
 use CodeIgniter\API\ResponseTrait;
 
 class ConsultasController extends BaseController {
@@ -13,10 +16,17 @@ class ConsultasController extends BaseController {
 
     protected $bitacora;
     protected $pacientes;
+    protected $consultas;
+    protected $diagnosticosConsultas;
+    protected $tratamientosConsultas;
 
     public function __construct() {
         $this->pacientes = new PacientesModel();
         $this->bitacora = new BitacoraModel();
+        $this->consultas = new ConsultasModel();
+
+        $this->diagnosticosConsultas = new DiagnosticosConsultasModel();
+        $this->tratamientosConsultas = new TratamientosConsultasModel();
         helper('menu');
         helper('utilerias');
     }
@@ -26,20 +36,8 @@ class ConsultasController extends BaseController {
 
         if ($this->request->isAJAX()) {
 
-            /*
-              $start = $this->request->getGet('start');
-              $length = $this->request->getGet('length');
-              $search = $this->request->getGet('search[value]');
-              $order = BitacoraModel::ORDERABLE[$this->request->getGet('order[0][column]')];
-              $dir = $this->request->getGet('order[0][dir]');
-             */
 
             $datos = $this->pacientes->select('id,nombres,apellidos,dni,telefono,correoElectronico,created_at,updated_at')->where('deleted_at', null);
-// $resultado = $this->bitacora->findAll();
-// $this->bitacora->getResource()->countAllResults(),
-// $this->bitacora->getResource($search)->countAllResults()
-//      var_dump($datos);
-
 
             return \Hermawan\DataTables\DataTable::of($datos)->add('action', function ($row) {
                                 return " <div class=\"btn-group\">
@@ -72,7 +70,7 @@ class ConsultasController extends BaseController {
         $titulos["fecha"] = $fechaActual;
         $titulos["userName"] = $userName;
         $titulos["idUser"] = $idUser;
-        
+
         $titulos["uuid"] = generaUUID();
 
         $titulos["title"] = lang('consultas.title');
@@ -107,25 +105,73 @@ class ConsultasController extends BaseController {
 
         $datos = $this->request->getPost();
 
-        if ($datos["idPaciente"] == 0) {
+        $existeConsulta = $this->consultas->where("uuid", $datos["uuid"])->countAllResults();
+
+        $diagnosticos = json_decode($datos["diagnosticos"], true);
+        $tratamientos = json_decode($datos["tratamientos"], true);
+
+        if ($existeConsulta == 0) {
 
 
             try {
 
 
-                if ($this->pacientes->save($datos) === false) {
+                if ($this->consultas->save($datos) === false) {
 
-                    $errores = $this->pacientes->errors();
+                    $errores = $this->consultas->errors();
 
                     foreach ($errores as $field => $error) {
 
                         echo $error . " ";
                     }
 
+
+
+
                     return;
                 }
 
-                $datosBitacora["descripcion"] = "Se guardo el paciente con los siguientes datos: " . json_encode($datos);
+                $idConsultaInsertada = $this->consultas->getInsertID();
+                $intContador = 0;
+                
+                $this->tratamientosConsultas->where("idConsulta",$idConsultaInsertada)->delete();
+                $this->tratamientosConsultas->purgeDeleted();
+                foreach ($diagnosticos as $values => $value) {
+
+
+
+                    $detalleDiagnosticos["renglon"] = $intContador;
+                    $detalleDiagnosticos["idConsulta"] = $idConsultaInsertada;
+                    $detalleDiagnosticos["idDiagnostico"] = $value["idDiagnostico"];
+                    $detalleDiagnosticos["descripcion"] = $value["descripcion"];
+                    
+                    $this->diagnosticosConsultas->insert($detalleDiagnosticos);
+
+                    $intContador++;
+                }
+
+
+                $intContador = 0;
+                
+                $this->tratamientosConsultas->where("idConsulta",$idConsultaInsertada)->delete();
+                
+                $this->tratamientosConsultas->purgeDeleted();
+                foreach ($tratamientos as $values => $value) {
+
+
+
+                    $detalleTratamientos["renglon"] = $intContador;
+                    $detalleTratamientos["idConsulta"] = $idConsultaInsertada;
+                    $detalleTratamientos["idTratamiento"] = $value["idTratamiento"];
+                    $detalleTratamientos["descripcion"] = $value["descripcion"];
+                    $detalleTratamientos["uso"] = $value["uso"];
+                    
+                    $this->tratamientosConsultas->insert($detalleTratamientos);
+
+                    $intContador++;
+                }
+
+                $datosBitacora["descripcion"] = "Se guardo la consulta con los siguientes datos: " . json_encode($datos);
                 $datosBitacora["usuario"] = $userName;
 
                 $this->bitacora->save($datosBitacora);

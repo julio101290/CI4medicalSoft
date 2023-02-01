@@ -315,6 +315,7 @@
 
 
         console.log("Guarda Receta Medica");
+        guardarConsulta()
 
     });
 
@@ -337,12 +338,13 @@
 
         console.log("nombres", nombres);
         var datos = new FormData();
-        datos.append("idPaciente", idPaciente);
+        datos.append("paciente", idPaciente);
         datos.append("fechaHora", fechaHora);
         datos.append("idDoctor", idDoctor);
         datos.append("motivoConsulta", motivoConsulta);
         datos.append("diagnosticos", diagnosticos);
         datos.append("tratamientos", tratamientos);
+        datos.append("uuid", UUID);
 
         $.ajax({
 
@@ -364,6 +366,7 @@
                         title: "Guardado Correctamente"
                     });
 
+                    $(".btnGuardarConsultaAjax").removeAttr("disabled");
 
                 } else {
 
@@ -373,7 +376,7 @@
                     });
 
                     $(".btnGuardarConsultaAjax").removeAttr("disabled");
-                 
+
 
                 }
 

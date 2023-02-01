@@ -125,7 +125,7 @@ $routes->group('admin', function ($routes) {
 
     $routes->get('consultas/generarConsulta', 'ConsultasController::generarConsulta');
     
-    $routes->post('consultas/guardar', 'ConsultasController::guardarConsulta');
+    $routes->post('consultas/guardar', 'ConsultasController::guardar');
 });
 
 /*

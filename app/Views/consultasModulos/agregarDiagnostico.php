@@ -140,7 +140,7 @@
         for (var i = 0; i < diagnostico.length; i++) {
 
             listaDiagnosticos.push({"idDiagnostico": $(diagnostico[i]).attr("idDiagnostico"),
-                "descripcion:": $(diagnostico[i]).val()
+                "descripcion": $(diagnostico[i]).val()
             });
 
 
