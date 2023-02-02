@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-02-2023 a las 17:55:27
+-- Tiempo de generación: 02-02-2023 a las 14:21:42
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -141,7 +141,9 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (16, '127.0.0.1', 'admin@admin.com', 1, '2023-01-26 15:26:50', 1),
 (17, '127.0.0.1', 'admin@admin.com', 1, '2023-01-26 20:12:17', 1),
 (18, '127.0.0.1', 'admin@admin.com', 1, '2023-01-30 20:57:16', 1),
-(19, '127.0.0.1', 'admin@admin.com', 1, '2023-01-31 13:12:14', 1);
+(19, '127.0.0.1', 'admin@admin.com', 1, '2023-01-31 13:12:14', 1),
+(20, '127.0.0.1', 'admin', NULL, '2023-02-01 21:29:10', 0),
+(21, '127.0.0.1', 'admin@admin.com', 1, '2023-02-01 21:29:18', 1);
 
 -- --------------------------------------------------------
 
@@ -310,7 +312,12 @@ INSERT INTO `bitacora` (`id`, `descripcion`, `usuario`, `created_at`, `deleted_a
 (61, 'Se actualizo el paciente con los siguientes datos: {\"idPaciente\":\"undefined\",\"nombres\":\"Nombre Paciente\",\"apellidos\":\"Apellidos\",\"telefono\":\"6688612348\",\"dni\":\"INE\",\"correoElectronico\":\"asdasd@asd.com\"}', 'admin', '2023-01-31 17:43:42', NULL, '2023-01-31 17:43:42'),
 (62, 'Se actualizo el paciente con los siguientes datos: {\"idPaciente\":\"undefined\",\"nombres\":\"Nombre Paciente\",\"apellidos\":\"Apellidos\",\"telefono\":\"6688612348\",\"dni\":\"INE\",\"correoElectronico\":\"asdasd@asd.com\"}', 'admin', '2023-01-31 17:43:42', NULL, '2023-01-31 17:43:42'),
 (63, 'Se actualizo el paciente con los siguientes datos: {\"idPaciente\":\"undefined\",\"nombres\":\"Nombre Paciente\",\"apellidos\":\"Apellidos\",\"telefono\":\"6688612348\",\"dni\":\"INE\",\"correoElectronico\":\"asdasd@asd.com\"}', 'admin', '2023-01-31 17:43:42', NULL, '2023-01-31 17:43:42'),
-(64, 'Se guardo el paciente con los siguientes datos: {\"idPaciente\":\"0\",\"nombres\":\"Nombre Paciente\",\"apellidos\":\"Apellidos\",\"telefono\":\"6688612348\",\"dni\":\"INE\",\"correoElectronico\":\"asdasd@asd.com\"}', 'admin', '2023-01-31 17:43:42', NULL, '2023-01-31 17:43:42');
+(64, 'Se guardo el paciente con los siguientes datos: {\"idPaciente\":\"0\",\"nombres\":\"Nombre Paciente\",\"apellidos\":\"Apellidos\",\"telefono\":\"6688612348\",\"dni\":\"INE\",\"correoElectronico\":\"asdasd@asd.com\"}', 'admin', '2023-01-31 17:43:42', NULL, '2023-01-31 17:43:42'),
+(65, 'Se guardo la consulta con los siguientes datos: {\"paciente\":\"6\",\"fechaHora\":\"2023-02-01T22:04:14\",\"idDoctor\":\"1\",\"motivoConsulta\":\"Prueba\",\"diagnosticos\":\"[{\\\"idDiagnostico\\\":\\\"12\\\",\\\"descripcion\\\":\\\"prueba\\\"},{\\\"idDiagnostico\\\":\\\"7\\\",\\\"descripcion\\\":\\\"Dolor de panza\\\"},{\\\"idDiagnostico\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Dolor de cabeza\\\"},{\\\"idDiagnostico\\\":\\\"8\\\",\\\"descripcion\\\":\\\"Dificultad para respirar\\\"}]\",\"tratamientos\":\"[{\\\"idTratamiento\\\":\\\"7\\\",\\\"descripcion\\\":\\\"prueba\\\",\\\"uso\\\":\\\"\\\"},{\\\"idTratamiento\\\":\\\"1\\\",\\\"descripcion\\\":\\\"Ibuprofeno 20 gr\\\",\\\"uso\\\":\\\"\\\"},{\\\"idTratamiento\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Antibiotico\\\",\\\"uso\\\":\\\"\\\"}]\",\"uuid\":\"d00e110f-d0f4-4c33-a829-983967f48785\"}', 'admin', '2023-02-01 22:04:38', NULL, '2023-02-01 22:04:38'),
+(66, 'Se guardo la consulta con los siguientes datos: {\"paciente\":\"6\",\"fechaHora\":\"2023-02-01T23:39:28\",\"idDoctor\":\"1\",\"motivoConsulta\":\"Prueba Motivos\",\"diagnosticos\":\"[{\\\"idDiagnostico\\\":\\\"12\\\",\\\"descripcion\\\":\\\"prueba\\\"},{\\\"idDiagnostico\\\":\\\"7\\\",\\\"descripcion\\\":\\\"Dolor de panza\\\"},{\\\"idDiagnostico\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Dolor de cabeza\\\"},{\\\"idDiagnostico\\\":\\\"8\\\",\\\"descripcion\\\":\\\"Dificultad para respirar\\\"}]\",\"tratamientos\":\"[{\\\"idTratamiento\\\":\\\"7\\\",\\\"descripcion\\\":\\\"prueba\\\",\\\"uso\\\":\\\"\\\"},{\\\"idTratamiento\\\":\\\"1\\\",\\\"descripcion\\\":\\\"Ibuprofeno 20 gr\\\",\\\"uso\\\":\\\"\\\"},{\\\"idTratamiento\\\":\\\"4\\\",\\\"descripcion\\\":\\\"Descanso\\\",\\\"uso\\\":\\\"\\\"},{\\\"idTratamiento\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Antibiotico\\\",\\\"uso\\\":\\\"\\\"}]\",\"uuid\":\"b7bd042a-6fbf-499a-90ce-6fa3f46d951d\"}', 'admin', '2023-02-01 23:40:15', NULL, '2023-02-01 23:40:15'),
+(67, 'Se guardo la consulta con los siguientes datos: {\"paciente\":\"6\",\"fechaHora\":\"2023-02-01T23:41:28\",\"idDoctor\":\"1\",\"motivoConsulta\":\"motivo consulta\",\"diagnosticos\":\"[{\\\"idDiagnostico\\\":\\\"12\\\",\\\"descripcion\\\":\\\"prueba\\\"},{\\\"idDiagnostico\\\":\\\"7\\\",\\\"descripcion\\\":\\\"Dolor de panza\\\"},{\\\"idDiagnostico\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Dolor de cabeza\\\"},{\\\"idDiagnostico\\\":\\\"8\\\",\\\"descripcion\\\":\\\"Dificultad para respirar\\\"}]\",\"tratamientos\":\"[{\\\"idTratamiento\\\":\\\"7\\\",\\\"descripcion\\\":\\\"prueba\\\",\\\"uso\\\":\\\"prueba\\\"},{\\\"idTratamiento\\\":\\\"1\\\",\\\"descripcion\\\":\\\"Ibuprofeno 20 gr\\\",\\\"uso\\\":\\\"1 cada 8 horas\\\"},{\\\"idTratamiento\\\":\\\"4\\\",\\\"descripcion\\\":\\\"Descanso\\\",\\\"uso\\\":\\\"por las tardes\\\"},{\\\"idTratamiento\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Antibiotico\\\",\\\"uso\\\":\\\"1 cada 12 horas\\\"}]\",\"uuid\":\"e1c2b6e0-397e-4063-8c72-783e357650c2\"}', 'admin', '2023-02-01 23:42:18', NULL, '2023-02-01 23:42:18'),
+(68, 'Se guardo la consulta con los siguientes datos: {\"paciente\":\"6\",\"fechaHora\":\"2023-02-01T23:58:04\",\"idDoctor\":\"1\",\"motivoConsulta\":\"asdasd\",\"diagnosticos\":\"[{\\\"idDiagnostico\\\":\\\"12\\\",\\\"descripcion\\\":\\\"prueba\\\"},{\\\"idDiagnostico\\\":\\\"7\\\",\\\"descripcion\\\":\\\"Dolor de panza\\\"},{\\\"idDiagnostico\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Dolor de cabeza\\\"},{\\\"idDiagnostico\\\":\\\"8\\\",\\\"descripcion\\\":\\\"Dificultad para respirar\\\"}]\",\"tratamientos\":\"[{\\\"idTratamiento\\\":\\\"7\\\",\\\"descripcion\\\":\\\"prueba\\\",\\\"uso\\\":\\\"uso\\\"},{\\\"idTratamiento\\\":\\\"4\\\",\\\"descripcion\\\":\\\"Descanso\\\",\\\"uso\\\":\\\"1 cada 5 hhoras\\\"},{\\\"idTratamiento\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Antibiotico\\\",\\\"uso\\\":\\\"1 cada 5 hhoras\\\"}]\",\"uuid\":\"6be47712-1aa8-4798-8078-6abc1abac66b\"}', 'admin', '2023-02-01 23:58:35', NULL, '2023-02-01 23:58:35'),
+(69, 'Se guardo la consulta con los siguientes datos: {\"paciente\":\"6\",\"fechaHora\":\"2023-02-01T23:59:01\",\"idDoctor\":\"1\",\"motivoConsulta\":\"Consulta\",\"diagnosticos\":\"[{\\\"idDiagnostico\\\":\\\"12\\\",\\\"descripcion\\\":\\\"prueba\\\"},{\\\"idDiagnostico\\\":\\\"7\\\",\\\"descripcion\\\":\\\"Dolor de panza\\\"},{\\\"idDiagnostico\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Dolor de cabeza\\\"},{\\\"idDiagnostico\\\":\\\"8\\\",\\\"descripcion\\\":\\\"Dificultad para respirar\\\"}]\",\"tratamientos\":\"[{\\\"idTratamiento\\\":\\\"7\\\",\\\"descripcion\\\":\\\"prueba\\\",\\\"uso\\\":\\\"prueba\\\"},{\\\"idTratamiento\\\":\\\"1\\\",\\\"descripcion\\\":\\\"Ibuprofeno 20 gr\\\",\\\"uso\\\":\\\"\\\"},{\\\"idTratamiento\\\":\\\"4\\\",\\\"descripcion\\\":\\\"Descanso\\\",\\\"uso\\\":\\\"\\\"},{\\\"idTratamiento\\\":\\\"6\\\",\\\"descripcion\\\":\\\"Antibiotico\\\",\\\"uso\\\":\\\"\\\"}]\",\"uuid\":\"1e106916-f07a-45cc-b0e8-57fd2eb18126\"}', 'admin', '2023-02-01 23:59:25', NULL, '2023-02-01 23:59:25');
 
 -- --------------------------------------------------------
 
@@ -361,6 +368,118 @@ CREATE TABLE `configuraciones` (
 
 INSERT INTO `configuraciones` (`id`, `nombreHospital`, `RFC`, `telefono`, `correoElectronico`, `direccion`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Hospital Generalasdasd', 'XXXAasdasdasdasd', '5646546321asdasd', 'asdaaasdsd@asd.comas', 'Conocido', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `consultas`
+--
+
+CREATE TABLE `consultas` (
+  `id` bigint(20) NOT NULL,
+  `paciente` int(11) DEFAULT NULL,
+  `fechaHora` datetime DEFAULT NULL,
+  `idDoctor` int(11) DEFAULT NULL,
+  `motivoConsulta` varchar(1024) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `uuid` varchar(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `consultas`
+--
+
+INSERT INTO `consultas` (`id`, `paciente`, `fechaHora`, `idDoctor`, `motivoConsulta`, `created_at`, `updated_at`, `deleted_at`, `uuid`) VALUES
+(1, 6, '2023-02-01 22:04:14', 1, 'Prueba', '2023-02-01 22:04:38', '2023-02-01 22:04:38', NULL, 'd00e110f-d0f4-4c33-a829-983967f48785'),
+(2, 6, '2023-02-01 23:39:28', 1, 'Prueba Motivos', '2023-02-01 23:40:14', '2023-02-01 23:40:14', NULL, 'b7bd042a-6fbf-499a-90ce-6fa3f46d951d'),
+(3, 6, '2023-02-01 23:41:28', 1, 'motivo consulta', '2023-02-01 23:42:18', '2023-02-01 23:42:18', NULL, 'e1c2b6e0-397e-4063-8c72-783e357650c2'),
+(4, 6, '2023-02-01 23:58:04', 1, 'asdasd', '2023-02-01 23:58:35', '2023-02-01 23:58:35', NULL, '6be47712-1aa8-4798-8078-6abc1abac66b'),
+(5, 6, '2023-02-01 23:59:01', 1, 'Consulta', '2023-02-01 23:59:25', '2023-02-01 23:59:25', NULL, '1e106916-f07a-45cc-b0e8-57fd2eb18126');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `consultas_tratamientos`
+--
+
+CREATE TABLE `consultas_tratamientos` (
+  `id` bigint(20) NOT NULL,
+  `idConsulta` bigint(20) DEFAULT NULL,
+  `idTratamiento` int(11) DEFAULT NULL,
+  `descripcion` varchar(128) DEFAULT NULL,
+  `uso` varchar(256) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `consultas_tratamientos`
+--
+
+INSERT INTO `consultas_tratamientos` (`id`, `idConsulta`, `idTratamiento`, `descripcion`, `uso`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 7, 'prueba', '', '2023-02-01 22:04:38', '2023-02-01 22:04:38', NULL),
+(2, 1, 1, 'Ibuprofeno 20 gr', '', '2023-02-01 22:04:38', '2023-02-01 22:04:38', NULL),
+(3, 1, 6, 'Antibiotico', '', '2023-02-01 22:04:38', '2023-02-01 22:04:38', NULL),
+(4, 2, 7, 'prueba', '', '2023-02-01 23:40:14', '2023-02-01 23:40:14', NULL),
+(5, 2, 1, 'Ibuprofeno 20 gr', '', '2023-02-01 23:40:14', '2023-02-01 23:40:14', NULL),
+(6, 2, 4, 'Descanso', '', '2023-02-01 23:40:15', '2023-02-01 23:40:15', NULL),
+(7, 2, 6, 'Antibiotico', '', '2023-02-01 23:40:15', '2023-02-01 23:40:15', NULL),
+(8, 3, 7, 'prueba', 'prueba', '2023-02-01 23:42:18', '2023-02-01 23:42:18', NULL),
+(9, 3, 1, 'Ibuprofeno 20 gr', '1 cada 8 horas', '2023-02-01 23:42:18', '2023-02-01 23:42:18', NULL),
+(10, 3, 4, 'Descanso', 'por las tardes', '2023-02-01 23:42:18', '2023-02-01 23:42:18', NULL),
+(11, 3, 6, 'Antibiotico', '1 cada 12 horas', '2023-02-01 23:42:18', '2023-02-01 23:42:18', NULL),
+(12, 4, 7, 'prueba', 'uso', '2023-02-01 23:58:35', '2023-02-01 23:58:35', NULL),
+(13, 4, 4, 'Descanso', '1 cada 5 hhoras', '2023-02-01 23:58:35', '2023-02-01 23:58:35', NULL),
+(14, 4, 6, 'Antibiotico', '1 cada 5 hhoras', '2023-02-01 23:58:35', '2023-02-01 23:58:35', NULL),
+(15, 5, 7, 'prueba', 'prueba', '2023-02-01 23:59:25', '2023-02-01 23:59:25', NULL),
+(16, 5, 1, 'Ibuprofeno 20 gr', '', '2023-02-01 23:59:25', '2023-02-01 23:59:25', NULL),
+(17, 5, 4, 'Descanso', '', '2023-02-01 23:59:25', '2023-02-01 23:59:25', NULL),
+(18, 5, 6, 'Antibiotico', '', '2023-02-01 23:59:25', '2023-02-01 23:59:25', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `consulta_diagnosticos`
+--
+
+CREATE TABLE `consulta_diagnosticos` (
+  `id` bigint(20) NOT NULL,
+  `idConsulta` bigint(20) DEFAULT NULL,
+  `idDiagnostico` int(11) DEFAULT NULL,
+  `descripcion` varchar(128) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `consulta_diagnosticos`
+--
+
+INSERT INTO `consulta_diagnosticos` (`id`, `idConsulta`, `idDiagnostico`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 12, 'prueba', '2023-02-01 22:04:38', '2023-02-01 22:04:38', NULL),
+(2, 1, 7, 'Dolor de panza', '2023-02-01 22:04:38', '2023-02-01 22:04:38', NULL),
+(3, 1, 6, 'Dolor de cabeza', '2023-02-01 22:04:38', '2023-02-01 22:04:38', NULL),
+(4, 1, 8, 'Dificultad para respirar', '2023-02-01 22:04:38', '2023-02-01 22:04:38', NULL),
+(5, 2, 12, 'prueba', '2023-02-01 23:40:14', '2023-02-01 23:40:14', NULL),
+(6, 2, 7, 'Dolor de panza', '2023-02-01 23:40:14', '2023-02-01 23:40:14', NULL),
+(7, 2, 6, 'Dolor de cabeza', '2023-02-01 23:40:14', '2023-02-01 23:40:14', NULL),
+(8, 2, 8, 'Dificultad para respirar', '2023-02-01 23:40:14', '2023-02-01 23:40:14', NULL),
+(9, 3, 12, 'prueba', '2023-02-01 23:42:18', '2023-02-01 23:42:18', NULL),
+(10, 3, 7, 'Dolor de panza', '2023-02-01 23:42:18', '2023-02-01 23:42:18', NULL),
+(11, 3, 6, 'Dolor de cabeza', '2023-02-01 23:42:18', '2023-02-01 23:42:18', NULL),
+(12, 3, 8, 'Dificultad para respirar', '2023-02-01 23:42:18', '2023-02-01 23:42:18', NULL),
+(13, 4, 12, 'prueba', '2023-02-01 23:58:35', '2023-02-01 23:58:35', NULL),
+(14, 4, 7, 'Dolor de panza', '2023-02-01 23:58:35', '2023-02-01 23:58:35', NULL),
+(15, 4, 6, 'Dolor de cabeza', '2023-02-01 23:58:35', '2023-02-01 23:58:35', NULL),
+(16, 4, 8, 'Dificultad para respirar', '2023-02-01 23:58:35', '2023-02-01 23:58:35', NULL),
+(17, 5, 12, 'prueba', '2023-02-01 23:59:25', '2023-02-01 23:59:25', NULL),
+(18, 5, 7, 'Dolor de panza', '2023-02-01 23:59:25', '2023-02-01 23:59:25', NULL),
+(19, 5, 6, 'Dolor de cabeza', '2023-02-01 23:59:25', '2023-02-01 23:59:25', NULL),
+(20, 5, 8, 'Dificultad para respirar', '2023-02-01 23:59:25', '2023-02-01 23:59:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -683,6 +802,24 @@ ALTER TABLE `configuraciones`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `consultas`
+--
+ALTER TABLE `consultas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `consultas_tratamientos`
+--
+ALTER TABLE `consultas_tratamientos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `consulta_diagnosticos`
+--
+ALTER TABLE `consulta_diagnosticos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `enfermedades`
 --
 ALTER TABLE `enfermedades`
@@ -748,7 +885,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT de la tabla `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_permissions`
@@ -772,7 +909,7 @@ ALTER TABLE `auth_tokens`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT de la tabla `citas`
@@ -785,6 +922,24 @@ ALTER TABLE `citas`
 --
 ALTER TABLE `configuraciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `consultas`
+--
+ALTER TABLE `consultas`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `consultas_tratamientos`
+--
+ALTER TABLE `consultas_tratamientos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de la tabla `consulta_diagnosticos`
+--
+ALTER TABLE `consulta_diagnosticos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `enfermedades`
