@@ -119,7 +119,40 @@ function generaUUID() {
     $uuid = service('uuid');
     $uuid4 = $uuid->uuid4();
     $string = $uuid4->toString();
-    
-    return $string;
 
+    return $string;
+}
+
+function satinizar($var, $type) {
+    switch ($type) {
+        case 'html':
+            $safe = htmlspecialchars($var);
+            break;
+        case 'sql':
+            $safe = mysql_real_escape_string($var);
+            break;
+        case 'file':
+            $safe = preg_replace('/(\/|-|_)/', '', $var);
+            break;
+        case 'shell':
+            $safe = escapeshellcmd($var);
+            break;
+        default:
+            $safe = htmlspecialchars($var);
+    }
+    return $safe;
+}
+
+function limpiaCadena($cadena) {
+
+    $cadena = str_replace('"', "", $cadena);
+    $cadena = str_replace('\n', "", $cadena);
+    $cadena = str_replace('\t', "", $cadena);
+    $cadena = trim($cadena);
+
+    $cadena = preg_replace("[\n|\r|\n\r]", "", $cadena);
+
+    $descripcion = preg_replace("[\n|\r|\n\r]", "", $descripcion);
+
+    return $cadena;
 }

@@ -239,7 +239,7 @@
 
                             <button type="button" class="btn btn-primary pull-right btnGuardarConsultaAjax" data-toggle="modal">  <i class="fa far fa-save"> </i> Guardar Receta Médica</button>
 
-                            <button type="button" class="btn bg-maroon btnImprimirFactura1" data-toggle="modal" required="" data-placement="top" title="Imprimir Examen">
+                            <button type="button" class="btn bg-maroon btnImprimirConsulta" data-toggle="modal" required="" data-placement="top" title="Imprimir Examen">
                                 <i class="fa fa-print"> </i>  Guardar e Imprimir
                             </button>
 
@@ -315,7 +315,8 @@
 
 
         console.log("Guarda Receta Medica");
-        guardarConsulta()
+
+        guardarConsulta();
 
     });
 
@@ -323,6 +324,8 @@
     function guardarConsulta() {
 
 
+        listarDiagnosticos();
+        listarTratamientos()
         var UUID = $("#uuid").val();
         var idPaciente = $("#paciente").val();
         var fechaHora = $("#fechaHora").val();
@@ -348,7 +351,7 @@
 
         $.ajax({
 
-            url: "<?= route_to('admin/consultas/guardar') ?>",
+            url: "<?= base_url(route_to('admin/consultas/guardar')) ?>",
             method: "POST",
             data: datos,
             cache: false,
@@ -389,7 +392,22 @@
 
     }
 
+    /*=============================================
+     IMPRIMIR FACTURA
+     =============================================*/
 
+
+
+    $(".btnImprimirConsulta").on("click", function () {
+
+
+        guardarConsulta();
+        var uuid = $("#uuid").val();
+
+
+        window.open("<?= base_url('admin/consultas/reporte') ?>" + "/" + uuid, "_blank");
+
+    })
 
 </script>
 

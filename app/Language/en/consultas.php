@@ -39,6 +39,12 @@ $consultas["usoColumna2"] = "Use";
 
 $consultas["nuevoDiagnostico"] = "New Diagnost";
 
+$consultas["nuevoTratamiento"] = "New Treatment";
+$consultas["nuevoPaciente"] = "New Patient";
+
+$consultas["folioConsulta"] = "ID Record";
+$consultas["pagina"] = "Page";
+
 
 
 

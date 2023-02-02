@@ -46,6 +46,9 @@ $consultas["nuevoDiagnostico"] = "Nuevo Diagnostico";
 $consultas["nuevoTratamiento"] = "Nuevo Tratamiento";
 $consultas["nuevoPaciente"] = "Nuevo Paciente";
 
+$consultas["folioConsulta"] = "Folio Consulta";
+$consultas["pagina"] = "Página";
+
 
 
 

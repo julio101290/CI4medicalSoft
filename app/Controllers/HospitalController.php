@@ -8,9 +8,10 @@ use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Controller;
 use App\Models\ConfiguracionesModel;
 use App\Models\BitacoraModel;
-use agungsugiarto\boilerplate\Controllers\BaseController;
-use agungsugiarto\boilerplate\Entities\Collection;
-use agungsugiarto\boilerplate\Models\GroupModel;
+use julio101290\boilerplate\Controllers\BaseController;
+use julio101290\boilerplate\Entities\Collection;
+use julio101290\boilerplate\Models\GroupModel;
+
 
 use CodeIgniter\Config\Services;
 
@@ -41,7 +42,7 @@ class HospitalController extends BaseController
     {
     
       
-
+        
         
         $datos = $this->configuraciones->where("id",1)->first();
         
