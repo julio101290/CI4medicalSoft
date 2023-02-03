@@ -43,22 +43,19 @@ class ConsultasController extends BaseController {
         if ($this->request->isAJAX()) {
 
 
-            $datos = $this->pacientes->select('id,nombres,apellidos,dni,telefono,correoElectronico,created_at,updated_at')->where('deleted_at', null);
+            $datos = $this->consultas->mdlTraeConsultas();
 
-            return \Hermawan\DataTables\DataTable::of($datos)->add('action', function ($row) {
-                                return " <div class=\"btn-group\">
-                          
-                  <button class=\"btn btn-warning btnEditarPaciente\" data-toggle=\"modal\" idPaciente=\"$row->id\" data-target=\"#modalAgregarPaciente\">  <i class=\" fa fa-edit \"></i></button>
-                  <button class=\"btn btn-danger btnEliminarPaciente\" idPaciente=\"$row->id\"><i class=\"fa fa-times\"></i></button></div>";
-                            }, 'last')
-                            ->toJson();
+            return \Hermawan\DataTables\DataTable::of($datos)->toJson(true);
+            
         }
+        
 
-        $titulos["title"] = lang('patients.title');
-        $titulos["subtitle"] = lang('patients.subtitle');
+
+        $titulos["listaTitle"] = lang('consultas.title');
+        $titulos["listaSubtitle"] = lang('consultas.subtitle');
 
 //$data["data"] = $datos;
-        return view('pacientes', $titulos);
+        return view('listaConsultas', $titulos);
     }
 
     /*
@@ -309,7 +306,7 @@ class ConsultasController extends BaseController {
         // set document information
         $pdf->nombreEmpresa = $datosEncabezado["nombreHospital"];
         $pdf->direccion = $datosEncabezado["direccion"];
-        $pdf->doctor = $doctor["username"];
+        $pdf->doctor = $doctor["firstname"]. " ".$doctor["lastname"] ;
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($doctor["username"]);
         $pdf->SetTitle('MedicalSoft');

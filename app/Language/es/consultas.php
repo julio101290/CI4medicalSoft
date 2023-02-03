@@ -9,6 +9,7 @@ $consultas["actions"] = "Acciones";
 $consultas["createEdit"] = "Crear  / Editar Consulta Medica";
 $consultas["title"] = "Consulta Medica";
 $consultas["subtitle"] = "Crear Consulta medica";
+
 $consultas["fechaConsulta"] = "Fecha";
 $consultas["medico"] = "Doctor";
 
@@ -48,6 +49,10 @@ $consultas["nuevoPaciente"] = "Nuevo Paciente";
 
 $consultas["folioConsulta"] = "Folio Consulta";
 $consultas["pagina"] = "Página";
+
+
+$consultas["listaTitle"] = "Consultas Medicas";
+$consultas["listaSubtitle"] = "Lista de ConsultasMedicas";
 
 
 

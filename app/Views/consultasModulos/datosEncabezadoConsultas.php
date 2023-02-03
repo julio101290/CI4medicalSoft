@@ -393,10 +393,8 @@
     }
 
     /*=============================================
-     IMPRIMIR FACTURA
+     IMPRIMIR CONSULTA
      =============================================*/
-
-
 
     $(".btnImprimirConsulta").on("click", function () {
 

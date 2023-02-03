@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-02-2023 a las 14:21:42
+-- Tiempo de generación: 03-02-2023 a las 16:07:54
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -72,8 +72,12 @@ CREATE TABLE `auth_groups_permissions` (
 
 INSERT INTO `auth_groups_permissions` (`group_id`, `permission_id`) VALUES
 (1, 1),
+(1, 1),
+(1, 2),
 (1, 2),
 (1, 3),
+(1, 3),
+(1, 4),
 (1, 4),
 (1, 5),
 (1, 6),
@@ -81,6 +85,7 @@ INSERT INTO `auth_groups_permissions` (`group_id`, `permission_id`) VALUES
 (1, 8),
 (1, 9),
 (1, 10),
+(2, 1),
 (2, 1);
 
 -- --------------------------------------------------------
@@ -101,6 +106,7 @@ CREATE TABLE `auth_groups_users` (
 INSERT INTO `auth_groups_users` (`group_id`, `user_id`) VALUES
 (1, 1),
 (2, 1),
+(2, 2),
 (2, 2);
 
 -- --------------------------------------------------------
@@ -143,7 +149,8 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (18, '127.0.0.1', 'admin@admin.com', 1, '2023-01-30 20:57:16', 1),
 (19, '127.0.0.1', 'admin@admin.com', 1, '2023-01-31 13:12:14', 1),
 (20, '127.0.0.1', 'admin', NULL, '2023-02-01 21:29:10', 0),
-(21, '127.0.0.1', 'admin@admin.com', 1, '2023-02-01 21:29:18', 1);
+(21, '127.0.0.1', 'admin@admin.com', 1, '2023-02-01 21:29:18', 1),
+(22, '127.0.0.1', 'admin@admin.com', 1, '2023-02-02 21:46:30', 1);
 
 -- --------------------------------------------------------
 
@@ -227,6 +234,8 @@ INSERT INTO `auth_users_permissions` (`user_id`, `permission_id`) VALUES
 (1, 7),
 (1, 8),
 (1, 9),
+(1, 10),
+(2, 1),
 (2, 1);
 
 -- --------------------------------------------------------
@@ -548,8 +557,6 @@ INSERT INTO `groups_menu` (`id`, `group_id`, `menu_id`) VALUES
 (29, 2, 11),
 (32, 1, 13),
 (33, 2, 13),
-(40, 1, 17),
-(41, 2, 17),
 (42, 1, 18),
 (43, 2, 18),
 (44, 1, 8),
@@ -558,7 +565,19 @@ INSERT INTO `groups_menu` (`id`, `group_id`, `menu_id`) VALUES
 (47, 1, 14),
 (48, 2, 14),
 (51, 1, 16),
-(52, 2, 16);
+(52, 2, 16),
+(53, 1, 1),
+(54, 1, 2),
+(55, 1, 3),
+(56, 1, 4),
+(57, 1, 5),
+(58, 1, 6),
+(59, 1, 7),
+(60, 2, 1),
+(61, 2, 2),
+(62, 2, 3),
+(67, 1, 17),
+(68, 2, 17);
 
 -- --------------------------------------------------------
 
@@ -625,8 +644,15 @@ INSERT INTO `menu` (`id`, `parent_id`, `active`, `title`, `icon`, `route`, `sequ
 (13, 0, 1, 'Operaciones', 'fas fa-hiking', '#', 2, '2022-12-20 23:04:42', '2022-12-20 23:09:10'),
 (14, 13, 1, 'Citas', 'fas fa-calendar-alt', 'admin/citas', 3, '2022-12-20 23:05:35', '2023-01-08 17:28:58'),
 (16, 13, 1, 'Consulta', 'fas fa-user-md', 'admin/consultas/generarConsulta', 5, '2022-12-20 23:07:22', '2023-01-30 21:11:15'),
-(17, 13, 1, 'Lista de Consultas', 'fas fa-list', 'admin/listaConsultas', 6, '2022-12-20 23:08:01', '2022-12-20 23:09:10'),
-(18, 2, 1, 'Bitacora', 'fas fa-align-justify', 'admin/bitacora', 18, '2022-12-20 23:09:46', '2022-12-20 23:09:46');
+(17, 13, 1, 'Lista de Consultas', 'fas fa-list', 'admin/consultas/listaConsultas', 6, '2022-12-20 23:08:01', '2023-02-02 22:07:21'),
+(18, 2, 1, 'Bitacora', 'fas fa-align-justify', 'admin/bitacora', 18, '2022-12-20 23:09:46', '2022-12-20 23:09:46'),
+(19, 0, 1, 'Dashboard', 'fas fa-tachometer-alt', 'admin', 1, '2023-02-02 21:45:58', '2023-02-02 21:45:58'),
+(20, 0, 1, 'User Management', 'fas fa-user', '#', 2, '2023-02-02 21:45:58', '2023-02-02 21:45:58'),
+(21, 2, 1, 'User Profile', 'fas fa-user-edit', 'admin/user/profile', 3, '2023-02-02 21:45:58', '2023-02-02 21:45:58'),
+(22, 2, 1, 'Users', 'fas fa-users', 'admin/user/manage', 4, '2023-02-02 21:45:58', '2023-02-02 21:45:58'),
+(23, 2, 1, 'Permissions', 'fas fa-user-lock', 'admin/permission', 5, '2023-02-02 21:45:58', '2023-02-02 21:45:58'),
+(24, 2, 1, 'Roles', 'fas fa-users-cog', 'admin/role', 6, '2023-02-02 21:45:58', '2023-02-02 21:45:58'),
+(25, 2, 1, 'Menu', 'fas fa-stream', 'admin/menu', 7, '2023-02-02 21:45:58', '2023-02-02 21:45:58');
 
 -- --------------------------------------------------------
 
@@ -650,7 +676,8 @@ CREATE TABLE `migrations` (
 
 INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`, `batch`) VALUES
 (1, '2017-11-20-223112', 'App\\Database\\Migrations\\CreateAuthTables', 'default', 'App', 1671597557, 1),
-(2, '2020-02-03-081118', 'App\\Database\\Migrations\\CreateMenuTable', 'default', 'App', 1671597557, 1);
+(2, '2020-02-03-081118', 'App\\Database\\Migrations\\CreateMenuTable', 'default', 'App', 1671597557, 1),
+(3, '2023-02-02-193406', 'App\\Database\\Migrations\\Userfields', 'default', 'App', 1675395958, 2);
 
 -- --------------------------------------------------------
 
@@ -707,16 +734,18 @@ CREATE TABLE `users` (
   `force_pass_reset` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `deleted_at` datetime DEFAULT NULL,
+  `firstname` varchar(256) DEFAULT NULL,
+  `lastname` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `username`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin@admin.com', 'admin', '$2y$10$7nxoSYlH8gJJSttvVJP1CuHMWh3.Y5BJD9SncurU2DWnXb0IXfXaK', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2022-12-20 22:39:17', '2023-01-08 17:27:45', NULL),
-(2, 'user@user.com', 'user', '$2y$10$fHJMPvev8Z3m9BP.hmUfceK.Ea3Imhgx/oPvZITSdEocYqdv91jKy', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2022-12-20 22:39:17', '2022-12-21 23:39:21', NULL);
+INSERT INTO `users` (`id`, `email`, `username`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`, `firstname`, `lastname`) VALUES
+(1, 'admin@admin.com', 'admin', '$2y$10$7nxoSYlH8gJJSttvVJP1CuHMWh3.Y5BJD9SncurU2DWnXb0IXfXaK', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2022-12-20 22:39:17', '2023-02-02 21:48:07', NULL, 'Julio Cesar', 'Leyva Rodriguez'),
+(2, 'user@user.com', 'user', '$2y$10$fHJMPvev8Z3m9BP.hmUfceK.Ea3Imhgx/oPvZITSdEocYqdv91jKy', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2022-12-20 22:39:17', '2022-12-21 23:39:21', NULL, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -885,7 +914,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT de la tabla `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_permissions`
@@ -951,7 +980,7 @@ ALTER TABLE `enfermedades`
 -- AUTO_INCREMENT de la tabla `groups_menu`
 --
 ALTER TABLE `groups_menu`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de la tabla `medicamentos`
@@ -963,13 +992,13 @@ ALTER TABLE `medicamentos`
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pacientes`
