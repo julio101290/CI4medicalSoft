@@ -1,3 +1,4 @@
+[![Latest Stable Version](http://poser.pugx.org/julio101290/ci4medical-soft/v)](https://packagist.org/packages/julio101290/ci4medical-soft) [![Total Downloads](http://poser.pugx.org/julio101290/ci4medical-soft/downloads)](https://packagist.org/packages/julio101290/ci4medical-soft) [![Latest Unstable Version](http://poser.pugx.org/julio101290/ci4medical-soft/v/unstable)](https://packagist.org/packages/julio101290/ci4medical-soft) [![License](http://poser.pugx.org/julio101290/ci4medical-soft/license)](https://packagist.org/packages/julio101290/ci4medical-soft) [![PHP Version Require](http://poser.pugx.org/julio101290/ci4medical-soft/require/php)](https://packagist.org/packages/julio101290/ci4medical-soft)
 # CodeIgniter 4 MedicalSoft
 
 ## What is CodeIgniter 4 medicalSoft?
