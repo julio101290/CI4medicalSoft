@@ -1,9 +1,22 @@
 {
-    "name": "codeigniter4/appstarter",
+    "name": "codeigniter4/CI4MedicalSoft",
     "type": "project",
-    "description": "CodeIgniter4 starter app",
-    "homepage": "https://codeigniter.com",
+    "description": "CodeIgniter4 MedicalSoft web system for the administration of hospitals or clinics ",
+    "keywords": [
+        "codeigniter4",
+        "hospital",
+        "clinics",
+        "medical"
+    ],
+    "homepage": "https://cesarsystems.com.mx/",
+    
     "license": "MIT",
+    
+      "authors": [{
+            "name": "Julio Leyva",
+            "email": "juliocesarleyvarodriguez@hotmail.com"
+        }],
+    
     "require": {
         "php": "^7.4 || ^8.0",
         "codeigniter4/framework": "^4.0",
