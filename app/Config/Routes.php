@@ -40,7 +40,7 @@ $routes->get('/', 'Home::index');
 $routes->group('admin', function ($routes) {
 
 
-    
+
        $routes->group('/', [
         'filter'    => config('Boilerplate')->dashboard['filter'],
         'namespace' => config('Boilerplate')->dashboard['namespace'],

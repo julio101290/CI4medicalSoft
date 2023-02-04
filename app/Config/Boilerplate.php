@@ -1,6 +1,6 @@
 <?php
 
-namespace agungsugiarto\boilerplate\Config;
+namespace julio101290\boilerplate\Config;
 
 use CodeIgniter\Config\BaseConfig;
 
@@ -13,14 +13,14 @@ class Boilerplate extends BaseConfig
     // App name
     //--------------------------------------------------------------------------
 
-    public $appName = 'Boilerplate';
+    public $appName = 'CIMedicalSoft';
 
     //--------------------------------------------------------------------------
     // Dashboard controller
     //--------------------------------------------------------------------------
 
     public $dashboard = [
-        'namespace'  => 'julio101290\boilerplate\Controllers',
+        'namespace'  => 'App\Controllers',
         'controller' => 'DashboardController::index',
         'filter'     => 'permission:back-office',
     ];
@@ -66,7 +66,7 @@ class Boilerplate extends BaseConfig
                 'bg'   => 'gray-dark',
                 'logo' => [
                     'icon'   => 'favicon.ico', // path to image | this example icon on public root folder.
-                    'text'   => '<strong>Bo</strong>ilerplate',
+                    'text'   => '<strong>CI4</strong>MedicalSoft',
                     'shadow' => 2,
                 ],
             ],
@@ -77,8 +77,8 @@ class Boilerplate extends BaseConfig
         ],
         'footer' => [
             'fixed'      => false,
-            'vendorname' => 'Your Awesome Vendor',
-            'vendorlink' => 'https://your-awesome.com',
+            'vendorname' => 'CesarSystems',
+            'vendorlink' => 'https://cesarsystems.com.mx/',
         ],
     ];
 }
