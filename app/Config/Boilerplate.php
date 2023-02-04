@@ -1,34 +1,37 @@
 <?php
 
-namespace Config;
+namespace agungsugiarto\boilerplate\Config;
 
 use CodeIgniter\Config\BaseConfig;
 
 /**
  * Class Boilerplate.
  */
-class Boilerplate extends BaseConfig {
-
+class Boilerplate extends BaseConfig
+{
     //--------------------------------------------------------------------------
     // App name
     //--------------------------------------------------------------------------
 
-    public $appName = 'MedicalSoft 2023';
+    public $appName = 'Boilerplate';
+
     //--------------------------------------------------------------------------
     // Dashboard controller
     //--------------------------------------------------------------------------
 
     public $dashboard = [
-        'namespace' => 'julio101290\boilerplate\Controllers',
+        'namespace'  => 'julio101290\boilerplate\Controllers',
         'controller' => 'DashboardController::index',
-        'filter' => 'permission:back-office',
+        'filter'     => 'permission:back-office',
     ];
+
     //--------------------------------------------------------------------------
     // Config cdn for language datatables
     // pelase see https://cdn.datatables.net/plug-ins/1.10.20/i18n/
     //--------------------------------------------------------------------------
 
     public $i18n = 'Spanish';
+
     //--------------------------------------------------------------------------
     // Theme boilerplate
     //
@@ -41,42 +44,41 @@ class Boilerplate extends BaseConfig {
 
     public $theme = [
         'body-sm' => false,
-        'navbar' => [
-            'bg' => 'white',
-            'type' => 'light',
+        'navbar'  => [
+            'bg'     => 'white',
+            'type'   => 'light',
             'border' => true,
-            'user' => [
+            'user'   => [
                 'visible' => true,
-                'shadow' => 0,
+                'shadow'  => 0,
             ],
         ],
         'sidebar' => [
-            'type' => 'dark',
-            'shadow' => 4,
-            'border' => false,
+            'type'    => 'dark',
+            'shadow'  => 4,
+            'border'  => false,
             'compact' => true,
-            'links' => [
-                'bg' => 'blue',
+            'links'   => [
+                'bg'     => 'blue',
                 'shadow' => 1,
             ],
             'brand' => [
-                'bg' => 'gray-dark',
+                'bg'   => 'gray-dark',
                 'logo' => [
-                    'icon' => 'favicon.ico', // path to image | this example icon on public root folder.
-                    'text' => '<strong>Me</strong>dicalSoft',
+                    'icon'   => 'favicon.ico', // path to image | this example icon on public root folder.
+                    'text'   => '<strong>Bo</strong>ilerplate',
                     'shadow' => 2,
                 ],
             ],
             'user' => [
                 'visible' => true,
-                'shadow' => 2,
+                'shadow'  => 2,
             ],
         ],
         'footer' => [
-            'fixed' => false,
-            'vendorname' => 'CesarSystems',
-            'vendorlink' => 'https://cesarsystems.com.mx/',
+            'fixed'      => false,
+            'vendorname' => 'Your Awesome Vendor',
+            'vendorlink' => 'https://your-awesome.com',
         ],
     ];
-
 }
