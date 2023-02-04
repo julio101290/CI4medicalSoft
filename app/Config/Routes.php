@@ -41,7 +41,12 @@ $routes->group('admin', function ($routes) {
 
 
     
-    $routes->get('/', 'DashboardController::index');
+       $routes->group('/', [
+        'filter'    => config('Boilerplate')->dashboard['filter'],
+        'namespace' => config('Boilerplate')->dashboard['namespace'],
+    ], function ($routes) {
+        $routes->get('/', config('Boilerplate')->dashboard['controller']);
+    });
     
     $routes->resource('settings', [
         'filter' => 'permission:configuracion-permiso',
