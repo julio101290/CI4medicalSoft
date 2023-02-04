@@ -57,8 +57,6 @@
 <?= $this->endSection() ?>
 
 
-
-
 <?= $this->section('js') ?>
 <script>
 
@@ -80,9 +78,9 @@
         },
         columnDefs: [{
                 orderable: false,
-                targets: [2],
+                targets: [6],
                 searchable: false,
-                targets: [2]
+                targets: [6]
 
             }],
         columns: [{
@@ -113,6 +111,7 @@
                     return `<td class="text-right py-0 align-middle">
                             <div class="btn-group btn-group-sm">
                                 <button class="btn bg-blue btnImprimirConsulta" uuid="${data.uuid}" ><i class="far fa-file-pdf"></i></button>
+                                <button class="btn btn-danger btn-delete" data-id="${data.id}"><i class="fas fa-trash"></i></button>
                             </div>
                             </td>`
                 }
@@ -127,7 +126,7 @@
      IMPRIMIR CONSULTA
      =============================================*/
 
-    $(".tablaConsultas").on("click",'.btnImprimirConsulta', function () {
+    $(".tablaConsultas").on("click", '.btnImprimirConsulta', function () {
 
         var uuid = $(this).attr("uuid");
 
@@ -139,14 +138,12 @@
 
 
     /*=============================================
-     ELIMINAR PACIENTE
+     ELIMINAR CONSLTAS
      =============================================*/
-    $(".tablaPacientes").on("click", ".btnEliminarPaciente", function () {
+    $(".tablaConsultas").on("click", ".btn-delete", function () {
 
-        var idPaciente = $(this).attr("idPaciente");
+        var idConsulta = $(this).attr("data-id");
 
-
-        console.log("eliminar");
 
         Swal.fire({
             title: '<?= lang('boilerplate.global.sweet.title') ?>',
@@ -160,7 +157,7 @@
                 .then((result) => {
                     if (result.value) {
                         $.ajax({
-                            url: `<?= base_url(route_to('admin/pacientes')) ?>/` + idPaciente,
+                            url: `<?= base_url(route_to('admin/consultas')) ?>/` + idConsulta,
                             method: 'DELETE',
                         }).done((data, textStatus, jqXHR) => {
                             Toast.fire({
@@ -168,9 +165,9 @@
                                 title: jqXHR.statusText,
                             });
 
-                            $(".tablaPacientes").DataTable().destroy();
-                            cargaTabla();
-                            //tableUser.ajax.reload();
+
+
+                            tablaConsultas.ajax.reload();
                         }).fail((error) => {
                             Toast.fire({
                                 icon: 'error',

@@ -54,6 +54,12 @@ $consultas["pagina"] = "Página";
 $consultas["listaTitle"] = "Consultas Medicas";
 $consultas["listaSubtitle"] = "Lista de ConsultasMedicas";
 
+$consultas["eliminarConsulta"] = "Se elimino la consulta que contenia los siguientes datos";
+$consultas["actualizarConsulta"] = "Se actualizo de la consulta con los siguientes datos:";
+$consultas["guardarConsulta"] = "Se guardo la consulta con los siguientes datos: ";
+
+ 
+
 
 
 

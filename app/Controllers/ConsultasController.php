@@ -173,8 +173,9 @@ class ConsultasController extends BaseController {
 
                     $intContador++;
                 }
-
-                $datosBitacora["descripcion"] = "Se guardo la consulta con los siguientes datos: " . json_encode($datos);
+                
+         
+                $datosBitacora["descripcion"] =  lang('consultas.guardarConsulta') . json_encode($datos);
                 $datosBitacora["usuario"] = $userName;
 
                 $this->bitacora->save($datosBitacora);
@@ -199,7 +200,7 @@ class ConsultasController extends BaseController {
                 return;
             } else {
 
-                $datosBitacora["descripcion"] = "Se actualizo el paciente con los siguientes datos: " . json_encode($datos);
+                $datosBitacora["descripcion"] =  lang('consultas.actualizarConsulta') . json_encode($datos);
                 $datosBitacora["usuario"] = $userName;
                 $this->bitacora->save($datosBitacora);
                 echo "Actualizado Correctamente";
@@ -212,16 +213,16 @@ class ConsultasController extends BaseController {
     }
 
     public function delete($id) {
-        if (!$found = $this->pacientes->delete($id)) {
+        if (!$found = $this->consultas->delete($id)) {
             return $this->failNotFound(lang('patients.msg.msg_get_fail'));
         }
 
-        $infoPaciente = $this->pacientes->find($id);
+        $infoConsukta = $this->consultas->find($id);
 
-        $datosBitacora["descripcion"] = "Se elimino el paciente que contenia los siguientes datos " . json_encode($infoPaciente);
+        $datosBitacora["descripcion"] =  lang('consultas.eliminarConsulta')  . json_encode($infoConsukta);
 
         $this->bitacora->save($datosBitacora);
-        return $this->respondDeleted($found, lang('patients.msg.msg_delete'));
+        return $this->respondDeleted($found, lang('consultas.msg.msg_delete'));
     }
 
     /**

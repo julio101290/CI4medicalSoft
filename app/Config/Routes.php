@@ -40,7 +40,9 @@ $routes->get('/', 'Home::index');
 $routes->group('admin', function ($routes) {
 
 
-
+    
+    $routes->get('/', 'DashboardController::index');
+    
     $routes->resource('settings', [
         'filter' => 'permission:configuracion-permiso',
         'controller' => 'HospitalController',
@@ -87,11 +89,8 @@ $routes->group('admin', function ($routes) {
     $routes->post('medicamentos/guardar', 'MedicamentosController::guardar');
 
     $routes->post('medicamentos/traerMedicamento', 'MedicamentosController::traeMedicamento');
-    
+
     $routes->get('tratamientos/traeTratamientosTabla', 'MedicamentosController::traeMedicamentoTabla');
-    
-    
-    
 
     /**
      * Rutas para el CRUD de enfermedades
@@ -107,8 +106,6 @@ $routes->group('admin', function ($routes) {
     $routes->post('enfermedades/traerEnfermedad', 'EnfermedadesController::traeEnfermedad');
 
     $routes->get('enfermedades/traeEnfermedadesTabla', 'EnfermedadesController::traeEnfermedadesTablaConsultas');
-    
-
 
     /**
      * Rutas para el modulo de citas
@@ -124,14 +121,17 @@ $routes->group('admin', function ($routes) {
     $routes->post('citas/traeCita', 'CitasController::traeCita');
 
     $routes->get('consultas/generarConsulta', 'ConsultasController::generarConsulta');
-    
+
     $routes->post('consultas/guardar', 'ConsultasController::guardar');
-    
+
     $routes->get('consultas/reporte/(:any)', 'ConsultasController::reporte/$1');
-    
-    
+
     $routes->get('consultas/listaConsultas', 'ConsultasController::index');
-    
+
+    $routes->resource('consultas', [
+        'controller' => 'ConsultasController',
+        'except' => 'show'
+    ]);
 });
 
 /*
