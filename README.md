@@ -1,9 +1,18 @@
-# CodeIgniter 4 Application Starter
+# CodeIgniter 4 MedicalSoft
 
-## What is CodeIgniter?
+## What is CodeIgniter 4 medicalSoft?
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](http://codeigniter.com).
+CodeIgniter 4 medicalSoft is a  basic software for el correct administration/manage of the patienst's catalogue, medical history, control dates, print prescription .
+
+## Features
+
+* CRUD Patients
+* CRUD Medicines
+* CRUD diagnoses / diseases
+* Record Dates
+* Record medical consultation
+* Print in PDF prescription medical
+* Settings General of the Hospital
 
 This repository holds a composer-installable app starter.
 It has been built from the
