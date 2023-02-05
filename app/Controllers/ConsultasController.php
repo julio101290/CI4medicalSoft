@@ -56,10 +56,35 @@ class ConsultasController extends BaseController {
 //$data["data"] = $datos;
         return view('listaConsultas', $titulos);
     }
+    
+    
+        public function consultasAnteriores($paciente) {
 
-    /*
-     * Lee paciente
-     */
+
+        if ($this->request->isAJAX()) {
+            
+            
+
+
+            $datos = $this->consultas->mdlTraeConsultas()->where("paciente",$paciente);
+
+            return \Hermawan\DataTables\DataTable::of($datos)->toJson(true);
+        }
+
+
+
+        $titulos["listaTitle"] = lang('consultas.title');
+        $titulos["listaSubtitle"] = lang('consultas.subtitle');
+
+        return view('listaConsultas', $titulos);
+    }
+    
+    
+
+/**
+ * Genera la consulta
+ * @return type
+ */
 
     public function generarConsulta() {
 

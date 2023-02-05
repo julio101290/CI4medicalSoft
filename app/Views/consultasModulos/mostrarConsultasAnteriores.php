@@ -1,135 +1,95 @@
 <!-- Modal Pacientes -->
-<div class="modal fade" id="modalConsultasAnteriores" tabindex="-1" role="dialog" aria-labelledby="modalTratamientosAnteriores" aria-hidden="true">
+<div class="modal fade" id="modalConsultasAnteriores" tabindex="-1" role="dialog" aria-labelledby="modalConsultasAnteriores" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><?= lang('patients.createEdit') ?></h5>
+                <h5 class="modal-title"><?= lang('consultas.modalConsultasAnteriores') ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-            
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="tabla-consultas-anteriores" class="table table-striped table-hover va-middle tabla-consultas-anteriores">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                          <th><?= lang('consultas.fechaConsulta') ?></th>
+                                        <th><?= lang('consultas.columnaConsultasAnterioresDescripcion') ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><?= lang('boilerplate.global.close') ?></button>
-                <button type="button" class="btn btn-primary btn-sm" id="btnGuardarPaciente"><?= lang('boilerplate.global.save') ?></button>
+
             </div>
         </div>
     </div>
 </div>
+
+
 
 <?= $this->section('js') ?>
 
 
 <script>
 
-    $(document).on('click', '.btnAgregarPaciente', function (e) {
-
-        console.log("asdasd");
-        $(".form-control").val("");
-
-        $("#idPaciente").val("0");
+    
+   var tablaConsultasAnteriores = $('#tabla-consultas-anteriores').DataTable({
+        processing: true,
+        serverSide: true,
+        autoWidth: false,
+        order: [[1, 'asc']],
         
-           $("#btnGuardarPaciente").removeAttr("disabled");
 
-    })
+        ajax: {
+            url: `<?= base_url('admin/consultas/consultasAnteriores') ?>/` + $("#paciente").val(),
+            method: 'GET',
+            dataType: "json"
+            
+        },
+        columnDefs: [{
 
-    /* 
-     * AL hacer click al editar
-     */
-
-
-
-    $(document).on('click', '.btnEditarPaciente', function (e) {
-
-
-        var idPaciente = $(this).attr("idPaciente");
-
-        //LIMPIAMOS CONTROLES
-        $(".form-control").val("");
-
-        $("#idPaciente").val(idPaciente);
-        $("#btnGuardarPaciente").removeAttr("disabled");
-
-    })
-
-    /**
-     * Guardar paciente
-     */
-
-    $(document).on('click', '#btnGuardarPaciente', function (e) {
-
-        var idPaciente = $("#idPaciente").val();
-        var nombres = $("#nombres").val();
-        var apellidos = $("#apellidos").val();
-        var telefono = $("#telefono").val();
-        var dni = $("#dni").val();
-        var correoElectronico = $("#correoElectronico").val();
-
-        var ajaxPaciente = "ajaxPaciente";
-
-
-        $("#btnGuardarPaciente").attr("disabled", true);
-
-
-        var datos = new FormData();
-        datos.append("idPaciente", idPaciente);
-        datos.append("nombres", nombres);
-        datos.append("apellidos", apellidos);
-        datos.append("telefono", telefono);
-        datos.append("dni", dni);
-        datos.append("correoElectronico", correoElectronico);
-
-        $.ajax({
-
-            url: "<?= route_to('admin/pacientes/guardar') ?>",
-            method: "POST",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            //dataType:"json",
-            success: function (respuesta) {
-
-
-                if (respuesta.match(/Correctamente.*/)) {
-
-
-                    Toast.fire({
-                        icon: 'success',
-                        title: "Guardado Correctamente"
-                    });
-
-
-                    $('.tablaPacientes').DataTable().destroy();
-                    cargaTabla();
-                    $("#btnGuardarPaciente").removeAttr("disabled");
-
-                   
-                     $('#modalAgregarPaciente').modal('hide');
-                } else {
-
-                    Toast.fire({
-                        icon: 'error',
-                        title: respuesta
-                    });
-
-                    $("#btnGuardarPaciente").removeAttr("disabled");
-                  //  $('#modalAgregarPaciente').modal('hide');
-
-                }
-
+            }],
+        columns: [
+            
+            {
+                'data': 'id'
+            },
+              {
+                'data': 'fechaHora'
+            },
+            {
+                'data': 'motivoConsulta'
             }
-
-        }
-
-        )
-
-
-
-
+        ]
     });
+    
+    
+    //CARGA CONSULTAS ANTERIORES
+
+    $(".btnMostrarConsultas").on("click", function () {
+    
+       var paciente = $("#paciente").val();
+       
+       console.log("paciente:0",paciente);
+
+       tablaConsultasAnteriores.ajax.url(`<?= base_url('admin/consultas/consultasAnteriores') ?>/` + paciente ).load();
+       
+    
+
+
+       
+    });
+
 </script>
 
 

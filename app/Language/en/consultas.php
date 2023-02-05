@@ -48,8 +48,8 @@ $consultas["pagina"] = "Page";
 $consultas["eliminarConsulta"] = "The query that contained the following data was deleted";
 $consultas["actualizarConsulta"] = "The query was updated with the following data:";
 $consultas["guardarConsulta"] = "The query is saved with the following data: ";
-
-
+$consultas["columnaConsultasAnterioresDescripcion"] = "Reason Consultation";
+$consultas["modalConsultasAnteriores"] = "Reasons Previous Consultations";
 
 
 return $consultas;
