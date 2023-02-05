@@ -46,9 +46,8 @@ class ConsultasController extends BaseController {
             $datos = $this->consultas->mdlTraeConsultas();
 
             return \Hermawan\DataTables\DataTable::of($datos)->toJson(true);
-            
         }
-        
+
 
 
         $titulos["listaTitle"] = lang('consultas.title');
@@ -173,9 +172,9 @@ class ConsultasController extends BaseController {
 
                     $intContador++;
                 }
-                
-         
-                $datosBitacora["descripcion"] =  lang('consultas.guardarConsulta') . json_encode($datos);
+
+
+                $datosBitacora["descripcion"] = lang('consultas.guardarConsulta') . json_encode($datos);
                 $datosBitacora["usuario"] = $userName;
 
                 $this->bitacora->save($datosBitacora);
@@ -189,9 +188,11 @@ class ConsultasController extends BaseController {
         } else {
 
 
-            if ($this->pacientes->update($datos["idPaciente"], $datos) == false) {
+            $consultaAnterior = $this->consultas->where("uuid", $datos["uuid"])->first();
 
-                $errores = $this->pacientes->errors();
+            if ($this->consultas->update($consultaAnterior["id"], $datos) == false) {
+
+                $errores = $this->consultas->errors();
                 foreach ($errores as $field => $error) {
 
                     echo $error . " ";
@@ -200,7 +201,48 @@ class ConsultasController extends BaseController {
                 return;
             } else {
 
-                $datosBitacora["descripcion"] =  lang('consultas.actualizarConsulta') . json_encode($datos);
+
+                $this->tratamientosConsultas->where("idConsulta", $consultaAnterior["id"],)->delete();
+                $this->tratamientosConsultas->purgeDeleted();
+                $intContador = 0;
+                
+                
+                foreach ($diagnosticos as $values => $value) {
+
+
+
+                    $detalleDiagnosticos["renglon"] = $intContador;
+                    $detalleDiagnosticos["idConsulta"] = $consultaAnterior["id"];
+                    $detalleDiagnosticos["idDiagnostico"] = $value["idDiagnostico"];
+                    $detalleDiagnosticos["descripcion"] = $value["descripcion"];
+
+                    $this->diagnosticosConsultas->insert($detalleDiagnosticos);
+
+                    $intContador++;
+                }
+
+
+                $intContador = 0;
+
+                $this->tratamientosConsultas->where("idConsulta", $consultaAnterior["id"],)->delete();
+
+                $this->tratamientosConsultas->purgeDeleted();
+                foreach ($tratamientos as $values => $value) {
+
+
+
+                    $detalleTratamientos["renglon"] = $intContador;
+                    $detalleTratamientos["idConsulta"] = $consultaAnterior["id"];
+                    $detalleTratamientos["idTratamiento"] = $value["idTratamiento"];
+                    $detalleTratamientos["descripcion"] = $value["descripcion"];
+                    $detalleTratamientos["uso"] = $value["uso"];
+
+                    $this->tratamientosConsultas->insert($detalleTratamientos);
+
+                    $intContador++;
+                }
+
+                $datosBitacora["descripcion"] = lang('consultas.actualizarConsulta') . json_encode($datos);
                 $datosBitacora["usuario"] = $userName;
                 $this->bitacora->save($datosBitacora);
                 echo "Actualizado Correctamente";
@@ -219,7 +261,7 @@ class ConsultasController extends BaseController {
 
         $infoConsukta = $this->consultas->find($id);
 
-        $datosBitacora["descripcion"] =  lang('consultas.eliminarConsulta')  . json_encode($infoConsukta);
+        $datosBitacora["descripcion"] = lang('consultas.eliminarConsulta') . json_encode($infoConsukta);
 
         $this->bitacora->save($datosBitacora);
         return $this->respondDeleted($found, lang('consultas.msg.msg_delete'));
@@ -281,10 +323,8 @@ class ConsultasController extends BaseController {
         $pdf = new PDFLayout(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
         $datosConsulta = $this->consultas->where("uuid", $uuid)->first();
-        
-        $tratamientosRenglones = $this->tratamientosConsultas->where("idConsulta",$datosConsulta["id"])->findAll();
-        
-  
+
+        $tratamientosRenglones = $this->tratamientosConsultas->where("idConsulta", $datosConsulta["id"])->findAll();
 
         $doctor = $this->usuarios->where("id", $datosConsulta["idDoctor"])->first()->toArray();
 
@@ -307,7 +347,7 @@ class ConsultasController extends BaseController {
         // set document information
         $pdf->nombreEmpresa = $datosEncabezado["nombreHospital"];
         $pdf->direccion = $datosEncabezado["direccion"];
-        $pdf->doctor = $doctor["firstname"]. " ".$doctor["lastname"] ;
+        $pdf->doctor = $doctor["firstname"] . " " . $doctor["lastname"];
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($doctor["username"]);
         $pdf->SetTitle('MedicalSoft');
@@ -388,20 +428,19 @@ class ConsultasController extends BaseController {
         $pdf->writeHTML($txt, false, false, false, false, '');
 
         $pdf->writeHTML("<hr>", true, false, false, false, '');
-        
-        
+
         $renglonTratamientos = "";
-        
+
         $contador = 0;
-        
-        foreach ($tratamientosRenglones as $values=>$value){
-            
-             if ($contador % 2 == 0) {
+
+        foreach ($tratamientosRenglones as $values => $value) {
+
+            if ($contador % 2 == 0) {
                 $clase = 'style=" background-color:#ecf0f1; padding: 3px 4px 3px; "';
             } else {
                 $clase = 'style="background-color:white; padding: 3px 4px 3px; "';
             }
-            
+
             $renglonTratamientos .= <<<EOD
                     
                     <tr $clase>
@@ -413,7 +452,7 @@ class ConsultasController extends BaseController {
                     </tr>
             
              EOD;
-            
+
             $contador++;
         }
 
