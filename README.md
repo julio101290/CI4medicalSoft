@@ -38,6 +38,11 @@ to your `app` folder. The affected files can be copied or merged from
 Copy `env` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
 
+## Database
+You can find the database file under database in the database/medicalsoft2022.sql folder
+
+Soon we will create the migration files to build the tables without having to run the .sql file
+
 ## Important Change with index.php
 
 `index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
