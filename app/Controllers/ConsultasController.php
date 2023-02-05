@@ -63,10 +63,8 @@ class ConsultasController extends BaseController {
 
         if ($this->request->isAJAX()) {
             
-            
 
-
-            $datos = $this->consultas->mdlTraeConsultas()->where("paciente",$paciente);
+            $datos = $this->consultas->mdlTraeConsultasPorPaciente($paciente);
 
             return \Hermawan\DataTables\DataTable::of($datos)->toJson(true);
         }

@@ -50,6 +50,7 @@ $consultas["actualizarConsulta"] = "The query was updated with the following dat
 $consultas["guardarConsulta"] = "The query is saved with the following data: ";
 $consultas["columnaConsultasAnterioresDescripcion"] = "Reason Consultation";
 $consultas["modalConsultasAnteriores"] = "Reasons Previous Consultations";
+$consultas["modalDiagnosticosAnteriores"] = "Previous Diagnoses";
 
 
 return $consultas;

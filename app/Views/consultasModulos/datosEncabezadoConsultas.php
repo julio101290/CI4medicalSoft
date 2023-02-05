@@ -131,7 +131,7 @@
                             <div class="box">
 
 
-                                <button type="button" class="btn bg-blue btnTratamientosAnteriores" data-toggle="modal" data-target="#modalMostrarDiagnosticosAnteriores" data-dismiss="modal" idcodigo="'1" required="" data-placement="top" title="Consultas Anteriores">
+                                <button type="button" class="btn bg-blue btnDiagnosticosAnteriores" data-toggle="modal" data-target="#modalMostrarDiagnosticosAnteriores" data-dismiss="modal" idcodigo="'1" required="" data-placement="top" title="Consultas Anteriores">
 
                                     <?= lang('consultas.diagnosticosAnteriores') ?>
 
@@ -197,15 +197,15 @@
 
                             <div class="box">
 
-
+                                <!--  
                                 <button type="button" class="btn bg-blue btnTratamientosAnteriores" data-toggle="modal" data-target="#modalMostrarTratamientosAnteriores" data-dismiss="modal" idcodigo="'1" required="" data-placement="top" title="Consultas Anteriores">
 
 
-                                    <?= lang('consultas.tratamientosAnteriores') ?>
+                                <?= lang('consultas.tratamientosAnteriores') ?>
 
 
                                 </button>
-
+                                -->
                                 <div class="row">
 
                                     <!--=====================================

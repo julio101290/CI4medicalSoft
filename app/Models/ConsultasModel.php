@@ -43,5 +43,31 @@ class ConsultasModel extends Model {
         
         
     }
+    
+    /**
+     * Consultas por paciente
+     */
+    
+        public function mdlTraeConsultasPorPaciente($paciente){
+        
+        
+        $resultado = $this->db->table('consultas a, pacientes b, users c')
+                ->select('a.id,concat(b.nombres,\' \',b.apellidos) as nombrePaciente'
+                        . ',concat(c.firstname,\' \',c.lastname) as nombreDoctor'
+                        . ',a.motivoConsulta'
+                        . ',a.fechaHora'
+                        . ',a.created_at'
+                        . ',a.uuid')
+                ->where('a.paciente', 'b.id', false)
+                ->where('a.idDoctor', 'c.id', false)
+                ->where('a.deleted_at', null)
+                ->where('a.paciente', $paciente,false);
+
+        return $resultado;
+        
+        
+    }
+    
+    
 
 }
