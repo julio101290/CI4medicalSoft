@@ -15,15 +15,6 @@ CodeIgniter 4 medicalSoft is a  basic software for el correct administration/man
 * Print in PDF prescription medical
 * Settings General of the Hospital
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
-
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
-
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
-
 ## Installation & updates
 
 `composer create-project julio101290/ci4medical-soft` then `composer update` whenever
