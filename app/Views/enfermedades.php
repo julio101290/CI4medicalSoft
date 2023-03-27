@@ -6,7 +6,7 @@
 <?= $this->section('content') ?>
 
 <?= $this->include('enfermedadesModulos/modalCaptura') ?>
-<!-- SELECT2 EXAMPLE -->
+<!-- SELECT2   EXAMPLE -->
 <div class="card card-default">
     <div class="card-header">
         <div class="float-right">
