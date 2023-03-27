@@ -116,8 +116,7 @@
                     });
 
 
-                    $('.tablaMedicamentos').DataTable().destroy();
-                    cargaTabla();
+                    tablaMedicamentos.ajax.reload();
                     $("#btnGuardarMedicamento").removeAttr("disabled");
 
                    

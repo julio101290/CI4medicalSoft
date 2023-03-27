@@ -72,74 +72,7 @@
 
     })
 
-    /**
-     * Guardar paciente
-     */
-
-    $(document).on('click', '#btnGuardarEnfermedad', function (e) {
-
-        var idEnfermedad = $("#idEnfermedad").val();
-        var descripcion = $("#descripcion").val();
-      
-
-
-        $("#btnGuardarEnfermedad").attr("disabled", true);
-
-
-        var datos = new FormData();
-        datos.append("idEnfermedad", idEnfermedad);
-        datos.append("descripcion", descripcion);
-
-
-        $.ajax({
-
-            url: "<?= route_to('admin/enfermedades/guardar') ?>",
-            method: "POST",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            //dataType:"json",
-            success: function (respuesta) {
-
-
-                if (respuesta.match(/Correctamente.*/)) {
-
-
-                    Toast.fire({
-                        icon: 'success',
-                        title: "Guardado Correctamente"
-                    });
-
-
-                    $('.tablaEnfermedades').DataTable().destroy();
-                    cargaTabla();
-                    $("#btnGuardarEnfermedad").removeAttr("disabled");
-
-                   
-                     $('#modalAgregarEnfermedades').modal('hide');
-                } else {
-
-                    Toast.fire({
-                        icon: 'error',
-                        title: respuesta
-                    });
-
-                    $("#btnGuardarEnfermedad").removeAttr("disabled");
-                  //  $('#modalAgregarEnfermedad').modal('hide');
-
-                }
-
-            }
-
-        }
-
-        )
-
-
-
-
-    });
+    
 </script>
 
 

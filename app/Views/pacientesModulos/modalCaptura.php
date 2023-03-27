@@ -122,78 +122,78 @@
      * Guardar paciente
      */
 
-    $(document).on('click', '#btnGuardarPaciente', function (e) {
+     $(document).on('click', '#btnGuardarPaciente', function (e) {
 
-        var idPacienteRegistro = $("#idPacienteRegistrar").val();
-        var nombres = $("#nombres").val();
-        var apellidos = $("#apellidos").val();
-        var telefono = $("#telefono").val();
-        var dni = $("#dni").val();
-        var correoElectronico = $("#correoElectronico").val();
+var idPacienteRegistro = $("#idPacienteRegistrar").val();
+var nombres = $("#nombres").val();
+var apellidos = $("#apellidos").val();
+var telefono = $("#telefono").val();
+var dni = $("#dni").val();
+var correoElectronico = $("#correoElectronico").val();
 
-        var ajaxPaciente = "ajaxPaciente";
-
-
-        $("#btnGuardarPaciente").attr("disabled", true);
-
-        console.log("nombres",nombres);
-        var datos = new FormData();
-        datos.append("idPaciente", idPacienteRegistro);
-        datos.append("nombres", nombres);
-        datos.append("apellidos", apellidos);
-        datos.append("telefono", telefono);
-        datos.append("dni", dni);
-        datos.append("correoElectronico", correoElectronico);
-
-        $.ajax({
-
-            url: "<?= route_to('admin/pacientes/guardar') ?>",
-            method: "POST",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            //dataType:"json",
-            success: function (respuesta) {
+var ajaxPaciente = "ajaxPaciente";
 
 
-                if (respuesta.match(/Correctamente.*/)) {
+$("#btnGuardarPaciente").attr("disabled", true);
+
+console.log("nombres",nombres);
+var datos = new FormData();
+datos.append("idPaciente", idPacienteRegistro);
+datos.append("nombres", nombres);
+datos.append("apellidos", apellidos);
+datos.append("telefono", telefono);
+datos.append("dni", dni);
+datos.append("correoElectronico", correoElectronico);
+
+$.ajax({
+
+    url: "<?= route_to('admin/pacientes/guardar') ?>",
+    method: "POST",
+    data: datos,
+    cache: false,
+    contentType: false,
+    processData: false,
+    //dataType:"json",
+    success: function (respuesta) {
 
 
-                    Toast.fire({
-                        icon: 'success',
-                        title: "Guardado Correctamente"
-                    });
+        if (respuesta.match(/Correctamente.*/)) {
 
 
-                    $('.tablaPacientes').DataTable().destroy();
-                    cargaTabla();
-                    $("#btnGuardarPaciente").removeAttr("disabled");
+            Toast.fire({
+                icon: 'success',
+                title: "Guardado Correctamente"
+            });
 
-                   
-                     $('#modalAgregarPaciente').modal('hide');
-                } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: respuesta
-                    });
+          
+            $("#btnGuardarPaciente").removeAttr("disabled");
 
-                    $("#btnGuardarPaciente").removeAttr("disabled");
-                  //  $('#modalAgregarPaciente').modal('hide');
+            tablaPacientes.ajax.reload();
+            
+             $('#modalAgregarPaciente').modal('hide');
+        } else {
 
-                }
+            Toast.fire({
+                icon: 'error',
+                title: respuesta
+            });
 
-            }
+            $("#btnGuardarPaciente").removeAttr("disabled");
+          //  $('#modalAgregarPaciente').modal('hide');
 
         }
 
-        )
+    }
+
+}
+
+)
 
 
 
 
-    });
+});
 </script>
 
 

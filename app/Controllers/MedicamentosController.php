@@ -40,13 +40,7 @@ class MedicamentosController extends BaseController {
             //      var_dump($datos);
 
 
-            return \Hermawan\DataTables\DataTable::of($datos)->add('action', function ($row) {
-                                return " <div class=\"btn-group\">
-                          
-                  <button class=\"btn btn-warning btnEditarMedicamento\" data-toggle=\"modal\" idMedicamento=\"$row->id\" data-target=\"#modalAgregarMedicamentos\">  <i class=\" fa fa-edit \"></i></button>
-                  <button class=\"btn btn-danger btnEliminarMedicamento\" idMedicamento=\"$row->id\"><i class=\"fa fa-times\"></i></button></div>";
-                            }, 'last')
-                            ->toJson();
+            return \Hermawan\DataTables\DataTable::of($datos)->toJson(true);
         }
 
         $titulos["title"] = lang('medicamentos.title');

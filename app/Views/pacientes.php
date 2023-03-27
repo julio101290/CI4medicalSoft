@@ -64,28 +64,71 @@
 <?= $this->section('js') ?>
 <script>
 
+
+
+
     /**
      * Cargamos la tabla
      */
 
 
-    function cargaTabla() {
+     var tablaPacientes = $('#tablaPacientes').DataTable({
+        processing: true,
+        serverSide: true,
+        autoWidth: false,
+        order: [[1, 'asc']],
+        
 
+        ajax: {
+            url: `<?= base_url('admin/pacientes') ?>/`,
+            method: 'GET',
+            dataType: "json"
+            
+        },
+        columnDefs: [{
+                orderable: false,
+                targets: [8],
+                searchable: false,
+                targets: [8]
 
+            }],
+        columns: [
+            
+            {
+                'data': 'id'
+            },
+            {
+                'data': 'nombres'
+            },
+            {
+                'data': 'apellidos'
+            },
+            {
+                'data': 'dni'
+            },
+            {
+                'data': 'telefono'
+            },
+            {
+                'data': 'correoElectronico'
+            },
+            {
+                'data': 'created_at'
+            },
 
-        $('.tablaPacientes').DataTable({
-            "ajax": "<?= base_url(route_to('admin/pacientes')) ?>",
-            "deferRender": true,
-            "serverSide": true,
-            "retrieve": true,
-            "processing": true
-
-        });
-
-    }
-
-
-    cargaTabla();
+            {
+                'data': 'updated_at'
+            },
+            {
+                "data": function (data) {
+                    return `<div class="btn-group">
+                          
+                          <button class="btn btn-warning btnEditarPaciente" data-toggle="modal" idPaciente="${data.id}" data-target="#modalAgregarPaciente">  <i class=" fa fa-edit "></i></button>
+                          <button class="btn btn-danger btnEliminarPaciente" idPaciente="${data.id}"><i class="fa fa-times"></i></button></div>`
+                }
+            }
+        ]
+    });
 
 
 
@@ -162,9 +205,8 @@
                                 title: jqXHR.statusText,
                             });
 
-                            $(".tablaPacientes").DataTable().destroy();
-                            cargaTabla();
-                            //tableUser.ajax.reload();
+                        
+                            tablaPacientes.ajax.reload();
                         }).fail((error) => {
                             Toast.fire({
                                 icon: 'error',

@@ -65,24 +65,53 @@
      * Cargamos la tabla
      */
 
+     var tablaMedicamentos = $('#tablaMedicamentos').DataTable({
+        processing: true,
+        serverSide: true,
+        autoWidth: false,
+        order: [[1, 'asc']],
+        
 
-    function cargaTabla() {
+        ajax: {
+            url: `<?= base_url('admin/medicamentos') ?>/`,
+            method: 'GET',
+            dataType: "json"
+            
+        },
+        columnDefs: [{
+                orderable: false,
+                targets: [4],
+                searchable: false,
+                targets: [4]
+
+            }],
+        columns: [
+            
+            {
+                'data': 'id'
+            },
+            {
+                'data': 'descripcion'
+            },
+            {
+                'data': 'created_at'
+            },
+
+            {
+                'data': 'updated_at'
+            },
+            {
+                "data": function (data) {
+                    return `<div class="btn-group">
+                          
+                          <button class="btn btn-warning btnEditarMedicamento" data-toggle="modal" idMedicamento="${data.id}" data-target="#modalAgregarMedicamentos">  <i class=" fa fa-edit "></i></button>
+                          <button class="btn btn-danger btnEliminarMedicamento" idMedicamento="${data.id}"><i class="fa fa-times"></i></button></div>`
+                }
+            }
+        ]
+    });
 
 
-
-        $('.tablaMedicamentos').DataTable({
-            "ajax": "<?= base_url(route_to('admin/medicamentos')) ?>",
-            "deferRender": true,
-            "serverSide": true,
-            "retrieve": true,
-            "processing": true
-
-        });
-
-    }
-
-
-    cargaTabla();
 
 
 
@@ -106,7 +135,7 @@
 
         $.ajax({
 
-            url: "<?= base_url(route_to('admin/medicamentos/traerMedicamento')) ?>",
+            url: "<?= base_url('admin/medicamentos/traerMedicamento')?>",
             method: "POST",
             data: datos,
             cache: false,
@@ -114,9 +143,9 @@
             processData: false,
             dataType: "json",
             success: function (respuesta) {
-                console.log(respuesta);
+              
                 $("#idMedicamento").val(respuesta["id"]);
-                $("#descripcion").val(respuesta["descripcion"]);
+                $("#descripcionTratamiento").val(respuesta["descripcion"]);
 
             }
 
@@ -155,9 +184,8 @@
                                 title: jqXHR.statusText,
                             });
 
-                            $(".tablaMedicamentos").DataTable().destroy();
-                            cargaTabla();
-                            //tableUser.ajax.reload();
+               
+                            tablaMedicamentos.ajax.reload();
                         }).fail((error) => {
                             Toast.fire({
                                 icon: 'error',

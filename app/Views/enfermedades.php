@@ -64,24 +64,52 @@
      */
 
 
-    function cargaTabla() {
+     var tablaEnfermedades = $('#tablaEnfermedades').DataTable({
+        processing: true,
+        serverSide: true,
+        autoWidth: false,
+        order: [[1, 'asc']],
+        
 
+        ajax: {
+            url: `<?= base_url(route_to('admin/enfermedades')) ?>/`,
+            method: 'GET',
+            dataType: "json"
+            
+        },
+        columnDefs: [{
+                orderable: false,
+                targets: [4],
+                searchable: false,
+                targets: [4]
 
+            }],
+        columns: [
+            
+            {
+                'data': 'id'
+            },
+            {
+                'data': 'descripcion'
+            },
+            {
+                'data': 'created_at'
+            },
 
-        $('.tablaEnfermedades').DataTable({
-            "ajax": "<?= base_url(route_to('admin/enfermedades')) ?>",
-            "deferRender": true,
-            "serverSide": true,
-            "retrieve": true,
-            "processing": true
-
-        });
-
-    }
-
-
-    cargaTabla();
-
+            {
+                'data': 'updated_at'
+            },
+            {
+                "data": function (data) {
+                    return `<div class="btn-group">
+                          
+                          <button class="btn btn-warning btnEditarEnfermedad" data-toggle="modal" idEnfermedad="${data.id}" data-target="#modalAgregarEnfermedades">  <i class=" fa fa-edit "></i></button>
+                          <button class="btn btn-danger btnEliminarEnfermedad" idEnfermedad="${data.id}"><i class="fa fa-times"></i></button></div>`
+                }
+            }
+        ]
+    });
+    
 
 
     /**
@@ -153,9 +181,8 @@
                                 title: jqXHR.statusText,
                             });
 
-                            $(".tablaEnfermedades").DataTable().destroy();
-                            cargaTabla();
-                            //tableUser.ajax.reload();
+                            tablaPacientes.ajax.reload();
+                            
                         }).fail((error) => {
                             Toast.fire({
                                 icon: 'error',
@@ -167,7 +194,73 @@
     })
 
 
+/**
+     * Guardar paciente
+     */
 
+     $(document).on('click', '#btnGuardarEnfermedad', function (e) {
+
+var idEnfermedad = $("#idEnfermedad").val();
+var descripcion = $("#descripcion").val();
+
+
+
+$("#btnGuardarEnfermedad").attr("disabled", true);
+
+
+var datos = new FormData();
+datos.append("idEnfermedad", idEnfermedad);
+datos.append("descripcion", descripcion);
+
+
+$.ajax({
+
+    url: "<?= route_to('admin/enfermedades/guardar') ?>",
+    method: "POST",
+    data: datos,
+    cache: false,
+    contentType: false,
+    processData: false,
+    //dataType:"json",
+    success: function (respuesta) {
+
+
+        if (respuesta.match(/Correctamente.*/)) {
+
+
+            Toast.fire({
+                icon: 'success',
+                title: "Guardado Correctamente"
+            });
+
+            tablaEnfermedades.ajax.reload();
+
+            $("#btnGuardarEnfermedad").removeAttr("disabled");
+
+           
+             $('#modalAgregarEnfermedades').modal('hide');
+        } else {
+
+            Toast.fire({
+                icon: 'error',
+                title: respuesta
+            });
+
+            $("#btnGuardarEnfermedad").removeAttr("disabled");
+          //  $('#modalAgregarEnfermedad').modal('hide');
+
+        }
+
+    }
+
+}
+
+)
+
+
+
+
+});
 
 </script>
 <?= $this->endSection() ?>
