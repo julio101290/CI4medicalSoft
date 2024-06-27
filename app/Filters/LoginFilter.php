@@ -6,6 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Myth\Auth\Filters\BaseFilter;
 
 class LoginFilter extends BaseFilter implements FilterInterface
 {

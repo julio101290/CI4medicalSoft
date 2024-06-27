@@ -377,5 +377,4 @@ class Auth extends \Myth\Auth\Config\Auth {
      * @var int
      */
     public $resetTime = 3600;
-
 }

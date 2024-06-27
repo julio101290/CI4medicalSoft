@@ -13,10 +13,15 @@ use CodeIgniter\Config\AutoloadConfig;
  * can find the files as needed.
  *
  * NOTE: If you use an identical key in $psr4 or $classmap, then
- * the values in this file will overwrite the framework's values.
+ *       the values in this file will overwrite the framework's values.
+ *
+ * NOTE: This class is required prior to Autoloader instantiation,
+ *       and does not extend BaseConfig.
+ *
+ * @immutable
  */
-class Autoload extends AutoloadConfig {
-
+class Autoload extends AutoloadConfig
+{
     /**
      * -------------------------------------------------------------------
      * Namespaces
@@ -25,25 +30,17 @@ class Autoload extends AutoloadConfig {
      * their location on the file system. These are used by the autoloader
      * to locate files the first time they have been instantiated.
      *
-     * The '/app' and '/system' directories are already mapped for you.
-     * you may change the name of the 'App' namespace if you wish,
+     * The 'Config' (APPPATH . 'Config') and 'CodeIgniter' (SYSTEMPATH) are
+     * already mapped for you.
+     *
+     * You may change the name of the 'App' namespace if you wish,
      * but this should be done prior to creating any namespaced classes,
      * else you will need to modify all of those classes for this to work.
      *
-     * Prototype:
-     * ```
-     *   $psr4 = [
-     *       'CodeIgniter' => SYSTEMPATH,
-     *       'App'	       => APPPATH
-     *   ];
-     * ```
-     *
-     * @var array<string, string>
+     * @var array<string, list<string>|string>
      */
     public $psr4 = [
-        APP_NAMESPACE => APPPATH, // For custom app namespace
-        'Config' => APPPATH . 'Config',
-        'Michalsn\Uuid' => APPPATH . 'ThirdParty/codeigniter4-uuid/src',
+        APP_NAMESPACE => APPPATH,
     ];
 
     /**
@@ -57,11 +54,9 @@ class Autoload extends AutoloadConfig {
      * were being autoloaded through a namespace.
      *
      * Prototype:
-     * ```
      *   $classmap = [
      *       'MyClass'   => '/path/to/class/file.php'
      *   ];
-     * ```
      *
      * @var array<string, string>
      */
@@ -76,14 +71,24 @@ class Autoload extends AutoloadConfig {
      * or for loading functions.
      *
      * Prototype:
-     * ```
-     * 	  $files = [
-     * 	 	   '/path/to/my/file.php',
-     *    ];
-     * ```
+     *   $files = [
+     *       '/path/to/my/file.php',
+     *   ];
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     public $files = [];
 
+    /**
+     * -------------------------------------------------------------------
+     * Helpers
+     * -------------------------------------------------------------------
+     * Prototype:
+     *   $helpers = [
+     *       'form',
+     *   ];
+     *
+     * @var list<string>
+     */
+    public $helpers = [];
 }

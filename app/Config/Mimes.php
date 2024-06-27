@@ -15,15 +15,17 @@ namespace Config;
  *
  * When working with mime types, please make sure you have the ´fileinfo´
  * extension enabled to reliably detect the media types.
+ *
+ * @immutable
  */
 class Mimes
 {
     /**
      * Map of extensions to mime types.
      *
-     * @var array
+     * @var array<string, list<string>|string>
      */
-    public static $mimes = [
+    public static array $mimes = [
         'hqx' => [
             'application/mac-binhex40',
             'application/mac-binhex',
@@ -55,6 +57,8 @@ class Mimes
         'lzh' => 'application/octet-stream',
         'exe' => [
             'application/octet-stream',
+            'application/vnd.microsoft.portable-executable',
+            'application/x-dosexec',
             'application/x-msdownload',
         ],
         'class' => 'application/octet-stream',

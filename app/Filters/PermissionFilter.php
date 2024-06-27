@@ -6,6 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Myth\Auth\Filters\BaseFilter;
 use Myth\Auth\Exceptions\PermissionException;
 
 class PermissionFilter extends BaseFilter implements FilterInterface

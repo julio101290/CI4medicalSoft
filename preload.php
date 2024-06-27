@@ -16,7 +16,8 @@
  * See https://www.php.net/manual/en/opcache.preloading.php
  *
  * How to Use:
- *   1. Set preload::$paths.
+ *   0. Copy this file to your project root folder.
+ *   1. Set the $paths property of the preload class below.
  *   2. Set opcache.preload in php.ini.
  *     php.ini:
  *     opcache.preload=/path/to/preload.php
@@ -28,19 +29,6 @@ require __DIR__ . '/app/Config/Paths.php';
 // Path to the front controller
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR);
 
-/**
- * See https://www.php.net/manual/en/function.str-contains.php#126277
- */
-if (! function_exists('str_contains')) {
-    /**
-     * Polyfill of str_contains()
-     */
-    function str_contains(string $haystack, string $needle): bool
-    {
-        return empty($needle) || strpos($haystack, $needle) !== false;
-    }
-}
-
 class preload
 {
     /**
@@ -48,11 +36,13 @@ class preload
      */
     private array $paths = [
         [
-            'include' => __DIR__ . '/vendor/codeigniter4/framework/system',
+            'include' => __DIR__ . '/vendor/codeigniter4/framework/system', // Change this path if using manual installation
             'exclude' => [
+                '/system/bootstrap.php',
                 // Not needed if you don't use them.
                 '/system/Database/OCI8/',
                 '/system/Database/Postgre/',
+                '/system/Database/SQLite3/',
                 '/system/Database/SQLSRV/',
                 // Not needed.
                 '/system/Database/Seeder.php',
@@ -75,16 +65,18 @@ class preload
         $this->loadAutoloader();
     }
 
-    private function loadAutoloader()
+    private function loadAutoloader(): void
     {
         $paths = new Config\Paths();
-        require rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
+        require rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'Boot.php';
+
+        CodeIgniter\Boot::preload($paths);
     }
 
     /**
      * Load PHP files.
      */
-    public function load()
+    public function load(): void
     {
         foreach ($this->paths as $path) {
             $directory = new RecursiveDirectoryIterator($path['include']);

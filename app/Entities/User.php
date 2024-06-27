@@ -3,12 +3,17 @@
 namespace App\Entities;
 
 use CodeIgniter\Entity\Entity;
+use CodeIgniter\I18n\Time;
 use Exception;
 use Myth\Auth\Password;
 use RuntimeException;
 
-class User extends \Myth\Auth\Entities\User
-{
+/**
+ * @property array<int, string> $permissions
+ * @property Time|null          $reset_expires
+ */
+class User extends \Myth\Auth\Entities\User {
+
     /**
      * Maps names used in sets and gets against unique
      * names within the class, allowing independence from
@@ -31,16 +36,18 @@ class User extends \Myth\Auth\Entities\User
      * when they are accessed.
      */
     protected $casts = [
-        'username'         => 'string',
-        'email'            => 'string',
-        'active'           => 'boolean',
+        'username' => 'string',
+        'firstname' => 'string',
+        'lastname' => 'string',
+        'email' => 'string',
+        'active' => 'boolean',
         'force_pass_reset' => 'boolean',
     ];
 
     /**
      * Per-user permissions cache
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $permissions = [];
 
@@ -56,21 +63,20 @@ class User extends \Myth\Auth\Entities\User
      *
      * @see https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence
      */
-    public function setPassword(string $password)
-    {
+    public function setPassword(string $password) {
         $this->attributes['password_hash'] = Password::hash($password);
 
         /*
-            Set these vars to null in case a reset password was asked.
-            Scenario:
-                user (a *dumb* one with short memory) requests a
-                reset-token and then does nothing => asks the
-                administrator to reset his password.
-            User would have a new password but still anyone with the
-            reset-token would be able to change the password.
-        */
-        $this->attributes['reset_hash']    = null;
-        $this->attributes['reset_at']      = null;
+          Set these vars to null in case a reset password was asked.
+          Scenario:
+          user (a *dumb* one with short memory) requests a
+          reset-token and then does nothing => asks the
+          administrator to reset his password.
+          User would have a new password but still anyone with the
+          reset-token would be able to change the password.
+         */
+        $this->attributes['reset_hash'] = null;
+        $this->attributes['reset_at'] = null;
         $this->attributes['reset_expires'] = null;
     }
 
@@ -85,8 +91,7 @@ class User extends \Myth\Auth\Entities\User
      *
      * @param bool|int $active
      */
-    public function setActive($active)
-    {
+    public function setActive($active) {
         $this->attributes['active'] = $active ? 1 : 0;
     }
 
@@ -97,8 +102,7 @@ class User extends \Myth\Auth\Entities\User
      *
      * @param bool|int $force_pass_reset
      */
-    public function setForcePassReset($force_pass_reset)
-    {
+    public function setForcePassReset($force_pass_reset) {
         $this->attributes['force_pass_reset'] = $force_pass_reset ? 1 : 0;
     }
 
@@ -106,12 +110,11 @@ class User extends \Myth\Auth\Entities\User
      * Force a user to reset their password on next page refresh
      * or login. Checked in the LocalAuthenticator's check() method.
      *
-     * @throws Exception
-     *
      * @return $this
+     *
+     * @throws Exception
      */
-    public function forcePasswordReset()
-    {
+    public function forcePasswordReset() {
         $this->generateResetHash();
         $this->attributes['force_pass_reset'] = 1;
 
@@ -122,13 +125,12 @@ class User extends \Myth\Auth\Entities\User
      * Generates a secure hash to use for password reset purposes,
      * saves it to the instance.
      *
-     * @throws Exception
-     *
      * @return $this
+     *
+     * @throws Exception
      */
-    public function generateResetHash()
-    {
-        $this->attributes['reset_hash']    = bin2hex(random_bytes(16));
+    public function generateResetHash() {
+        $this->attributes['reset_hash'] = bin2hex(random_bytes(16));
         $this->attributes['reset_expires'] = date('Y-m-d H:i:s', time() + config('Auth')->resetTime);
 
         return $this;
@@ -137,12 +139,11 @@ class User extends \Myth\Auth\Entities\User
     /**
      * Generates a secure random hash to use for account activation.
      *
-     * @throws Exception
-     *
      * @return $this
+     *
+     * @throws Exception
      */
-    public function generateActivateHash()
-    {
+    public function generateActivateHash() {
         $this->attributes['activate_hash'] = bin2hex(random_bytes(16));
 
         return $this;
@@ -153,9 +154,8 @@ class User extends \Myth\Auth\Entities\User
      *
      * @return $this
      */
-    public function activate()
-    {
-        $this->attributes['active']        = 1;
+    public function activate() {
+        $this->attributes['active'] = 1;
         $this->attributes['activate_hash'] = null;
 
         return $this;
@@ -166,8 +166,7 @@ class User extends \Myth\Auth\Entities\User
      *
      * @return $this
      */
-    public function deactivate()
-    {
+    public function deactivate() {
         $this->attributes['active'] = 0;
 
         return $this;
@@ -176,8 +175,7 @@ class User extends \Myth\Auth\Entities\User
     /**
      * Checks to see if a user is active.
      */
-    public function isActivated(): bool
-    {
+    public function isActivated(): bool {
         return $this->active;
     }
 
@@ -186,9 +184,8 @@ class User extends \Myth\Auth\Entities\User
      *
      * @return $this
      */
-    public function ban(string $reason)
-    {
-        $this->attributes['status']         = 'banned';
+    public function ban(string $reason) {
+        $this->attributes['status'] = 'banned';
         $this->attributes['status_message'] = $reason;
 
         return $this;
@@ -199,8 +196,7 @@ class User extends \Myth\Auth\Entities\User
      *
      * @return $this
      */
-    public function unBan()
-    {
+    public function unBan() {
         $this->attributes['status'] = $this->status_message = '';
 
         return $this;
@@ -209,8 +205,7 @@ class User extends \Myth\Auth\Entities\User
     /**
      * Checks to see if a user has been banned.
      */
-    public function isBanned(): bool
-    {
+    public function isBanned(): bool {
         return isset($this->attributes['status']) && $this->attributes['status'] === 'banned';
     }
 
@@ -220,8 +215,7 @@ class User extends \Myth\Auth\Entities\User
      *
      * @return bool
      */
-    public function can(string $permission)
-    {
+    public function can(string $permission) {
         return in_array(strtolower($permission), $this->getPermissions(), true);
     }
 
@@ -233,10 +227,9 @@ class User extends \Myth\Auth\Entities\User
      *    id=> name,
      * ]
      *
-     * @return array|mixed
+     * @return array<int, string>
      */
-    public function getPermissions()
-    {
+    public function getPermissions() {
         if (empty($this->id)) {
             throw new RuntimeException('Users must be created before getting permissions.');
         }
@@ -258,8 +251,7 @@ class User extends \Myth\Auth\Entities\User
      *
      * @return array|mixed
      */
-    public function getRoles()
-    {
+    public function getRoles() {
         if (empty($this->id)) {
             throw new RuntimeException('Users must be created before getting roles.');
         }
@@ -283,8 +275,7 @@ class User extends \Myth\Auth\Entities\User
      *
      * @return $this
      */
-    public function setPermissions(?array $permissions = null)
-    {
+    public function setPermissions(?array $permissions = null) {
         throw new RuntimeException('User entity does not support saving permissions directly.');
     }
 }
