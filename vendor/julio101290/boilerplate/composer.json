@@ -1,0 +1,49 @@
+{
+    "name": "julio101290/boilerplate",
+    "description": "CodeIgniter4 Boilerplate based on AdminLTE 3 with user management, roles, permissions,  forked of agungsugiarto/boilerplate ...",
+    "keywords": [
+        "codeigniter4",
+        "authentication",
+        "authorization",
+        "boilerplate"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Agung Sugiarto",
+            "email": "me.agungsugiarto@gmail.com",
+           
+            "name": "Julio Leyva",
+            "email": "juliocesarleyvarodriguez@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "codeigniter4/framework": "^4.1",
+        "codeigniter4/translations" : "^4.0",
+        "julio101290/auth": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1",
+        "fakerphp/faker": "^1.13"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "julio101290\\boilerplate\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+          "@composer dump-autoload"
+        ],
+        "test": "phpunit --colors=always -vvv"
+    }
+}

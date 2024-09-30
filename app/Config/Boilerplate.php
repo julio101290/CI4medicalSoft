@@ -13,7 +13,7 @@ class Boilerplate extends BaseConfig
     // App name
     //--------------------------------------------------------------------------
 
-    public $appName = 'Boilerplate';
+    public $appName = 'MedicalSoft';
 
     //--------------------------------------------------------------------------
     // Dashboard controller
@@ -77,8 +77,8 @@ class Boilerplate extends BaseConfig
         ],
         'footer' => [
             'fixed'      => false,
-            'vendorname' => 'Your Awesome Vendor',
-            'vendorlink' => 'https://your-awesome.com',
+            'vendorname' => 'Cesar Systems',
+            'vendorlink' => 'https://cesarsystems.com.mx/',
         ],
     ];
 }
