@@ -20,7 +20,7 @@ class Boilerplate extends BaseConfig
     //--------------------------------------------------------------------------
 
     public $dashboard = [
-        'namespace'  => 'julio101290\boilerplate\Controllers',
+        'namespace'  => 'App\Controllers',
         'controller' => 'DashboardController::index',
         'filter'     => 'permission:back-office',
     ];
