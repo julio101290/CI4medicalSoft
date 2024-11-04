@@ -784,9 +784,9 @@ abstract class BaseConnection implements ConnectionInterface
      *
      * @return $this
      */
-    public function transException(bool $transExcetion)
+    public function transException(bool $transException)
     {
-        $this->transException = $transExcetion;
+        $this->transException = $transException;
 
         return $this;
     }
@@ -1519,7 +1519,7 @@ abstract class BaseConnection implements ConnectionInterface
         if (! empty($this->dataCache['table_names'])) {
             $key = array_search(
                 strtolower($tableName),
-                array_map('strtolower', $this->dataCache['table_names']),
+                array_map(strtolower(...), $this->dataCache['table_names']),
                 true
             );
 

@@ -43,6 +43,8 @@ use PHPUnit\TestRunner\TestResult\TestResult;
 use PHPUnit\TextUI\Output\Printer;
 
 /**
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+ *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 final class ResultPrinter
@@ -142,11 +144,6 @@ final class ResultPrinter
             $this->printIssueList('PHP deprecation', $result->phpDeprecations());
             $this->printIssueList('deprecation', $result->deprecations());
         }
-    }
-
-    public function flush(): void
-    {
-        $this->printer->flush();
     }
 
     private function printPhpunitErrors(TestResult $result): void

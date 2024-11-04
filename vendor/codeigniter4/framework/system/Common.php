@@ -28,6 +28,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Language\Language;
 use CodeIgniter\Model;
 use CodeIgniter\Session\Session;
 use CodeIgniter\Test\TestLogger;
@@ -732,6 +733,7 @@ if (! function_exists('lang')) {
      */
     function lang(string $line, array $args = [], ?string $locale = null)
     {
+        /** @var Language $language */
         $language = service('language');
 
         // Get active locale
@@ -766,10 +768,8 @@ if (! function_exists('log_message')) {
      *  - notice
      *  - info
      *  - debug
-     *
-     * @return void
      */
-    function log_message(string $level, string $message, array $context = [])
+    function log_message(string $level, string $message, array $context = []): void
     {
         // When running tests, we want to always ensure that the
         // TestLogger is running, which provides utilities for

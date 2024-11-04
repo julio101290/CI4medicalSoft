@@ -102,7 +102,7 @@
         <!-- Render section boilerplate js -->
         <?= $this->renderSection('js') ?>
         <script>
-            $.ajaxSetup({headers: {'<?= config('App')->CSRFHeaderName ?>': $('meta[name="<?= config('App')->CSRFTokenName ?>"]').attr('content')}})
+            $.ajaxSetup({headers:{'<?= config('Security')->headerName ?>':$('meta[name="<?= config('Security')->tokenName ?>"]').attr('content')}})
         </script>
 
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>

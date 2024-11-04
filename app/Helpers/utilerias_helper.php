@@ -156,3 +156,9 @@ function limpiaCadena($cadena) {
 
     return $cadena;
 }
+
+// CONVIERTE FECHA MYSQLDATETIME A HTML5
+function fechaParaMigraciones($fecha) {
+
+    return date("Y-m-d", strtotime($fecha)) . date("His", strtotime($fecha));
+}

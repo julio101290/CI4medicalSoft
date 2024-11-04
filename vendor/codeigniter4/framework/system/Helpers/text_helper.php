@@ -310,7 +310,7 @@ if (! function_exists('convert_accented_characters')) {
         if (! is_array($arrayFrom)) {
             $config = new ForeignCharacters();
 
-            if (empty($config->characterList) || ! is_array($config->characterList)) {
+            if ($config->characterList === [] || ! is_array($config->characterList)) {
                 $arrayFrom = [];
                 $arrayTo   = [];
 
@@ -526,9 +526,10 @@ if (! function_exists('reduce_multiples')) {
      */
     function reduce_multiples(string $str, string $character = ',', bool $trim = false): string
     {
-        $str = preg_replace('#' . preg_quote($character, '#') . '{2,}#', $character, $str);
+        $pattern = '#' . preg_quote($character, '#') . '{2,}#';
+        $str     = preg_replace($pattern, $character, $str);
 
-        return ($trim) ? trim($str, $character) : $str;
+        return $trim ? trim($str, $character) : $str;
     }
 }
 

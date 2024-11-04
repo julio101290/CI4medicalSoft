@@ -11,6 +11,7 @@ namespace PHPUnit\Metadata\Parser;
 
 use function array_merge;
 use function assert;
+use function class_exists;
 use function count;
 use function explode;
 use function method_exists;
@@ -35,6 +36,8 @@ use PHPUnit\Util\InvalidVersionOperatorException;
 use PHPUnit\Util\VersionComparisonOperator;
 
 /**
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+ *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 final class AnnotationParser implements Parser
@@ -48,6 +51,8 @@ final class AnnotationParser implements Parser
      */
     public function forClass(string $className): MetadataCollection
     {
+        assert(class_exists($className));
+
         $result = [];
 
         foreach (AnnotationRegistry::getInstance()->forClassName($className)->symbolAnnotations() as $annotation => $values) {
@@ -181,6 +186,9 @@ final class AnnotationParser implements Parser
      */
     public function forMethod(string $className, string $methodName): MetadataCollection
     {
+        assert(class_exists($className));
+        assert(method_exists($className, $methodName));
+
         $result = [];
 
         foreach (AnnotationRegistry::getInstance()->forMethod($className, $methodName)->symbolAnnotations() as $annotation => $values) {

@@ -41,13 +41,13 @@ $routes->group('admin', function ($routes) {
 
 
 
-       $routes->group('/', [
-        'filter'    => config('Boilerplate')->dashboard['filter'],
+    $routes->group('/', [
+        'filter' => config('Boilerplate')->dashboard['filter'],
         'namespace' => config('Boilerplate')->dashboard['namespace'],
-    ], function ($routes) {
-        $routes->get('/', config('Boilerplate')->dashboard['controller']);
-    });
-    
+            ], function ($routes) {
+                $routes->get('/', config('Boilerplate')->dashboard['controller']);
+            });
+
     $routes->resource('settings', [
         'filter' => 'permission:configuracion-permiso',
         'controller' => 'HospitalController',
@@ -132,13 +132,23 @@ $routes->group('admin', function ($routes) {
     $routes->get('consultas/reporte/(:any)', 'ConsultasController::reporte/$1');
 
     $routes->get('consultas/listaConsultas', 'ConsultasController::index');
-    
+
     $routes->get('consultas/consultasAnteriores/(:any)', 'ConsultasController::consultasAnteriores/$1');
 
     $routes->resource('consultas', [
         'controller' => 'ConsultasController',
         'except' => 'show'
     ]);
+
+    $routes->get('generateCRUD/(:any)', 'AutoCrudController::index/$1');
+
+    $routes->resource('bitacora', [
+        'filter' => 'permission:bitacora-permission',
+        'controller' => 'bitacoraController',
+        'except' => 'show'
+    ]);
+    $routes->post('bitacora/save', 'BitacoraController::save');
+    $routes->post('bitacora/getBitacora', 'BitacoraController::getBitacora');
 });
 
 /*

@@ -1,68 +1,103 @@
-# CodeIgniter 4 Application Starter
+![image](https://thumbs.odycdn.com/be73a58cfd2772e104b79e9df844ab69.webp)
+I am pleased to announce that we already have the first versions of the medical software on which we have been working, details may still emerge, but they are being corrected
 
-## What is CodeIgniter?
+## What is CodeIgniter 4 medicalSoft?
+CodeIgniter 4 medicalSoft is a basic software for the correct administration/handling of the patient catalog, medical history, date control, printing of prescriptions.
+Characteristics
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+1. Registrations, Cancellations and changes of Patients
+2. Registrations, cancellations and changes Medications
+3. discharges, discharges and changes in diagnoses/illnesses
+4. Registration of Medical Appointments
+5. Register medical consultation
+6. Print medical prescription in PDF
+7. General Hospital Configurations
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Installation and updates
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+Manual installation via composer is a simple one run
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+	composer create-project julio101290/ci4medical-soft 
 
-## Installation & updates
+And then composer update every time there is a new version of the framework.
+When updating, check the release notes to see if there are any changes you need to apply to your app folder. Affected files can be copied or merged from vendor/codeigniter4/framework/app.
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+Copy env to .env and customize it for your application, specifically the baseURL and any database settings.
+Database
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+You can find the database file in the database in the database/medicalsoft2022.sql folder
+Soon we will create the migration files to build the tables without having to run the .sql file
+Additionally, as changes are made, we will generate an installable application for Windows so that installation is as easy as possible.
 
-## Setup
+## Desktop app installer
+![image](https://thumbs.odycdn.com/a80d3949d1faab179a9c5ca0eb77d6b8.webp)
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+On the route we leave it as it is and click on the next button
 
-## Important Change with index.php
+![image](https://thumbs.odycdn.com/38f8b800ede030eb9d163c588f43f71d.webp)
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+We activate the box so that the direct access to the desktop is generated
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+![image](https://thumbs.odycdn.com/5a9d482d3e458162be2f0ffa781e763e.webp)
 
-**Please** read the user guide for a better explanation of how CI4 works!
+We verify that the information is correct
 
-## Repository Management
+![image](https://thumbs.odycdn.com/5f3a3b7511b22b0df964939778b4eafd.webp)
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+Once you click it, it will begin to install
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+![image](https://thumbs.odycdn.com/2e6242443a51497bd0d3800d388f8c9e.webp)
 
-## Server Requirements
+Once finished, the login window appears. If the screen appears blank, close the window and open it again. The user is admin and the password is super-admin.
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+![image](https://thumbs.odycdn.com/e9a740a7f56d375ded4cb470573c0195.webp)
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+Once entered into the system, it will show us the main screen and we can start using the MedicalSoft system.
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+![image](https://thumbs.odycdn.com/bda55019fad5872869d7cc5244fb5ad4.webp)
 
-Additionally, make sure that the following extensions are enabled in your PHP:
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+## Important change with index.php
+
+index.php is no longer in the project root! It has been moved inside the public folder for better security and separation of components.
+
+This means that you must configure your web server to “point” to your project's public folder and not to the project root. A best practice would be to configure a virtual host to point there. Bad practice would be to point your web server at the root of the project and expect to enter public/…, as the rest of your logic and the framework are exposed.
+
+Please read the user guide for a better explanation of how CI4 works!
+Server requirements
+PHP version 7.4 or higher is required, with the following extensions installed:
+•	intl
+•	libcurl if you plan to use HTTP\CURLRequest library
+
+Also, make sure the following extensions are enabled in your PHP:
+•	json (enabled by default – do not turn it off )
+•	mbstring
+•	mysqlnd
+•	xml ( enabled by default – do not turn it off )
+
+Demo at https://medicalsoft.cesarsystems.com.mx/ user:user password:super-user
+
+
+## Screenshots
+
+![image](https://thumbs.odycdn.com/dfad55329694dace94abf4b6c9ff3fd6.webp)
+
+![image](https://thumbs.odycdn.com/7d4c5c58c0f3f3063400f3179e4ef41e.webp)
+
+![image](https://thumbs.odycdn.com/e1bf7ce98e4a3a3e0945658daa532c9d.webp)
+
+![image](https://thumbs.odycdn.com/1dfacdb4f7c489325c7407c09c62e33e.webp)
+
+![image](https://thumbs.odycdn.com/839124795686bb19c6e28b4a6624b07b.webp)
+
+![image](https://thumbs.odycdn.com/44873800b2f5756fe5da046dd64f355c.webp)
+
+![image](https://thumbs.odycdn.com/6b45d82b54de91c8d9277e99718c5ddc.webp)
+
+![image](https://thumbs.odycdn.com/af78139fcf9a32b60871794ea8381c17.webp)
+
+![image](https://thumbs.odycdn.com/666705540d8dccafdad135a7ec61282b.webp)
+
+![image](https://thumbs.odycdn.com/4a56e92bb38dcbc765ae410786594b33.webp)
+
+![image](https://thumbs.odycdn.com/b5ecce0b95e0893d7b4cd3187d382d99.webp)

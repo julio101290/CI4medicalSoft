@@ -66,7 +66,7 @@ class Boilerplate extends BaseConfig
                 'bg'   => 'gray-dark',
                 'logo' => [
                     'icon'   => 'favicon.ico', // path to image | this example icon on public root folder.
-                    'text'   => '<strong>Bo</strong>ilerplate',
+                    'text'   => '<strong>CI4</strong>MedicalSoft',
                     'shadow' => 2,
                 ],
             ],
@@ -78,7 +78,7 @@ class Boilerplate extends BaseConfig
         'footer' => [
             'fixed'      => false,
             'vendorname' => 'Cesar Systems',
-            'vendorlink' => 'https://cesarsystems.com.mx/',
+            'vendorlink' => 'https://cesarsystems.com.mx/ci4medicalsoft-lanzado',
         ],
     ];
 }
