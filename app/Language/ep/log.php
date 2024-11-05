@@ -1,10 +1,9 @@
 <?php
 
-$log["title"] = "Bitacora";
-$log["subtitle"] = "Bitacora de eventos";
-$log["description"] = "descripcion";
-$log["user"] = "Usuario";
-$log["date"] = "Fecha";
-
+$log["title"] = "Taglibro";
+$log["subtitle"] = "Taglibro de eventoj";
+$log["description"] = "priskribo";
+$log["user"] = "Uzanto";
+$log["date"] = "Dato";
 
 return $log;

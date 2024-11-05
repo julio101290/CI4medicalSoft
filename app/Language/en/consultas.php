@@ -20,6 +20,7 @@ $consultas["paciente"] = "Patient";
 $consultas["idCOnsulta"] = "ID";
 
 $consultas["motivoConsulta"] = "Reason for consultation";
+$consultas["motivoConsultaPlaceholder"] = "Reason for consultation";
 
 $consultas["seleccionarDiagnostico"] = "Select Diagnostic";
 $consultas["consultasAnteriores"] = "previous consultations";
@@ -38,11 +39,18 @@ $consultas["tratamientoColumna1"] = "Treatment / Medication";
 $consultas["usoColumna2"] = "Use";
 
 $consultas["nuevoDiagnostico"] = "New Diagnost";
+$consultas["agregarDiagnostico"] = "Add diagnosis";
 
 $consultas["nuevoTratamiento"] = "New Treatment";
 $consultas["nuevoPaciente"] = "New Patient";
+$consultas["agregarTratamiento"] = "Add Treatment";
 
 $consultas["folioConsulta"] = "ID Record";
+
+$consultas["guardarConsultaMedica"] = "Save Medical Prescription";
+$consultas["guardarEImprimir"] = "Save and Print";
+$consultas["guardadoCorrectamente"] = "Saved Successfully";
+
 $consultas["pagina"] = "Page";
 
 $consultas["eliminarConsulta"] = "The query that contained the following data was deleted";

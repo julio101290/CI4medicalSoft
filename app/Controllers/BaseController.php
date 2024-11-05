@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Models\ConfiguracionesModel;
 
 /**
  * Class BaseController
@@ -27,6 +28,7 @@ abstract class BaseController extends Controller {
      * @var CLIRequest|IncomingRequest
      */
     protected $request;
+    protected $configuraciones;
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -44,8 +46,36 @@ abstract class BaseController extends Controller {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
+        $this->configuraciones = new ConfiguracionesModel();
+
+        /*
+        $session = \Config\Services::session();
+        $language = \Config\Services::language();
+        $locale = $this->request->getLocale();
+        $currentLanguage = $session->get('language');
+         * 
+         */
+/*
+        $datos = $this->configuraciones->where("id", 1)->first();
+
+        if (!$currentLanguage):
+            $session->set('language', $locale);
+        endif;
+
+        $datos = $this->configuraciones->where("id", 1)->first();
+
+
+        $session->set('language', $datos["languaje"]);
+        $language->setLocale($session->language);
+        $this->request->setLocale('es');
+        Config('App')->negotiateLocale  = true;
+        Config('App')->defaultLocale = $session->language;
+         config('App')->supportedLocales = ['es'];
+        $this->request->setLocale('es');
+ * 
+ * 
+ */
         // Preload any models, libraries, etc, here.
         // E.g.: $this->session = \Config\Services::session();
     }
-
 }

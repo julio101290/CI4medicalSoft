@@ -1,21 +1,18 @@
 <?php
 
-$patients["names"] = "Nombres";
-$patients["lastName"] = "Apellidos";
-$patients["dni"] = "INE";
+$patients["names"] = "Nomi";
+$patients["lastName"] = "Cognomi";
+$patients["dni"] = "Codice Fiscale"; // Equivalente italiano del INE
 $patients["phone"] = "Telefono";
-$patients["email"] = "Correo Electronico";
-$patients["add"] = "Agregar Paciente";
-$patients["updateAt"] = "Fecha Modificacion";
-$patients["actions"] = "Acciones";
-$patients["createEdit"] = "Crear / Editar Paciente";
-$patients["title"] = "Pacientes";
-$patients["subtitle"] = "Lista de Pacientes";
+$patients["email"] = "Indirizzo Email";
+$patients["add"] = "Aggiungi Paziente";
+$patients["updateAt"] = "Data di Modifica";
+$patients["actions"] = "Azioni";
+$patients["createEdit"] = "Crea / Modifica Paziente";
+$patients["title"] = "Pazienti";
+$patients["subtitle"] = "Elenco dei Pazienti";
 
-$patients["msg_delete"] = "El paciente ha sido eliminado correctamente.";
-$patients["msg_get_fail"] = "El paciente no existe o fue eliminado.";
-
-
-
+$patients["msg_delete"] = "Il paziente è stato eliminato correttamente.";
+$patients["msg_get_fail"] = "Il paziente non esiste o è stato eliminato.";
 
 return $patients;

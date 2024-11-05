@@ -13,8 +13,4 @@ $medicamentos["subtitle"] = "Lista de Medicamentos";
 $medicamentos["msg_delete"] = "El medicamento ha sido eliminada .";
 $medicamentos["msg_get_fail"] = "La medicamento no existe o fue eliminada.";
 
-
-
-
-
 return $medicamentos;

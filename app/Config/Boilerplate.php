@@ -30,7 +30,7 @@ class Boilerplate extends BaseConfig
     // pelase see https://cdn.datatables.net/plug-ins/1.10.20/i18n/
     //--------------------------------------------------------------------------
 
-    public $i18n = 'Spanish';
+    public $i18n = 'English';
 
     //--------------------------------------------------------------------------
     // Theme boilerplate

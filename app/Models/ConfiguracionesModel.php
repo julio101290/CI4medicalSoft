@@ -14,7 +14,14 @@ class ConfiguracionesModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['id','nombreHospital', 'RFC','telefono','correoElectronico','direccion'];
+    protected $allowedFields = ['id'
+        ,'nombreHospital'
+        , 'RFC'
+        ,'telefono'
+        ,'correoElectronico'
+        ,'direccion'
+        ,'languaje'
+        ];
 
     
  

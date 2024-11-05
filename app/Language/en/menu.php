@@ -1,20 +1,24 @@
 <?php
 
-$medicamentos["description"] = "Descripcion";
+$menu["dashboard"] = "Dashboard";
+$menu["settings"] = "Settings";
+$menu["perfilUser"] = "User Profile";
+$menu["users"] = "Users";
+$menu["permissions"] = "Permissions";
+$menu["roles"] = "Roles";
+$menu["menu"] = "Menu";
+$menu["hospitalData"] = "Settings Hospital";
+$menu["catalogs"] = "Catalogs";
+$menu["medications"] = "Medications";
 
-$medicamentos["createdAt"] = "Fecha Creación";
-$medicamentos["updateAt"] = "Fecha de Modificación";
-$medicamentos["add"] = "Agregar Medicamentos";
-$medicamentos["actions"] = "Acciones";
-$medicamentos["createEdit"] = "Crear  / Editar Medicamentos";
-$medicamentos["title"] = "Medicamentos";
-$medicamentos["subtitle"] = "Lista de Medicamentos";
+$menu["patiens"] = "Patiens";
+$menu["diagnoses"] = "Diagnoses";
+$menu["operations"] = "Operations";
+$menu["medicalAppointments"] = "Medical Appointments";
+$menu["medicalConsultation"] = "Medical Consultation";
+$menu["listMedicalConsultations"] = "List Medical Consultation";
 
-$medicamentos["msg_delete"] = "El medicamento ha sido eliminada .";
-$medicamentos["msg_get_fail"] = "La medicamento no existe o fue eliminada.";
+$menu["log"] = "Log";
 
 
-
-
-
-return $medicamentos;
+return $menu;

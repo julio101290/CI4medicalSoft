@@ -1,19 +1,19 @@
 <?php
 
-$patients["names"] = "Nombres";
-$patients["lastName"] = "Apellidos";
-$patients["dni"] = "INE";
+$patients["names"] = "Nomoj";
+$patients["lastName"] = "Familiaj Nomoj";
+$patients["dni"] = "Identiga Numero"; // "INE" se traduce como "Identiga Numero" en el contexto
 $patients["phone"] = "Telefono";
-$patients["email"] = "Correo Electronico";
-$patients["add"] = "Agregar Paciente";
-$patients["updateAt"] = "Fecha Modificacion";
-$patients["actions"] = "Acciones";
-$patients["createEdit"] = "Crear / Editar Paciente";
-$patients["title"] = "Pacientes";
-$patients["subtitle"] = "Lista de Pacientes";
+$patients["email"] = "Retpoŝto";
+$patients["add"] = "Aldoni Pacienton";
+$patients["updateAt"] = "Dato de Modifo";
+$patients["actions"] = "Agoj";
+$patients["createEdit"] = "Krei / Redakti Pacienton";
+$patients["title"] = "Pacientoj";
+$patients["subtitle"] = "Listo de Pacientoj";
 
-$patients["msg_delete"] = "El paciente ha sido eliminado correctamente.";
-$patients["msg_get_fail"] = "El paciente no existe o fue eliminado.";
+$patients["msg_delete"] = "La paciento estis sukcese forigita.";
+$patients["msg_get_fail"] = "La paciento ne ekzistas aŭ estis forigita.";
 
 
 

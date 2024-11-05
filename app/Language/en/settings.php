@@ -6,13 +6,21 @@ return [
     * Settings.
     */
    'settings' => [
-       'nameCorporation'      => 'Nome Corporation',
+       'nameCorporation'      => 'Name Corporation',
+       'title'      => 'Settings',
        'direction'     => 'Direction',
        'ID'    => 'DNI',
        'phone'    => 'Phone',
        'email' => 'EMail',
        'title'    => 'Manage Settings',
        'subtitle' => 'Settings',
+       
+       'languaje' => 'Languaje',
+       'languajeOptionEN' => 'English',
+       'languajeOptionES' => 'Spanish',
+       'languajeOptionIT' => 'Italian',
+       'languajeOptionEP' => 'Esperanto',
+       'save' => 'Save',
 
    ],
 

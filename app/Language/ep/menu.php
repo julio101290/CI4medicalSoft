@@ -1,20 +1,24 @@
 <?php
 
-$medicamentos["description"] = "Descripcion";
-
-$medicamentos["createdAt"] = "Fecha Creación";
-$medicamentos["updateAt"] = "Fecha de Modificación";
-$medicamentos["add"] = "Agregar Medicamentos";
-$medicamentos["actions"] = "Acciones";
-$medicamentos["createEdit"] = "Crear  / Editar Medicamentos";
-$medicamentos["title"] = "Medicamentos";
-$medicamentos["subtitle"] = "Lista de Medicamentos";
-
-$medicamentos["msg_delete"] = "El medicamento ha sido eliminada .";
-$medicamentos["msg_get_fail"] = "La medicamento no existe o fue eliminada.";
+$menu["dashboard"] = "Instrumenttabulo";
+$menu["settings"] = "Agordoj";
+$menu["perfilUser"] = "Profila Uzanto";
+$menu["users"] = "Uzantoj";
+$menu["permissions"] = "Rajtoj";
+$menu["roles"] = "Roloj";
+$menu["menu"] = "Menuo";
+$menu["hospitalData"] = "Datumoj de la Hospitalo";
+$menu["catalogs"] = "Katalogoj";
+$menu["medications"] = "Medikamentoj";
 
 
+$menu["patiens"] = "Pacientoj";
+$menu["diagnoses"] = "Diagnostiko";
+$menu["operations"] = "Operacioj";
+$menu["medicalAppointments"] = "Medicinaj Renkontiĝoj";
+$menu["medicalConsultation"] = "Medicina Konsulto";
+$menu["listMedicalConsultations"] = "Listo de Medicinaj Konsultoj";
 
+$menu["log"] = "Taglibro";
 
-
-return $medicamentos;
+return $menu;

@@ -1,18 +1,17 @@
 <?php
 
-$enfermedades["description"] = "Descripcion";
+$enfermedades["description"] = "Priskribo";
 
-$enfermedades["createdAt"] = "Fecha Creación";
-$enfermedades["updateAt"] = "Fecha de Modificación";
-$enfermedades["add"] = "Agregar Enfermedades";
-$enfermedades["actions"] = "Acciones";
-$enfermedades["createEdit"] = "Crear  / Editar Enfermedades";
-$enfermedades["title"] = "Enfermedades";
-$enfermedades["subtitle"] = "Lista de Enfermedades";
+$enfermedades["createdAt"] = "Dato de Kreado";
+$enfermedades["updateAt"] = "Dato de Modifo";
+$enfermedades["add"] = "Aldoni Malsanon";
+$enfermedades["actions"] = "Agoj";
+$enfermedades["createEdit"] = "Krei / Redakti Malsanon";
+$enfermedades["title"] = "Malsanoj";
+$enfermedades["subtitle"] = "Listo de Malsanoj";
 
-$enfermedades["msg_delete"] = "La enfermedad ha sido eliminada .";
-$enfermedades["msg_get_fail"] = "La enfermedad no existe o fue eliminada.";
-
+$enfermedades["msg_delete"] = "La malsano estis forigita.";
+$enfermedades["msg_get_fail"] = "La malsano ne ekzistas aŭ estis forigita.";
 
 
 

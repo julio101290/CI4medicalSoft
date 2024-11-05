@@ -1,18 +1,15 @@
 <?php
 
-$enfermedades["description"] = "Descripcion";
-
-$enfermedades["createdAt"] = "Fecha Creación";
-$enfermedades["updateAt"] = "Fecha de Modificación";
-$enfermedades["add"] = "Agregar Enfermedades";
-$enfermedades["actions"] = "Acciones";
-$enfermedades["createEdit"] = "Crear  / Editar Enfermedades";
-$enfermedades["title"] = "Enfermedades";
-$enfermedades["subtitle"] = "Lista de Enfermedades";
-
-$enfermedades["msg_delete"] = "La enfermedad ha sido eliminada .";
-$enfermedades["msg_get_fail"] = "La enfermedad no existe o fue eliminada.";
-
+$enfermedades["description"] = "Descrizione";
+$enfermedades["createdAt"] = "Data di Creazione";
+$enfermedades["updateAt"] = "Data di Modifica";
+$enfermedades["add"] = "Aggiungi Malattia";
+$enfermedades["actions"] = "Azioni";
+$enfermedades["createEdit"] = "Crea / Modifica Malattia";
+$enfermedades["title"] = "Malattie";
+$enfermedades["subtitle"] = "Elenco delle Malattie";
+$enfermedades["msg_delete"] = "La malattia è stata eliminata.";
+$enfermedades["msg_get_fail"] = "La malattia non esiste o è stata eliminata.";
 
 
 

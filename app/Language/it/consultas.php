@@ -1,75 +1,53 @@
 <?php
 
-$consultas["description"] = "Descripcion";
-
-$consultas["createdAt"] = "Fecha Creación";
-$consultas["updateAt"] = "Fecha de Modificación";
-$consultas["add"] = "Agregar Consulta Medica";
-$consultas["actions"] = "Acciones";
-$consultas["createEdit"] = "Crear  / Editar Consulta Medica";
-$consultas["title"] = "Consulta Medica";
-$consultas["subtitle"] = "Crear Consulta medica";
-
-$consultas["fechaConsulta"] = "Fecha";
-$consultas["medico"] = "Doctor";
-
-$consultas["msg_delete"] = "La consulta medica ha sido eliminada .";
-$consultas["msg_get_fail"] = "La consulta medica no existe o fue eliminada.";
-
-$consultas["generals"] = "Inf. General";
-$consultas["paciente"] = "Paciente";
-$consultas["idConsulta"] = "Folio";
-
-$consultas["motivoConsulta"] = "Motivo de la Consulta";
-
-$consultas["seleccionarDiagnostico"] = "Seleccionar Diagnostico";
-$consultas["consultasAnteriores"] = "Consultas Anteriores";
-$consultas["diagnosticos"] = "Diagnosticos / Enfermedades";
-$consultas["diagnosticosAnteriores"] = "Diagnosticos Anteriores";
-$consultas["diagnosticoEnfermedadColumna1"] = "Diagnostico / Enfermedad";
-
-$consultas["agregarDiagnostico"] = "Agregar diagnostico";
-
-$consultas["medicamentoTratamiento"] = "Medicamento / Tratamiento";
-$consultas["tratamientosAnteriores"] = "Tratamientos anteriores";
-$consultas["medicamentoTratamientoColumna1"] = "Medicamento / Tratamiento";
+$consultas["description"] = "Descrizione";
+$consultas["createdAt"] = "Data di Creazione";
+$consultas["updateAt"] = "Data di Modifica";
+$consultas["add"] = "Aggiungi Visita Medica";
+$consultas["actions"] = "Azioni";
+$consultas["createEdit"] = "Crea / Modifica Visita Medica";
+$consultas["title"] = "Visita Medica";
+$consultas["subtitle"] = "Crea Visita Medica";
+$consultas["fechaConsulta"] = "Data";
+$consultas["medico"] = "Medico";
+$consultas["msg_delete"] = "La visita medica è stata eliminata.";
+$consultas["msg_get_fail"] = "La visita medica non esiste o è stata eliminata.";
+$consultas["generals"] = "Info Generali";
+$consultas["paciente"] = "Paziente";
+$consultas["idConsulta"] = "Numero Pratica"; // O "Codice Visita"
+$consultas["motivoConsulta"] = "Motivo della Visita";
+$consultas["seleccionarDiagnostico"] = "Seleziona Diagnosi";
+$consultas["consultasAnteriores"] = "Visite Precedenti";
+$consultas["diagnosticos"] = "Diagnosi / Malattie";
+$consultas["diagnosticosAnteriores"] = "Diagnosi Precedenti";
+$consultas["diagnosticoEnfermedadColumna1"] = "Diagnosi / Malattia";
+$consultas["agregarDiagnostico"] = "Aggiungi Diagnosi";
+$consultas["medicamentoTratamiento"] = "Farmaco / Trattamento";
+$consultas["tratamientosAnteriores"] = "Trattamenti Precedenti";
+$consultas["medicamentoTratamientoColumna1"] = "Farmaco / Trattamento";
 $consultas["usoColumna2"] = "Uso";
-
-$consultas["agregarTratamiento"] = "Agregar Tratamiento";
-$consultas["motivoConsultaPlaceholder"] = "Motivo de la consulta";
-
-$consultas["seleccionarTratamiento"] = "Seleccionar Tratamiento";
-$consultas["tratamientosAnteriores"] = "Tratamientos Anteriores";
-$consultas["tratamientos"] = "Tratamientos / Medicamentos";
-$consultas["tratamientoColumna1"] = "Tratamiento / Medicamento";
-
-$consultas["nuevoDiagnostico"] = "Nuevo Diagnostico";
-$consultas["nuevoTratamiento"] = "Nuevo Tratamiento";
-$consultas["nuevoPaciente"] = "Nuevo Paciente";
-
-$consultas["folioConsulta"] = "Folio Consulta";
-$consultas["pagina"] = "Página";
-
-
-$consultas["listaTitle"] = "Consultas Medicas";
-$consultas["listaSubtitle"] = "Lista de ConsultasMedicas";
-
-$consultas["eliminarConsulta"] = "Se elimino la consulta que contenia los siguientes datos";
-$consultas["actualizarConsulta"] = "Se actualizo de la consulta con los siguientes datos:";
-$consultas["guardarConsulta"] = "Se guardo la consulta con los siguientes datos: ";
-$consultas["columnaConsultasAnterioresDescripcion"] = "Motivo Consulta";
-
-$consultas["modalConsultasAnteriores"] = "Motivos Consultas Anteriores";
-$consultas["modalDiagnosticosAnteriores"] = "Diagnosticos Anteriores";
-
-
-
- 
-
-
-
-
-
+$consultas["agregarTratamiento"] = "Aggiungi Trattamento";
+$consultas["motivoConsultaPlaceholder"] = "Motivo della visita";
+$consultas["guardarConsultaMedica"] = "Salva Ricetta Medica";
+$consultas["guardarEImprimir"] = "Salva e Stampa";
+$consultas["seleccionarTratamiento"] = "Seleziona Trattamento";
+$consultas["tratamientosAnteriores"] = "Trattamenti Precedenti";
+$consultas["tratamientos"] = "Trattamenti / Farmaci";
+$consultas["tratamientoColumna1"] = "Trattamento / Farmaco";
+$consultas["nuevoDiagnostico"] = "Nuova Diagnosi";
+$consultas["nuevoTratamiento"] = "Nuovo Trattamento";
+$consultas["nuevoPaciente"] = "Nuovo Paziente";
+$consultas["folioConsulta"] = "Numero Pratica della Visita"; // O "Codice Visita"
+$consultas["pagina"] = "Pagina";
+$consultas["listaTitle"] = "Visite Mediche";
+$consultas["listaSubtitle"] = "Elenco delle Visite Mediche";
+$consultas["guardadoCorrectamente"] = "Salvato Correttamente";
+$consultas["eliminarConsulta"] = "È stata eliminata la visita con i seguenti dati";
+$consultas["actualizarConsulta"] = "È stata aggiornata la visita con i seguenti dati:";
+$consultas["guardarConsulta"] = "È stata salvata la visita con i seguenti dati: ";
+$consultas["columnaConsultasAnterioresDescripcion"] = "Motivo della Visita";
+$consultas["modalConsultasAnteriores"] = "Motivi delle Visite Precedenti";
+$consultas["modalDiagnosticosAnteriores"] = "Diagnosi Precedenti";
 
 
 return $consultas;

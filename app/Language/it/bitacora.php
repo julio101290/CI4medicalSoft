@@ -1,24 +1,24 @@
- <?php
-$bitacora["logDescription"] = "El registro en bitacora fue guardado con los siguientes datos:";
-$bitacora["logUpdate"] = "El registro en bitacora fue actualizado con los siguientes datos:";
-$bitacora["logDeleted"] = "El registro en bitacora fue eliminado con los siguientes datos:";
-$bitacora["msg_delete"] = "El Registro en bitacora fue eliminado correctamente:";
-$bitacora["add"] = "Agregar Bitacora";
-$bitacora["edit"] = "Editar bitacora";
-$bitacora["createEdit"] = "Crear / Editar";
-$bitacora["title"] = "Admon. bitacora";
-$bitacora["subtitle"] = "Lista bitacora";
-$bitacora["fields"]["descripcion"] = "Descripcion";
-$bitacora["fields"]["usuario"] = "Usuario";
-$bitacora["fields"]["created_at"] = "Created_at";
-$bitacora["fields"]["deleted_at"] = "Deleted_at";
-$bitacora["fields"]["updated_at"] = "Updated_at";
+<?php
 
- $bitacora["fields"]["actions"] = "Acciones";       
-$bitacora["msg"]["msg_insert"] = "Registro agregado correctamente.";
-$bitacora["msg"]["msg_update"] = "Registro modificado correctamente.";
-$bitacora["msg"]["msg_delete"] = "Registro eliminado correctamente.";
-$bitacora["msg"]["msg_get"] = "Registro obtenido correctamente.";
-$bitacora["msg"]["msg_get_fail"] = "Registro no encontrado o eliminado.";
+$bitacora["logDescription"] = "Il record del log è stato salvato con i seguenti dati:";
+$bitacora["logUpdate"] = "Il record del log è stato aggiornato con i seguenti dati:";
+$bitacora["logDeleted"] = "Il record di log è stato cancellato con i seguenti dati:";
+$bitacora["msg_delete"] = "Il record di registro è stato eliminato con successo:";
+$bitacora["add"] = "Aggiungi registro";
+$bitacora["edit"] = "Modifica registro";
+$bitacora["createEdit"] = "Crea/Modifica";
+$bitacora["title"] = "Registra amministratore";
+$bitacora["subtitle"] = "Elenco registri";
+$bitacora["fields"]["descripcion"] = "Descrizione";
+$bitacora["fields"]["usuario"] = "Utente";
+$bitacora["fields"]["created_at"] = "Creato_a";
+$bitacora["fields"]["deleted_at"] = "Eliminato_a";
+$bitacora["fields"]["updated_at"] = "Aggiornato_a";
+$bitacora["fields"]["actions"] = "Azioni";
+$bitacora["msg"]["msg_insert"] = "Record aggiunto con successo.";
+$bitacora["msg"]["msg_update"] = "Record modificato con successo.";
+$bitacora["msg"]["msg_delete"] = "Record eliminato con successo.";
+$bitacora["msg"]["msg_get"] = "Registrazione ottenuta con successo.";
+$bitacora["msg"]["msg_get_fail"] = "Record non trovato o eliminato.";
+
 return $bitacora;
-        

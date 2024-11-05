@@ -38,6 +38,9 @@ $consultas["usoColumna2"] = "Uso";
 $consultas["agregarTratamiento"] = "Agregar Tratamiento";
 $consultas["motivoConsultaPlaceholder"] = "Motivo de la consulta";
 
+$consultas["guardarConsultaMedica"] = "Guardar Receta Médica";
+$consultas["guardarEImprimir"] = "Guardar e Imprimir";
+
 $consultas["seleccionarTratamiento"] = "Seleccionar Tratamiento";
 $consultas["tratamientosAnteriores"] = "Tratamientos Anteriores";
 $consultas["tratamientos"] = "Tratamientos / Medicamentos";
@@ -53,6 +56,8 @@ $consultas["pagina"] = "Página";
 
 $consultas["listaTitle"] = "Consultas Medicas";
 $consultas["listaSubtitle"] = "Lista de ConsultasMedicas";
+
+$consultas["guardadoCorrectamente"] = "Guardado Satisfactoriamente";
 
 $consultas["eliminarConsulta"] = "Se elimino la consulta que contenia los siguientes datos";
 $consultas["actualizarConsulta"] = "Se actualizo de la consulta con los siguientes datos:";

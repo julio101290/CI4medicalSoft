@@ -1,10 +1,10 @@
 <?php
 
-$dashboard["totalCitas"] = "Total Citas";
-$dashboard["totalConsultas"] = "Total Consultas";
-$dashboard["totalMedicamentos"] = "Total Medicamentos";
-$dashboard["totalPacientes"] = "Total Pacientes";
-$dashboard["moreInfo"] = "Más Información";
+$dashboard["totalCitas"] = "Totale Visite";
+$dashboard["totalConsultas"] = "Totale Consulenze";
+$dashboard["totalMedicamentos"] = "Totale Farmaci";
+$dashboard["totalPacientes"] = "Totale Pazienti";
+$dashboard["moreInfo"] = "Maggiori Informazioni";
 
 return $dashboard;
 

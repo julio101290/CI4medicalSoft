@@ -237,10 +237,10 @@
                         <div class="box-footer">
 
 
-                            <button type="button" class="btn btn-primary pull-right btnGuardarConsultaAjax" data-toggle="modal">  <i class="fa far fa-save"> </i> Guardar Receta Médica</button>
+                            <button type="button" class="btn btn-primary pull-right btnGuardarConsultaAjax" data-toggle="modal">  <i class="fa far fa-save"> </i> <?= lang('consultas.guardarConsultaMedica') ?></button>
 
                             <button type="button" class="btn bg-maroon btnImprimirConsulta" data-toggle="modal" required="" data-placement="top" title="Imprimir Examen">
-                                <i class="fa fa-print"> </i>  Guardar e Imprimir
+                                <i class="fa fa-print"> </i>  <?= lang('consultas.guardarEImprimir') ?>
                             </button>
 
                         </div>
@@ -366,7 +366,7 @@
 
                     Toast.fire({
                         icon: 'success',
-                        title: "Guardado Correctamente"
+                        title: "<?= lang('consultas.guardadoCorrectamente') ?>"
                     });
 
                     $(".btnGuardarConsultaAjax").removeAttr("disabled");

@@ -2,19 +2,16 @@
 
 return [
 
-   /**
-    * Settings.
-    */
-   'settings' => [
-       'nameCorporation'      => 'Nombre Empresa',
-       'direction'     => 'Dirección',
-       'ID'    => 'RFC',
-       'phone'    => 'Telefono',
-       'email' => 'Correo Electrónico',
-       'title'    => 'Administrar Configuraciones',
-       'subtitle' => 'Configuraciones',
-
-   ],
-
-
+    /**
+     * Agordoj.
+     */
+    'settings' => [
+        'nameCorporation'  => 'Nomo de la Entrepreno',
+        'direction'        => 'Adreso',
+        'ID'               => 'Federala Imposta Registra Kodo', // RFC en español se traduce como "Federala Imposta Registra Kodo" en esperanto
+        'phone'            => 'Telefono',
+        'email'           => 'Retpoŝto',
+        'title'           => 'Administri Agordojn',
+        'subtitle'        => 'Agordoj',
+    ],
 ];
