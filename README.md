@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://packagist.org/packages/julio101290/ci4medical-soft"><img src="https://poser.pugx.org/julio101290/boilerplate/version"></a>
-<a href="https://packagist.org/packages/julio101290/ci4medical-soft"><img src="https://img.shields.io/badge/Package-julio101290%2Fci4medical-soft-light.svg"></a>
+<a href="https://packagist.org/packages/julio101290/ci4medical-soft"><img src="https://img.shields.io/badge/Package-ci4medical-soft-light.svg"></a>
 <a href="https://packagist.org/packages/julio101290/ci4medical-soft"><img src="https://poser.pugx.org/julio101290/ci4medical-soft/downloads"</img></a>
 <a href="https://github.com/julio101290/ci4medical-soft/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/julio101290/ci4medical-soft"></a>
 </p>
