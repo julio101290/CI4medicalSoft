@@ -1,4 +1,3 @@
-[![Latest Stable Version](http://poser.pugx.org/julio101290/ci4medical-soft/v)](https://packagist.org/packages/julio101290/ci4medical-soft) [![Total Downloads](http://poser.pugx.org/julio101290/ci4medical-soft/downloads)](https://packagist.org/packages/julio101290/ci4medical-soft) [![Latest Unstable Version](http://poser.pugx.org/julio101290/ci4medical-soft/v/unstable)](https://packagist.org/packages/julio101290/ci4medical-soft) [![License](http://poser.pugx.org/julio101290/ci4medical-soft/license)](https://packagist.org/packages/julio101290/ci4medical-soft) [![PHP Version Require](http://poser.pugx.org/julio101290/ci4medical-soft/require/php)](https://packagist.org/packages/julio101290/ci4medical-soft)
 
 
 I am pleased to announce that we already have the first versions of the medical software on which we have been working, details may still emerge, but they are being corrected
