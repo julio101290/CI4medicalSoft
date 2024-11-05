@@ -1,8 +1,5 @@
 <p align="center">
-<a href="https://packagist.org/packages/julio101290/ci4medical-soft"><img src="https://poser.pugx.org/julio101290/boilerplate/version"></a>
-<a href="https://packagist.org/packages/julio101290/ci4medical-soft"><img src="https://img.shields.io/badge/Package-CI4medicalSoft-light.svg"></a>
-<a href="https://packagist.org/packages/julio101290/ci4medical-soft"><img src="https://poser.pugx.org/julio101290/CI4medicalSoft/downloads"</img></a>
-<a href="https://github.com/julio101290/CI4medicalSoft /blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/julio101290/CI4medicalSoft "></a>
+[![Latest Stable Version](http://poser.pugx.org/julio101290/ci4medical-soft/v)](https://packagist.org/packages/julio101290/ci4medical-soft) [![Total Downloads](http://poser.pugx.org/julio101290/ci4medical-soft/downloads)](https://packagist.org/packages/julio101290/ci4medical-soft) [![Latest Unstable Version](http://poser.pugx.org/julio101290/ci4medical-soft/v/unstable)](https://packagist.org/packages/julio101290/ci4medical-soft) [![License](http://poser.pugx.org/julio101290/ci4medical-soft/license)](https://packagist.org/packages/julio101290/ci4medical-soft) [![PHP Version Require](http://poser.pugx.org/julio101290/ci4medical-soft/require/php)](https://packagist.org/packages/julio101290/ci4medical-soft)
 </p>
 
 ![image](https://thumbs.odycdn.com/be73a58cfd2772e104b79e9df844ab69.webp)
