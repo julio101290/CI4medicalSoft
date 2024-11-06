@@ -68,9 +68,24 @@ class HospitalController extends BaseController {
         $locale = $this->request->getLocale();
 
         $str = file_get_contents(ROOTPATH . "app/Config/App.php");
+        
+        $languajeNew = "English";
+        switch ($_POST["languaje"]) {
+            case "en":
+                $languajeNew = "en";
+                break;
+            case "es":
+                $languajeNew = "es";
+                break;
+            case "eo":
+                $languajeNew = "eo";
+                break;
+            case "de":
+                $languajeNew = "de";
+        }
 
         //replace something in the file string - this is a VERY simple example
-        $str = str_replace("public string \$defaultLocale = '$locale';", "public string \$defaultLocale = '$_POST[languaje]';", $str);
+        $str = str_replace("public string \$defaultLocale = '$locale';", "public string \$defaultLocale = '$languajeNew';", $str);
 
         //write the entire string
         file_put_contents(ROOTPATH . "app/Config/App.php", $str);
@@ -94,7 +109,7 @@ class HospitalController extends BaseController {
                 $newi18n = "Esperanto";
                 break;
             case "de":
-               $newi18n = "German";
+                $newi18n = "German";
         }
 
         $boilerplate = str_replace("public \$i18n = '$i18n';", "public \$i18n = '$newi18n';", $boilerplate);
