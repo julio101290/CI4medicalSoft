@@ -78,6 +78,30 @@ class HospitalController extends BaseController {
         $session->set('language', $_POST["languaje"]);
         $language->setLocale($session->language);
 
+        $i18n = Config('Boilerplate')->i18n;
+
+        $boilerplate = file_get_contents(ROOTPATH . "app/Config/Boilerplate.php");
+
+        $newi18n = 'English';
+        switch ($_POST["languaje"]) {
+            case "en":
+                $newi18n = "English";
+                break;
+            case "es":
+                $newi18n = "Spanish";
+                break;
+            case "eo":
+                $newi18n = "Esperanto";
+                break;
+            case "de":
+               $newi18n = "German";
+        }
+
+        $boilerplate = str_replace("public \$i18n = '$i18n';", "public \$i18n = '$newi18n';", $boilerplate);
+
+        //write the entire string
+        file_put_contents(ROOTPATH . "app/Config/Boilerplate.php", $boilerplate);
+
         $menu = array(
             array('id' => '1', 'parent_id' => '0', 'active' => '1', 'title' => lang('menu.dashboard'), 'icon' => 'fas fa-tachometer-alt', 'route' => 'admin', 'sequence' => '1', 'created_at' => '2022-12-20 22:39:17', 'updated_at' => '2022-12-20 23:09:10'),
             array('id' => '2', 'parent_id' => '0', 'active' => '1', 'title' => lang('menu.settings'), 'icon' => 'fas fa-share-alt', 'route' => '#', 'sequence' => '11', 'created_at' => '2022-12-20 22:39:17', 'updated_at' => '2022-12-20 23:09:10'),
@@ -153,11 +177,10 @@ class HospitalController extends BaseController {
         $files = glob(ROOTPATH . "writable/cache/*"); // get all file names
         foreach ($files as $file) { // iterate files
             if (is_file($file)) {
-                if (str_contains($file, "group_menu") || str_contains($file, "permissions")){
-                    
+                if (str_contains($file, "group_menu") || str_contains($file, "permissions")) {
+
                     unlink($file); // delete file
                 }
-                
             }
         }
 
