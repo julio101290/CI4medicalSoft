@@ -20,6 +20,7 @@ return [
        'languajeOptionES' => 'Spanish',
        'languajeOptionIT' => 'Italian',
        'languajeOptionEP' => 'Esperanto',
+       'languajeOptionDE' => 'German',
        'save' => 'Save',
 
    ],

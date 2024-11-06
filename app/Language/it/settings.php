@@ -1,18 +1,21 @@
 <?php
 
 return [
-
-    /**
-     * Configurazioni.
-     */
     'settings' => [
-        'nameCorporation'  => 'Nome Azienda',
-        'direction'        => 'Indirizzo',
-        'ID'               => 'Partita IVA', // Equivalente italiano del RFC
-        'phone'            => 'Telefono',
-        'email'            => 'Indirizzo Email',
-        'title'            => 'Gestisci Configurazioni',
-        'subtitle'         => 'Configurazioni',
-    ],
-
+        'nameCorporation' => 'Nome della Società',
+        'title' => 'Impostazioni',
+        'direction' => 'Indirizzo',
+        'ID' => 'ID', // Normalmente in Italia si usa "Codice Fiscale" per le persone e "Partita IVA" per le aziende
+        'phone' => 'Telefono',
+        'email' => 'Email',
+        'title' => 'Gestisci Impostazioni',
+        'subtitle' => 'Impostazioni',
+        'languaje' => 'Lingua',
+        'languajeOptionEN' => 'Inglese',
+        'languajeOptionES' => 'Spagnolo',
+        'languajeOptionIT' => 'Italiano',
+        'languajeOptionEP' => 'Esperanto',
+        'languajeOptionDE' => 'Tedesco',
+        'save' => 'Salva'
+    ]
 ];

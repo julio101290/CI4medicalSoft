@@ -52,7 +52,8 @@
                                     <option value="en"><?= lang('settings.settings.languajeOptionEN') ?></option>
                                     <option value="es"><?= lang('settings.settings.languajeOptionES') ?></option>
                                     <option value="it"><?= lang('settings.settings.languajeOptionIT') ?></option>
-                                    <option value="ep"><?= lang('settings.settings.languajeOptionEP') ?></option>
+                                    <option value="de"><?= lang('settings.settings.languajeOptionDE') ?></option>
+                                    <option value="eo"><?= lang('settings.settings.languajeOptionEP') ?></option>
 
                                 </select>
                             </div>
