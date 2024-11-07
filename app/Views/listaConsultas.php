@@ -111,6 +111,7 @@
                     return `<td class="text-right py-0 align-middle">
                             <div class="btn-group btn-group-sm">
                                 <button class="btn bg-blue btnImprimirConsulta" uuid="${data.uuid}" ><i class="far fa-file-pdf"></i></button>
+                                <a href="<?= base_url('admin/consultas/editarConsulta') ?>/${data.id}" class="btn btn-warning btn-edit"><i class="fas fa-pencil-alt"></i></a>
                                 <button class="btn btn-danger btn-delete" data-id="${data.id}"><i class="fas fa-trash"></i></button>
                             </div>
                             </td>`

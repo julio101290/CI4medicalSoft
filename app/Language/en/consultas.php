@@ -25,8 +25,8 @@ $consultas["motivoConsultaPlaceholder"] = "Reason for consultation";
 $consultas["seleccionarDiagnostico"] = "Select Diagnostic";
 $consultas["consultasAnteriores"] = "previous consultations";
 $consultas["diagnosticos"] = "diagnoses / Diseases";
-$consultas["diagnosticosAnteriores"] = "Diagnosticos Anteriores";
-$consultas["diagnosticoEnfermedadColumna1"] = "Diagnostico / Dolencia";
+$consultas["diagnosticosAnteriores"] = "previus diagnoses";
+$consultas["diagnosticoEnfermedadColumna1"] = "Diagnosis / Ailment";
 
 $consultas["medicamentoTratamiento"] = "Medication / Treatment";
 $consultas["tratamientosAnteriores"] = "previous treatments";

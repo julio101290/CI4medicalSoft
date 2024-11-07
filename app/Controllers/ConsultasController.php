@@ -56,13 +56,12 @@ class ConsultasController extends BaseController {
 //$data["data"] = $datos;
         return view('listaConsultas', $titulos);
     }
-    
-    
-        public function consultasAnteriores($paciente) {
+
+    public function consultasAnteriores($paciente) {
 
 
         if ($this->request->isAJAX()) {
-            
+
 
             $datos = $this->consultas->mdlTraeConsultasPorPaciente($paciente);
 
@@ -76,14 +75,11 @@ class ConsultasController extends BaseController {
 
         return view('listaConsultas', $titulos);
     }
-    
-    
 
-/**
- * Genera la consulta
- * @return type
- */
-
+    /**
+     * Genera la consulta
+     * @return type
+     */
     public function generarConsulta() {
 
 
@@ -98,8 +94,51 @@ class ConsultasController extends BaseController {
 
         $titulos["uuid"] = generaUUID();
 
+        $titulos["idPaciente"] = "0";
+        $titulos["nombrePaciente"] = lang('citas.seleccionePaciente');
+        $titulos["idConsulta"] = 0;
+        $titulos["motivoConsulta"] = "";
+
         $titulos["title"] = lang('consultas.title');
         $titulos["subtitle"] = lang('consultas.subtitle');
+
+        return view('consultaMedica', $titulos);
+    }
+
+    /**
+     * Genera la consulta
+     * @return type
+     */
+    public function editarConsulta($idConsulta) {
+
+
+        helper('auth');
+        $userName = user()->username;
+        $idUser = user()->id;
+
+        $datosConsulta = $this->consultas->mdlTraeConsulta($idConsulta);
+        $diagnosticosConsulta = $this->diagnosticosConsultas->mdlGetDiagnosesPerConsultation($idConsulta);
+        $tratamientosConsulta = $this->tratamientosConsultas->mdlGetTreatmentForConsultation($idConsulta);
+
+        $fechaActual = fechaMySQLADateTimeHTML5(fechaHoraActual());
+        $titulos["fecha"] = $datosConsulta[0]["fechaHora"];
+        $titulos["userName"] = $datosConsulta[0]["nombreDoctor"];
+        $titulos["idUser"] = $datosConsulta[0]["idDoctor"];
+
+        $titulos["uuid"] = $datosConsulta[0]["uuid"];
+
+        $titulos["title"] = lang('consultas.title');
+        $titulos["subtitle"] = lang('consultas.subtitle');
+
+        $titulos["idPaciente"] = $datosConsulta[0]["paciente"];
+        $titulos["nombrePaciente"] = $datosConsulta[0]["nombrePaciente"];
+        $titulos["idConsulta"] = $datosConsulta[0]["idConsulta"];
+        $titulos["motivoConsulta"] = $datosConsulta[0]["motivoConsulta"];
+
+        $titulos["diagnosticosConsulta"] = $diagnosticosConsulta;
+        $titulos["tratamientosConsulta"] = $tratamientosConsulta;
+        
+     
 
         return view('consultaMedica', $titulos);
     }
@@ -225,11 +264,10 @@ class ConsultasController extends BaseController {
             } else {
 
 
-                $this->tratamientosConsultas->where("idConsulta", $consultaAnterior["id"],)->delete();
-                $this->tratamientosConsultas->purgeDeleted();
+                $this->diagnosticosConsultas->where("idConsulta", $consultaAnterior["id"],)->delete();
+                $this->diagnosticosConsultas->purgeDeleted();
                 $intContador = 0;
-                
-                
+
                 foreach ($diagnosticos as $values => $value) {
 
 
@@ -510,5 +548,4 @@ class ConsultasController extends BaseController {
         // END OF FILE
         //============================================================+
     }
-
 }

@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label for="paciente"><?= lang('consultas.paciente') ?></label>
                             <select id='paciente'  name='paciente' style='width: 80%;'>
-                                <option value='0'><?= lang('citas.seleccionePaciente') ?></option>
+                                <option value='<?= $idPaciente ?>'><?= $nombrePaciente ?></option>
                             </select>
 
                         </div>
@@ -36,7 +36,7 @@
                             <label for="doctor"><?= lang('consultas.medico') ?></label>
                             <input type="text" id="doctor" name="doctor" disabled value="<?= $userName ?>">
                             <input type="hidden" id="idDoctor" name="idDoctor" value="<?= $idUser ?>">
-                            <input type="hidden" id="idConsulta" name="idConsulta" value="0">
+                            <input type="hidden" id="idConsulta" name="idConsulta" value="<?= $idConsulta ?>">
                             <input type="hidden" id="uuid" name="uuid" value="<?= $uuid ?>">
                         </div>
                     </div>
@@ -87,7 +87,7 @@
 
                                     <div class="input-group">
 
-                                        <textarea type="text" class="form-control pull-right" name="motivoConsulta" id="motivoConsulta" placeholder=" <?= lang('consultas.motivoConsultaPlaceholder') ?>" value=""></textarea>
+                                        <textarea type="text" class="form-control pull-right" name="motivoConsulta" id="motivoConsulta" placeholder=" <?= lang('consultas.motivoConsultaPlaceholder') ?>" value=""><?= $motivoConsulta ?></textarea>
                                     </div>
                                 </div> 
                             </div>
@@ -150,6 +150,32 @@
                                 <hr class="hr" />
 
                                 <div class="renglonesDiagnosticos">
+
+                                    <?php
+                                    if (isset($diagnosticosConsulta)) {
+
+
+                                        $rows = "";
+
+                                        foreach ($diagnosticosConsulta as $key => $value) {
+
+                                            $rows .= <<< EOT
+                                                        <div class="form-group row nuevoDiagnosticoEnfermedad">
+                                                         <div class="col-2"> 
+                                                             <button type="button" class="btn btn-danger quitarDiagnostico"><strong>X</strong></button>  </div>
+                                                         <div class="col-10"> 
+                                                             <input type="text" id="idDiagnostico" class="form-control registroDiagnostico " idDiagnostico="$value[idDiagnostico]" name="idDiagnostico" value="$value[descripcion]" required=""> 
+                                                         </div>
+                                                        </div>
+                                                    EOT;
+                                        }
+                                        
+                                         echo $rows;
+                                    }
+
+                                   
+                                    ?>
+
 
                                 </div>
                                 <input type="hidden" id="listaDiagnosticoEnfermedad" name="listaProductos" value="[]">
@@ -222,6 +248,37 @@
                                 ======================================--> 
                                 <div class="renglonesTratamientos">
 
+
+                                    <?php
+                                    if (isset($tratamientosConsulta)) {
+
+
+                                        $rows = "";
+
+                                        foreach ($tratamientosConsulta as $key => $value) {
+
+                                            $rows .= <<< EOT
+                                                         <div class="form-group row nuevoDiagnosticoEnfermedad">
+                                                            <div class="col-2"> 
+                                                                <button type="button" class="btn btn-danger quitarTratamiento"
+                                                                        ><strong>X</strong>
+                                                                </button>  
+                                                            </div>
+                                                            <div class="col-5"> 
+                                                                <input type="text" id="descripcionTratamiento" class="form-control descripcionTratamiento" idtratamiento="$value[idTratamiento]" name="descripcionTratamiento" value="$value[descripcion]" required=""> 
+                                                            </div>
+                                                            <div class="col-5"> <input type="text" id="nuevouso" class="form-control uso" name="uso" value="$value[uso]" required=""> 
+                                                            </div>
+                                                        </div>
+                                                    EOT;
+                                        }
+                                        
+                                        echo $rows;
+                                    }
+
+                                    
+                                    ?>
+
                                 </div>
 
                                 <input type="hidden" id="listaTratamiento" name="listaTratamiento" value="[]">
@@ -262,7 +319,7 @@
 <script>
 
 
-// Initialize select2
+    // Initialize select2
     $("#paciente").select2({
         ajax: {
             url: "<?= site_url('admin/pacientes/traerPacientesAjax') ?>",
@@ -325,7 +382,7 @@
 
 
         listarDiagnosticos();
-        listarTratamientos()
+        listarTratamientos();
         var UUID = $("#uuid").val();
         var idPaciente = $("#paciente").val();
         var fechaHora = $("#fechaHora").val();

@@ -134,6 +134,9 @@ $routes->group('admin', function ($routes) {
     $routes->get('consultas/listaConsultas', 'ConsultasController::index');
 
     $routes->get('consultas/consultasAnteriores/(:any)', 'ConsultasController::consultasAnteriores/$1');
+    
+    $routes->get('consultas/editarConsulta/(:any)', 'ConsultasController::editarConsulta/$1');
+    
 
     $routes->resource('consultas', [
         'controller' => 'ConsultasController',

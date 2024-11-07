@@ -1,6 +1,6 @@
 <?php
 
-$enfermedades["descrption"] = "Description";
+$enfermedades["description"] = "Description";
 
 $enfermedades["createdAt"] = "Date Creation";
 $enfermedades["updateAt"] = "Date Update";
