@@ -1,11 +1,12 @@
 <?php
 
-$dashboard["totalCitas"] = "Gesamtzahl der Termine"; // Número total de citas
-$dashboard["totalConsultas"] = "Gesamtzahl der Konsultationen"; // Número total de consultas
-$dashboard["totalMedicamentos"] = "Gesamtzahl der Medikamente"; // Número total de medicamentos
-$dashboard["totalPacientes"] = "Gesamtzahl der Patienten"; // Número total de pacientes
-$dashboard["moreInfo"] = "Mehr Informationen"; // Más información
+$dashboard["totalCitas"] = "Gesamtzahl der Termine";
+$dashboard["totalConsultas"] = "Gesamtzahl der Konsultationen";
+$dashboard["totalMedicamentos"] = "Gesamtzahl der Medikamente";
+$dashboard["totalPacientes"] = "Gesamtzahl der Patienten";
+$dashboard["moreInfo"] = "Mehr Informationen";
+
+$dashboard["tenMostFrequentPatients"] = "Top 10 der häufigsten Patienten";
+$dashboard["tenMostFrequentDiagnoses"] = "Top 10 der häufigsten Diagnosen";
 
 return $dashboard;
-
-

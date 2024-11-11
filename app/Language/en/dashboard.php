@@ -1,11 +1,12 @@
 <?php
 
-$dashboard["totalCitas"] = "Total Dates";
-$dashboard["totalConsultas"] = "Total Querys";
-$dashboard["totalMedicamentos"] = "Total medicines";
+$dashboard["totalCitas"] = "Total Appointments";
+$dashboard["totalConsultas"] = "Total Consultations";
+$dashboard["totalMedicamentos"] = "Total Medications";
 $dashboard["totalPacientes"] = "Total Patients";
-$dashboard["moreInfo"] = "More Info";
+$dashboard["moreInfo"] = "More Information";
+
+$dashboard["tenMostFrequentPatients"] = "Top 10 Most Frequent Patients";
+$dashboard["tenMostFrequentDiagnoses"] = "Top 10 Most Frequent Diagnoses";
 
 return $dashboard;
-
-

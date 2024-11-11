@@ -63,6 +63,8 @@
         </div>
 
     </div>
+    
+    <?= $this->include('dashboardGraph/PieChartPatiens') ?>
 
 
 </div>

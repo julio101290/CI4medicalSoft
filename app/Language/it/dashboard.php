@@ -1,11 +1,12 @@
 <?php
 
-$dashboard["totalCitas"] = "Totale Visite";
-$dashboard["totalConsultas"] = "Totale Consulenze";
-$dashboard["totalMedicamentos"] = "Totale Farmaci";
-$dashboard["totalPacientes"] = "Totale Pazienti";
-$dashboard["moreInfo"] = "Maggiori Informazioni";
+$dashboard["totalCitas"] = "Totale appuntamenti";
+$dashboard["totalConsultas"] = "Totale visite";
+$dashboard["totalMedicamentos"] = "Totale farmaci";
+$dashboard["totalPacientes"] = "Totale pazienti";
+$dashboard["moreInfo"] = "Maggiori informazioni";
+
+$dashboard["tenMostFrequentPatients"] = "Top 10 pazienti più frequenti";
+$dashboard["tenMostFrequentDiagnoses"] = "Top 10 diagnosi più frequenti";
 
 return $dashboard;
-
-
