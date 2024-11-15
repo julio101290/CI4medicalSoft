@@ -51,11 +51,13 @@ Once you click it, it will begin to install
 
 Once finished, the login window appears. If the screen appears blank, close the window and open it again. The user is admin and the password is super-admin.
 
-![image](https://thumbs.odycdn.com/e9a740a7f56d375ded4cb470573c0195.webp)
+![image](https://github.com/user-attachments/assets/8503bab1-7f4c-4d8b-8319-021590035f4d)
+
 
 Once entered into the system, it will show us the main screen and we can start using the MedicalSoft system.
 
-![image](https://thumbs.odycdn.com/bda55019fad5872869d7cc5244fb5ad4.webp)
+![image](https://github.com/user-attachments/assets/0b185e64-eb81-4119-971f-63fc0500e017)
+
 
 
 ## Important change with index.php
@@ -99,6 +101,7 @@ Demo at https://medicalsoft.cesarsystems.com.mx/ user:user password:super-user
 
 ![image](https://thumbs.odycdn.com/666705540d8dccafdad135a7ec61282b.webp)
 
-![image](https://thumbs.odycdn.com/4a56e92bb38dcbc765ae410786594b33.webp)
+![image](https://github.com/user-attachments/assets/37a2a5b8-1be0-4eb4-b9d7-758e234b1f72)
 
-![image](https://thumbs.odycdn.com/b5ecce0b95e0893d7b4cd3187d382d99.webp)
+![image](https://github.com/user-attachments/assets/f7ad7054-d8e8-4bcb-ae00-37db6e4da631)
+
