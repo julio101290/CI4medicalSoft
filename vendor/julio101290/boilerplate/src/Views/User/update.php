@@ -11,7 +11,8 @@
             <div class="card-header">
                 <div class="float-left">
                     <div class="btn-group">
-                        <a href="<?= base_url(route_to('admin/user/manage')) ?>" class="btn btn-sm btn-block btn-secondary"><i class="fas fa-arrow-left"></i>
+                        <a href="<?= base_url(route_to('admin/user/manage')) ?>" class="btn btn-sm btn-block btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
                         </a>
                     </div>
                 </div>
@@ -29,6 +30,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label"><?= lang('Auth.email') ?></label>
                         <div class="col-sm-8">
@@ -36,7 +38,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                 </div>
-                                <input type="email" name="email" class="form-control <?= session('error.email') ? 'is-invalid' : '' ?>" value="<?= $user['email'] ?>" placeholder="<?= lang('Auth.email') ?>" autocomplete="off">
+                                <input type="email" name="email" class="form-control <?= session('error.email') ? 'is-invalid' : '' ?>" value="<?= esc($user['email']) ?>" placeholder="<?= lang('Auth.email') ?>" autocomplete="off">
                                 <?php if (session('error.email')) { ?>
                                     <div class="invalid-feedback">
                                         <h6><?= session('error.email') ?></h6>
@@ -45,6 +47,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label"><?= lang('Auth.username') ?></label>
                         <div class="col-sm-8">
@@ -52,7 +55,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="username" class="form-control <?= session('error.username') ? 'is-invalid' : '' ?>" value="<?= $user['username'] ?>" placeholder="<?= lang('Auth.username') ?>" autocomplete="off">
+                                <input type="text" name="username" class="form-control <?= session('error.username') ? 'is-invalid' : '' ?>" value="<?= esc($user['username']) ?>" placeholder="<?= lang('Auth.username') ?>" autocomplete="off">
                                 <?php if (session('error.username')) { ?>
                                     <div class="invalid-feedback">
                                         <h6><?= session('error.username') ?></h6>
@@ -69,7 +72,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="firstname" class="form-control <?= session('error.firstname') ? 'is-invalid' : '' ?>" value="<?= $user['firstname'] ?>" placeholder="<?= lang('boilerplate.user.firstname') ?>" autocomplete="off">
+                                <input type="text" name="firstname" class="form-control <?= session('error.firstname') ? 'is-invalid' : '' ?>" value="<?= esc($user['firstname'] ?? '') ?>" placeholder="<?= lang('boilerplate.user.firstname') ?>" autocomplete="off">
                                 <?php if (session('error.firstname')) { ?>
                                     <div class="invalid-feedback">
                                         <h6><?= session('error.firstname') ?></h6>
@@ -79,7 +82,6 @@
                         </div>
                     </div>
 
-
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label"><?= lang('boilerplate.user.lastname') ?></label>
                         <div class="col-sm-8">
@@ -87,7 +89,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="lastname" class="form-control <?= session('error.lastname') ? 'is-invalid' : '' ?>" value="<?= $user['lastname'] ?>" placeholder="<?= lang('boilerplate.user.firstname') ?>" autocomplete="off">
+                                <input type="text" name="lastname" class="form-control <?= session('error.lastname') ? 'is-invalid' : '' ?>" value="<?= esc($user['lastname'] ?? '') ?>" placeholder="<?= lang('boilerplate.user.lastname') ?>" autocomplete="off">
                                 <?php if (session('error.lastname')) { ?>
                                     <div class="invalid-feedback">
                                         <h6><?= session('error.lastname') ?></h6>
@@ -97,6 +99,24 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label for="inputPhone" class="col-sm-2 col-form-label">
+                            <?= lang('boilerplate.user.phone') !== 'boilerplate.user.phone' ? lang('boilerplate.user.phone') : 'Phone' ?>
+                        </label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                </div>
+                                <input type="text" name="phone" id="inputPhone" class="form-control <?= session('error.phone') ? 'is-invalid' : '' ?>" value="<?= esc($user['phone'] ?? '') ?>" placeholder="Phone / Teléfono" autocomplete="off">
+                                <?php if (session('error.phone')) { ?>
+                                    <div class="invalid-feedback">
+                                        <h6><?= session('error.phone') ?></h6>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label"><?= lang('Auth.password') ?></label>
@@ -114,6 +134,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label"><?= lang('Auth.repeatPassword') ?></label>
                         <div class="col-sm-8">
@@ -130,6 +151,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label"><?= lang('boilerplate.permission.title') ?></label>
                         <div class="col-sm-8">
@@ -147,6 +169,7 @@
                             <?php } ?>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label"><?= lang('boilerplate.role.title') ?></label>
                         <div class="col-sm-8">
@@ -164,6 +187,7 @@
                             <?php } ?>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <div class="float-right">
@@ -187,4 +211,3 @@
     $('.select').select2();
 </script>
 <?= $this->endSection() ?>
-

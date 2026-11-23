@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,6 +15,8 @@
 return [
     'pageNotFound'    => '404 - Página não encontrada',
     'sorryCannotFind' => 'Pedimos Desculpa! Não foi possível encontrar a pagina requisitada.',
+    'badRequest'      => '400 - Bad Request',
+    'sorryBadRequest' => 'Pedimos Desculpa! Algo está errado no seu request.',
     'whoops'          => 'Ooops!',
     'weHitASnag'      => 'Parece termos encontramos um obstáculo! Por favor tente mais tarde...',
 ];

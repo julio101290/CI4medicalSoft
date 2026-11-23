@@ -64,7 +64,7 @@ abstract class AbstractProcessor {
      *
      * @param Options $options
      */
-    public function __construct(Options $options = null)
+    public function __construct(?Options $options = null)
     {
         $this->options = $options;
     }
@@ -281,6 +281,10 @@ abstract class AbstractProcessor {
 
     protected function isFunction($out) {
         return (isset($out['expr_type']) && $out['expr_type'] === ExpressionType::SIMPLE_FUNCTION);
+    }
+
+    protected function isWindowFunction($out) {
+        return (isset($out['expr_type']) && $out['expr_type'] === ExpressionType::WINDOW_FUNCTION);
     }
 
     protected function isExpression($out) {

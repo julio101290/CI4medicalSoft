@@ -23,20 +23,26 @@ use Ramsey\Uuid\UuidInterface;
 use function bin2hex;
 use function hex2bin;
 use function implode;
+use function preg_match;
 use function sprintf;
-use function str_replace;
 use function strlen;
 use function substr;
 
 /**
- * StringCodec encodes and decodes RFC 4122 UUIDs
+ * StringCodec encodes and decodes RFC 9562 (formerly RFC 4122) UUIDs
  *
- * @link http://tools.ietf.org/html/rfc4122
- *
- * @psalm-immutable
+ * @immutable
  */
 class StringCodec implements CodecInterface
 {
+    /**
+     * Pattern to match a UUID string: 32 hexadecimal digits with hyphens in all four standard positions or with no
+     * hyphens, optionally in one pair of braces, optionally after one "urn:" prefix, one "uuid:" prefix, or both.
+     */
+    private const ENCODED_PATTERN = '/\A(?:urn:)?(?:uuid:)?(\{)?'
+        . '([0-9a-f]{8})(-?)([0-9a-f]{4})\3([0-9a-f]{4})\3([0-9a-f]{4})\3([0-9a-f]{12})'
+        . '(?(1)\})\z/Di';
+
     /**
      * Constructs a StringCodec
      *
@@ -48,6 +54,7 @@ class StringCodec implements CodecInterface
 
     public function encode(UuidInterface $uuid): string
     {
+        /** @phpstan-ignore possiblyImpure.methodCall */
         $hex = bin2hex($uuid->getFields()->getBytes());
 
         /** @var non-empty-string */
@@ -62,9 +69,7 @@ class StringCodec implements CodecInterface
     }
 
     /**
-     * @psalm-return non-empty-string
-     * @psalm-suppress MoreSpecificReturnType we know that the retrieved `string` is never empty
-     * @psalm-suppress LessSpecificReturnStatement we know that the retrieved `string` is never empty
+     * @return non-empty-string
      */
     public function encodeBinary(UuidInterface $uuid): string
     {
@@ -79,15 +84,14 @@ class StringCodec implements CodecInterface
      */
     public function decode(string $encodedUuid): UuidInterface
     {
+        /** @phpstan-ignore possiblyImpure.methodCall */
         return $this->builder->build($this, $this->getBytes($encodedUuid));
     }
 
     public function decodeBytes(string $bytes): UuidInterface
     {
         if (strlen($bytes) !== 16) {
-            throw new InvalidArgumentException(
-                '$bytes string should contain 16 characters.'
-            );
+            throw new InvalidArgumentException('$bytes string should contain 16 characters.');
         }
 
         return $this->builder->build($this, $bytes);
@@ -106,26 +110,16 @@ class StringCodec implements CodecInterface
      */
     protected function getBytes(string $encodedUuid): string
     {
-        $parsedUuid = str_replace(
-            ['urn:', 'uuid:', 'URN:', 'UUID:', '{', '}', '-'],
-            '',
-            $encodedUuid
-        );
-
-        $components = [
-            substr($parsedUuid, 0, 8),
-            substr($parsedUuid, 8, 4),
-            substr($parsedUuid, 12, 4),
-            substr($parsedUuid, 16, 4),
-            substr($parsedUuid, 20),
-        ];
-
-        if (!Uuid::isValid(implode('-', $components))) {
-            throw new InvalidUuidStringException(
-                'Invalid UUID string: ' . $encodedUuid
-            );
+        if (preg_match(self::ENCODED_PATTERN, $encodedUuid, $matches) !== 1) {
+            throw new InvalidUuidStringException('Invalid UUID string: ' . $encodedUuid);
         }
 
-        return (string) hex2bin($parsedUuid);
+        $components = [$matches[2], $matches[4], $matches[5], $matches[6], $matches[7]];
+
+        if (!Uuid::isValid(implode('-', $components))) {
+            throw new InvalidUuidStringException('Invalid UUID string: ' . $encodedUuid);
+        }
+
+        return (string) hex2bin(implode('', $components));
     }
 }

@@ -15,28 +15,27 @@ namespace CodeIgniter\Test;
 
 use Closure;
 use CodeIgniter\Exceptions\FrameworkException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
+use CodeIgniter\Exceptions\RuntimeException;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Model;
 use Config\App;
 use Faker\Factory;
 use Faker\Generator;
-use InvalidArgumentException;
-use RuntimeException;
+use InvalidArgumentException as BaseInvalidArgumentException;
 
 /**
  * Fabricator
  *
  * Bridge class for using Faker to create example data based on
  * model specifications.
- *
- * @see \CodeIgniter\Test\FabricatorTest
  */
 class Fabricator
 {
     /**
      * Array of counts for fabricated items
      *
-     * @var array
+     * @var array<string, int>
      */
     protected static $tableCounts = [];
 
@@ -64,28 +63,28 @@ class Fabricator
     /**
      * Map of properties and their formatter to use
      *
-     * @var array|null
+     * @var array<string, string>|null
      */
     protected $formatters;
 
     /**
      * Date fields present in the model
      *
-     * @var array
+     * @var list<string>
      */
     protected $dateFields = [];
 
     /**
      * Array of data to add or override faked versions
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $overrides = [];
 
     /**
      * Array of single-use data to override faked versions
      *
-     * @var array|null
+     * @var array<string, mixed>|null
      */
     protected $tempOverrides;
 
@@ -110,16 +109,15 @@ class Fabricator
     /**
      * Store the model instance and initialize Faker to the locale.
      *
-     * @param object|string $model      Instance or classname of the model to use
-     * @param array|null    $formatters Array of property => formatter
-     * @param string|null   $locale     Locale for Faker provider
+     * @param object|string              $model      Instance or classname of the model to use
+     * @param array<string, string>|null $formatters Array of property => formatter
+     * @param string|null                $locale     Locale for Faker provider
      *
      * @throws InvalidArgumentException
      */
     public function __construct($model, ?array $formatters = null, ?string $locale = null)
     {
-        if (is_string($model)) {
-            // Create a new model instance
+        if (is_string($model) && class_exists($model)) {
             $model = model($model, false);
         }
 
@@ -129,10 +127,7 @@ class Fabricator
 
         $this->model = $model;
 
-        // If no locale was specified then use the App default
-        if ($locale === null) {
-            $locale = config(App::class)->defaultLocale;
-        }
+        $locale ??= config(App::class)->defaultLocale;
 
         // There is no easy way to retrieve the locale from Faker so we will store it
         $this->locale = $locale;
@@ -153,6 +148,8 @@ class Fabricator
 
     /**
      * Reset internal counts
+     *
+     * @return void
      */
     public static function resetCounts()
     {
@@ -166,7 +163,7 @@ class Fabricator
      */
     public static function getCount(string $table): int
     {
-        return ! isset(self::$tableCounts[$table]) ? 0 : self::$tableCounts[$table];
+        return self::$tableCounts[$table] ?? 0;
     }
 
     /**
@@ -236,6 +233,8 @@ class Fabricator
 
     /**
      * Return and reset tempOverrides
+     *
+     * @return array<string, mixed>
      */
     public function getOverrides(): array
     {
@@ -249,8 +248,8 @@ class Fabricator
     /**
      * Set the overrides, once or persistent
      *
-     * @param array $overrides Array of [field => value]
-     * @param bool  $persist   Whether these overrides should persist through the next operation
+     * @param array<string, mixed> $overrides Array of [field => value]
+     * @param bool                 $persist   Whether these overrides should persist through the next operation
      */
     public function setOverrides(array $overrides = [], $persist = true): self
     {
@@ -305,6 +304,8 @@ class Fabricator
 
     /**
      * Returns the current formatters
+     *
+     * @return array<string, string>|null
      */
     public function getFormatters(): ?array
     {
@@ -314,7 +315,7 @@ class Fabricator
     /**
      * Set the formatters to use. Will attempt to autodetect if none are available.
      *
-     * @param array|null $formatters Array of [field => formatter], or null to detect
+     * @param array<string, string>|null $formatters Array of [field => formatter], or null to detect
      */
     public function setFormatters(?array $formatters = null): self
     {
@@ -359,7 +360,7 @@ class Fabricator
             $this->faker->getFormatter($field);
 
             return $field;
-        } catch (InvalidArgumentException) {
+        } catch (BaseInvalidArgumentException) {
             // No match, keep going
         }
 
@@ -379,12 +380,12 @@ class Fabricator
 
         // Check some common partials
         foreach (['email', 'name', 'title', 'text', 'date', 'url'] as $term) {
-            if (stripos($field, $term) !== false) {
+            if (str_contains(strtolower($field), strtolower($term))) {
                 return $term;
             }
         }
 
-        if (stripos($field, 'phone') !== false) {
+        if (str_contains(strtolower($field), 'phone')) {
             return 'phoneNumber';
         }
 
@@ -397,7 +398,7 @@ class Fabricator
      *
      * @param int|null $count Optional number to create a collection
      *
-     * @return array|object An array or object (based on returnType), or an array of returnTypes
+     * @return array<string, mixed>|list<array<string, mixed>|object>|object An array or object (based on returnType), or an array of returnTypes
      */
     public function make(?int $count = null)
     {
@@ -422,7 +423,7 @@ class Fabricator
     /**
      * Generate an array of faked data
      *
-     * @return array An array of faked data
+     * @return array<string, mixed> An array of faked data
      *
      * @throws RuntimeException
      */
@@ -437,21 +438,21 @@ class Fabricator
                 if (isset($this->modifiedFields['unique'][$field])) {
                     $faker = $faker->unique(
                         $this->modifiedFields['unique'][$field]['reset'],
-                        $this->modifiedFields['unique'][$field]['maxRetries']
+                        $this->modifiedFields['unique'][$field]['maxRetries'],
                     );
                 }
 
                 if (isset($this->modifiedFields['optional'][$field])) {
                     $faker = $faker->optional(
                         $this->modifiedFields['optional'][$field]['weight'],
-                        $this->modifiedFields['optional'][$field]['default']
+                        $this->modifiedFields['optional'][$field]['default'],
                     );
                 }
 
                 if (isset($this->modifiedFields['valid'][$field])) {
                     $faker = $faker->valid(
                         $this->modifiedFields['valid'][$field]['validator'],
-                        $this->modifiedFields['valid'][$field]['maxRetries']
+                        $this->modifiedFields['valid'][$field]['maxRetries'],
                     );
                 }
 
@@ -532,7 +533,7 @@ class Fabricator
      * @param int|null $count Optional number to create a collection
      * @param bool     $mock  Whether to execute or mock the insertion
      *
-     * @return array|object An array or object (based on returnType), or an array of returnTypes
+     * @return array<string, mixed>|list<array<string, mixed>|object>|object|null An array or object (based on returnType), or an array of returnTypes
      *
      * @throws FrameworkException
      */
@@ -570,7 +571,7 @@ class Fabricator
      *
      * @param int|null $count Optional number to create a collection
      *
-     * @return array|object An array or object (based on returnType), or an array of returnTypes
+     * @return array<string, mixed>|list<array<string, mixed>|object>|object An array or object (based on returnType), or an array of returnTypes
      */
     protected function createMock(?int $count = null)
     {

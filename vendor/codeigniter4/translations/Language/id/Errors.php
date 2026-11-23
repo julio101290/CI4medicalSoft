@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,6 +15,8 @@
 return [
     'pageNotFound'    => '404 - Halaman tidak ditemukan',
     'sorryCannotFind' => 'Maaf! Sepertinya tidak dapat menemukan halaman yang Anda cari.',
+    'badRequest'      => '400 - Permintaan tidak sah',
+    'sorryBadRequest' => 'Maaf! Ada yang salah dengan permintaan Anda.',
     'whoops'          => 'Upps!',
     'weHitASnag'      => 'Kami menemukan adanya halangan, Silakan coba kembali nanti...',
 ];

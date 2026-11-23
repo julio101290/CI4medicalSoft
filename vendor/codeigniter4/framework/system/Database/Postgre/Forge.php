@@ -17,6 +17,8 @@ use CodeIgniter\Database\Forge as BaseForge;
 
 /**
  * Forge for Postgre
+ *
+ * @extends BaseForge<Connection>
  */
 class Forge extends BaseForge
 {
@@ -29,8 +31,6 @@ class Forge extends BaseForge
 
     /**
      * DROP CONSTRAINT statement
-     *
-     * @var string
      */
     protected $dropConstraintStr = 'ALTER TABLE %s DROP CONSTRAINT %s';
 
@@ -44,7 +44,7 @@ class Forge extends BaseForge
     /**
      * UNSIGNED support
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $_unsigned = [
         'INT2'     => 'INTEGER',
@@ -68,27 +68,15 @@ class Forge extends BaseForge
     protected $null = 'NULL';
 
     /**
-     * @var Connection
-     */
-    protected $db;
-
-    /**
      * CREATE TABLE attributes
      *
-     * @param array $attributes Associative array of table attributes
+     * @param array<string, mixed> $attributes Associative array of table attributes
      */
     protected function _createTableAttributes(array $attributes): string
     {
         return '';
     }
 
-    /**
-     * @param array|string $processedFields Processed column definitions
-     *                                      or column names to DROP
-     *
-     * @return         false|list<string>|string                            SQL string or false
-     * @phpstan-return ($alterType is 'DROP' ? string : list<string>|false)
-     */
     protected function _alterTable(string $alterType, string $table, $processedFields)
     {
         if (in_array($alterType, ['DROP', 'ADD'], true)) {
@@ -108,9 +96,9 @@ class Forge extends BaseForge
                     . " TYPE {$field['type']}{$field['length']}";
             }
 
-            if (! empty($field['default'])) {
+            if (($field['default'] ?? '') !== '') {
                 $sqls[] = $sql . ' ALTER COLUMN ' . $this->db->escapeIdentifiers($field['name'])
-                    . " SET DEFAULT {$field['default']}";
+                    . " SET {$field['default']}";
             }
 
             $nullable = true; // Nullable by default.
@@ -118,14 +106,14 @@ class Forge extends BaseForge
                 $nullable = false;
             }
             $sqls[] = $sql . ' ALTER COLUMN ' . $this->db->escapeIdentifiers($field['name'])
-                . ($nullable === true ? ' DROP' : ' SET') . ' NOT NULL';
+                . ($nullable ? ' DROP' : ' SET') . ' NOT NULL';
 
-            if (! empty($field['new_name'])) {
+            if (($field['new_name'] ?? '') !== '') {
                 $sqls[] = $sql . ' RENAME COLUMN ' . $this->db->escapeIdentifiers($field['name'])
                     . ' TO ' . $this->db->escapeIdentifiers($field['new_name']);
             }
 
-            if (! empty($field['comment'])) {
+            if (($field['comment'] ?? '') !== '') {
                 $sqls[] = 'COMMENT ON COLUMN' . $this->db->escapeIdentifiers($table)
                     . '.' . $this->db->escapeIdentifiers($field['name'])
                     . " IS {$field['comment']}";
@@ -154,7 +142,7 @@ class Forge extends BaseForge
     protected function _attributeType(array &$attributes)
     {
         // Reset field lengths for data types that don't support it
-        if (isset($attributes['CONSTRAINT']) && stripos($attributes['TYPE'], 'int') !== false) {
+        if (isset($attributes['CONSTRAINT']) && str_contains(strtolower($attributes['TYPE']), 'int')) {
             $attributes['CONSTRAINT'] = null;
         }
 
@@ -173,6 +161,10 @@ class Forge extends BaseForge
                 $attributes['TYPE'] = 'TIMESTAMP';
                 break;
 
+            case 'BLOB':
+                $attributes['TYPE'] = 'BYTEA';
+                break;
+
             default:
                 break;
         }
@@ -183,7 +175,7 @@ class Forge extends BaseForge
      */
     protected function _attributeAutoIncrement(array &$attributes, array &$field)
     {
-        if (! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === true) {
+        if (($attributes['AUTO_INCREMENT'] ?? false) === true) {
             $field['type'] = $field['type'] === 'NUMERIC' || $field['type'] === 'BIGINT' ? 'BIGSERIAL' : 'SERIAL';
         }
     }
@@ -195,7 +187,7 @@ class Forge extends BaseForge
     {
         $sql = parent::_dropTable($table, $ifExists, $cascade);
 
-        if ($cascade === true) {
+        if ($cascade) {
             $sql .= ' CASCADE';
         }
 

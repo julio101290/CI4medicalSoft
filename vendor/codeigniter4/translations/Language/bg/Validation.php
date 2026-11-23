@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -61,7 +63,7 @@ return [
     'valid_date'            => 'Полето {field} трябва да съдържа валидна дата.',
 
     // Credit Cards
-    'valid_cc_num' => 'Изглежда, че полето {field} не е валиден номер на кредитна карта.',
+    'valid_cc_number' => 'Изглежда, че полето {field} не е валиден номер на кредитна карта.',
 
     // Files
     'uploaded' => '{field} не е валиден качен файл.',

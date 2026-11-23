@@ -126,7 +126,8 @@ class MenuController extends BaseController
             return redirect()->back()->with('sweet-error', $e->getMessage());
         }
 
-        return redirect()->back()->with('sweet-success', lang('boilerplate.menu.msg.msg_insert'));
+        return redirect()->to(site_url('admin/menu'))
+        ->with('sweet-success', lang('boilerplate.menu.msg.msg_insert'));
     }
 
     /**

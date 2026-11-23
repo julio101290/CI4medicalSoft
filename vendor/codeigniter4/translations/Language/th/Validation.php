@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -61,7 +63,7 @@ return [
     'valid_date'            => 'ฟิลด์ {field} ต้องมีวันที่ที่ถูกต้อง',
 
     // Credit Cards
-    'valid_cc_num' => '{field} ดูเหมือนจะไม่ใช่หมายเลขบัตรเครดิตที่ถูกต้อง',
+    'valid_cc_number' => '{field} ดูเหมือนจะไม่ใช่หมายเลขบัตรเครดิตที่ถูกต้อง',
 
     // Files
     'uploaded' => '{field} ไม่ใช่ไฟล์ที่อัปโหลดที่ถูกต้อง',

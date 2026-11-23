@@ -16,20 +16,19 @@ namespace CodeIgniter\Format;
 use CodeIgniter\Format\Exceptions\FormatException;
 use Config\Format;
 use SimpleXMLElement;
+use Stringable;
 
 /**
  * XML data formatter
- *
- * @see \CodeIgniter\Format\XMLFormatterTest
  */
 class XMLFormatter implements FormatterInterface
 {
     /**
      * Takes the given data and formats it.
      *
-     * @param array|bool|float|int|object|string|null $data
+     * @param mixed $data
      *
-     * @return false|string (XML string | false)
+     * @return false|non-empty-string
      */
     public function format($data)
     {
@@ -56,7 +55,8 @@ class XMLFormatter implements FormatterInterface
      *
      * @see http://www.codexworld.com/convert-array-to-xml-in-php/
      *
-     * @param SimpleXMLElement $output
+     * @param array<array-key, mixed> $data
+     * @param SimpleXMLElement        $output
      *
      * @return void
      */
@@ -69,7 +69,11 @@ class XMLFormatter implements FormatterInterface
                 $subnode = $output->addChild("{$key}");
                 $this->arrayToXML($value, $subnode);
             } else {
-                $output->addChild("{$key}", htmlspecialchars("{$value}"));
+                if (is_object($value) && ! $value instanceof Stringable) {
+                    throw FormatException::forInvalidXMLValue($value::class);
+                }
+
+                $output->addChild("{$key}", htmlspecialchars((string) $value));
             }
         }
     }
@@ -99,6 +103,8 @@ class XMLFormatter implements FormatterInterface
         $key = preg_replace("/[^{$validName}-]+/u", '', $key);
         $key = preg_replace("/^[^{$startChar}]+/u", 'item$0', $key);
 
-        return preg_replace('/^(xml).*/iu', 'item$0', $key); // XML is a reserved starting word
+        $key = preg_replace('/^(xml).*/iu', 'item$0', $key); // XML is a reserved starting word
+
+        return $key === '' ? 'item' : $key;
     }
 }

@@ -19,6 +19,7 @@ use ValueError;
 
 use function assert;
 use function is_numeric;
+use function is_string;
 use function preg_match;
 use function sprintf;
 use function substr;
@@ -26,25 +27,27 @@ use function substr;
 /**
  * A value object representing an integer
  *
- * This class exists for type-safety purposes, to ensure that integers
- * returned from ramsey/uuid methods as strings are truly integers and not some
- * other kind of string.
+ * This class exists for type-safety purposes, to ensure that integers returned from ramsey/uuid methods as strings are
+ * truly integers and not some other kind of string.
  *
- * To support large integers beyond PHP_INT_MAX and PHP_INT_MIN on both 64-bit
- * and 32-bit systems, we store the integers as strings.
+ * To support large integers beyond PHP_INT_MAX and PHP_INT_MIN on both 64-bit and 32-bit systems, we store the integers
+ * as strings.
  *
- * @psalm-immutable
+ * @immutable
  */
 final class Integer implements NumberInterface
 {
     /**
-     * @psalm-var numeric-string
+     * @var numeric-string
      */
     private string $value;
 
+    /**
+     * @phpstan-ignore property.readOnlyByPhpDocDefaultValue
+     */
     private bool $isNegative = false;
 
-    public function __construct(float | int | string | self $value)
+    public function __construct(self | float | int | string $value)
     {
         $this->value = $value instanceof self ? (string) $value : $this->prepareValue($value);
     }
@@ -55,7 +58,9 @@ final class Integer implements NumberInterface
     }
 
     /**
-     * @psalm-return numeric-string
+     * @return numeric-string
+     *
+     * @pure
      */
     public function toString(): string
     {
@@ -63,7 +68,7 @@ final class Integer implements NumberInterface
     }
 
     /**
-     * @psalm-return numeric-string
+     * @return numeric-string
      */
     public function __toString(): string
     {
@@ -92,8 +97,6 @@ final class Integer implements NumberInterface
      * Constructs the object from a serialized string representation
      *
      * @param string $data The serialized string representation of the object
-     *
-     * @psalm-suppress UnusedMethodCall
      */
     public function unserialize(string $data): void
     {
@@ -106,7 +109,7 @@ final class Integer implements NumberInterface
     public function __unserialize(array $data): void
     {
         // @codeCoverageIgnoreStart
-        if (!isset($data['string'])) {
+        if (!is_string($data['string'] ?? null)) {
             throw new ValueError(sprintf('%s(): Argument #1 ($data) is invalid', __METHOD__));
         }
         // @codeCoverageIgnoreEnd
@@ -122,13 +125,13 @@ final class Integer implements NumberInterface
         $value = (string) $value;
         $sign = '+';
 
-        // If the value contains a sign, remove it for digit pattern check.
+        // If the value contains a sign, remove it for the digit pattern check.
         if (str_starts_with($value, '-') || str_starts_with($value, '+')) {
             $sign = substr($value, 0, 1);
             $value = substr($value, 1);
         }
 
-        if (!preg_match('/^\d+$/', $value)) {
+        if (!preg_match('/\A\d+\z/', $value)) {
             throw new InvalidArgumentException(
                 'Value must be a signed integer or a string containing only '
                 . 'digits 0-9 and, optionally, a sign (+ or -)'
@@ -147,7 +150,7 @@ final class Integer implements NumberInterface
         if ($sign === '-' && $value !== '0') {
             $value = $sign . $value;
 
-            /** @psalm-suppress InaccessibleProperty */
+            /** @phpstan-ignore property.readOnlyByPhpDocAssignNotInConstructor */
             $this->isNegative = true;
         }
 

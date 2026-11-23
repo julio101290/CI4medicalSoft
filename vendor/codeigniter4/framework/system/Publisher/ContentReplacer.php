@@ -13,19 +13,17 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Publisher;
 
-use RuntimeException;
+use CodeIgniter\Exceptions\RuntimeException;
 
 /**
  * Replace Text Content
- *
- * @see \CodeIgniter\Publisher\ContentReplacerTest
  */
 class ContentReplacer
 {
     /**
      * Replace content
      *
-     * @param array $replaces [search => replace]
+     * @param array<string, string> $replaces [search => replace]
      */
     public function replace(string $content, array $replaces): string
     {

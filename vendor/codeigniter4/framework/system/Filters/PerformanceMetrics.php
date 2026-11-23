@@ -24,18 +24,17 @@ class PerformanceMetrics implements FilterInterface
     /**
      * We don't need to do anything here.
      *
-     * @param array|null $arguments
+     * @param list<string>|null $arguments
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        return null;
     }
 
     /**
      * Replaces the performance metrics.
      *
-     * @param array|null $arguments
-     *
-     * @return void
+     * @param list<string>|null $arguments
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
@@ -53,10 +52,14 @@ class PerformanceMetrics implements FilterInterface
                     (string) $benchmark->getElapsedTime('total_execution'),
                     number_format(memory_get_peak_usage() / 1024 / 1024, 3),
                 ],
-                $body
+                $body,
             );
 
             $response->setBody($output);
+
+            return $response;
         }
+
+        return null;
     }
 }

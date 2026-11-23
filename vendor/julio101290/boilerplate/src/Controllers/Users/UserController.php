@@ -33,11 +33,11 @@ class UserController extends BaseController
     public function index()
     {
         if ($this->request->isAJAX()) {
-            $start = $this->request->getGet('start');
+            $start  = $this->request->getGet('start');
             $length = $this->request->getGet('length');
             $search = $this->request->getGet('search[value]');
-            $order = UserModel::ORDERABLE[$this->request->getGet('order[0][column]')];
-            $dir = $this->request->getGet('order[0][dir]');
+            $order  = UserModel::ORDERABLE[$this->request->getGet('order[0][column]')] ?? 'id';
+            $dir    = $this->request->getGet('order[0][dir]');
 
             return $this->respond(Collection::datatable(
                 $this->users->getResource($search)->orderBy($order, $dir)->limit($length, $start)->get()->getResultObject(),
@@ -59,37 +59,84 @@ class UserController extends BaseController
      */
     public function profile()
     {
-        if ($this->request->getMethod() === 'post') {
-            $id = user()->id;
+        $userId = user()->id;
+
+        if (strtoupper($this->request->getMethod()) === 'POST') {
             $validationRules = [
-                'email'        => "required|valid_email|is_unique[users.email,id,$id]",
-                'username'     => "required|alpha_numeric_space|min_length[3]|is_unique[users.username,id,$id]",
-                'password'     => 'if_exist',
-                'pass_confirm' => 'matches[password]',
+                'email'         => "required|valid_email|is_unique[users.email,id,$userId]",
+                'username'      => "required|alpha_numeric_space|min_length[3]|is_unique[users.username,id,$userId]",
+                'phone'         => 'if_exist|max_length[32]',
+                'password'      => 'if_exist',
+                'pass_confirm'  => 'matches[password]',
+                'profile_image' => 'if_exist|is_image[profile_image]|max_size[profile_image,2048]',
             ];
 
             if (!$this->validate($validationRules)) {
                 return redirect()->back()->withInput()->with('error', $this->validator->getErrors());
             }
 
-            $user = new User();
+            $user = new \Myth\Auth\Entities\User();
 
             if ($this->request->getPost('password')) {
                 $user->password = $this->request->getPost('password');
             }
 
-            $user->email = $this->request->getPost('email');
+            $user->email    = $this->request->getPost('email');
             $user->username = $this->request->getPost('username');
 
-            if ($this->users->skipValidation(true)->update(user()->id, $user)) {
+            if ($this->request->getPost('phone') !== null) {
+                $user->phone = $this->request->getPost('phone');
+            }
+
+            $uploadPath = WRITEPATH . 'uploads/profiles/';
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+
+            $image = $this->request->getFile('profile_image');
+            if ($image && $image->isValid() && !$image->hasMoved()) {
+                $uploadPath          = WRITEPATH . 'uploads/profiles';
+                $imageName           = $image->getRandomName();
+                $image->move($uploadPath, $imageName);
+                $user->profile_image = 'uploads/profiles/' . $imageName;
+            } else {
+                $currentUser         = $this->users->asArray()->find($userId);
+                $user->profile_image = $currentUser['profile_image'] ?? null;
+            }
+
+            if ($this->users->skipValidation(true)->update($userId, $user)) {
                 return redirect()->back()->with('sweet-success', lang('boilerplate.user.msg.msg_update'));
             }
 
             return redirect()->back()->withInput()->with('sweet-error', lang('boilerplate.user.msg.msg_get_fail'));
         }
 
+        $currentUser = $this->users->find($userId);
+        $publicPath  = FCPATH . 'uploads/profiles/';
+
+        if (!is_dir($publicPath)) {
+            mkdir($publicPath, 0755, true);
+        }
+
+        if (!empty($currentUser->profile_image)) {
+            $imageName  = basename($currentUser->profile_image);
+            $sourcePath = WRITEPATH . $currentUser->profile_image;
+            $destPath   = $publicPath . $imageName;
+
+            if (file_exists($sourcePath) && !file_exists($destPath)) {
+                copy($sourcePath, $destPath);
+            }
+
+            $currentUser->profile_image = 'uploads/profiles/' . $imageName;
+        }
+
+        if ($currentUser->profile_image == 'uploads/profiles/') {
+            unset($currentUser->profile_image);
+        }
+
         return view('julio101290\boilerplate\Views\User\profile', [
             'title' => lang('boilerplate.user.fields.profile'),
+            'user'  => $currentUser,
         ]);
     }
 
@@ -100,12 +147,24 @@ class UserController extends BaseController
      */
     public function new()
     {
-        return view('julio101290\boilerplate\Views\User\create', [
+        $data = [
             'title'       => lang('boilerplate.user.title'),
             'subtitle'    => lang('boilerplate.user.add'),
             'permissions' => $this->authorize->permissions(),
+            'permission'  => (new PermissionModel())->getPermissionsForUser(-1) ?? [],
             'roles'       => $this->authorize->groups(),
-        ]);
+            'role'        => (new GroupModel())->getGroupsForUser(-1) ?? [],
+            'user'        => $this->users->asArray()->find(-1) ?? [
+                'firstname' => '',
+                'lastname'  => '',
+                'phone'     => '',
+                'active'    => 1,
+                'email'     => '',
+                'username'  => '',
+            ],
+        ];
+
+        return view('julio101290\boilerplate\Views\User\create', $data);
     }
 
     /**
@@ -119,29 +178,33 @@ class UserController extends BaseController
             'active'       => 'required',
             'username'     => 'required|alpha_numeric_space|min_length[3]|is_unique[users.username]',
             'email'        => 'required|valid_email|is_unique[users.email]',
+            'phone'        => 'permit_empty|max_length[32]',
             'password'     => 'required|strong_password',
             'pass_confirm' => 'required|matches[password]',
             'permission'   => 'required',
             'role'         => 'required',
         ];
 
-        $permissions = $this->request->getPost('permission');
-        $roles = $this->request->getPost('role');
+        $permissions = $this->request->getPost('permission') ?? [];
+        $roles       = $this->request->getPost('role') ?? [];
 
         if (!$this->validate($validationRules)) {
-            return redirect()->back()->withInput()->with('error', $this->validator->getErrors());
+            return redirect()->to(base_url('admin/user/manage/new'))
+                ->withInput()
+                ->with('error', $this->validator->getErrors());
         }
 
         $this->db->transBegin();
 
         try {
             $id = $this->users->insert(new User([
-                'active'   => $this->request->getPost('active'),
-                'email'    => $this->request->getPost('email'),
-                'firstname'    => $this->request->getPost('firstname'),
-                'lastname'    => $this->request->getPost('lastname'),
-                'username' => $this->request->getPost('username'),
-                'password' => $this->request->getPost('password'),
+                'active'    => $this->request->getPost('active'),
+                'email'     => $this->request->getPost('email'),
+                'firstname' => $this->request->getPost('firstname'),
+                'lastname'  => $this->request->getPost('lastname'),
+                'phone'     => $this->request->getPost('phone'),
+                'username'  => $this->request->getPost('username'),
+                'password'  => $this->request->getPost('password'),
             ]));
 
             foreach ($permissions as $permission) {
@@ -155,17 +218,17 @@ class UserController extends BaseController
             $this->db->transCommit();
         } catch (\Exception $e) {
             $this->db->transRollback();
-
-            return redirect()->back()->with('sweet-error', $e->getMessage());
+            return redirect()->back()->withInput()->with('sweet-error', $e->getMessage());
         }
 
-        return redirect()->back()->with('sweet-success', lang('boileplate.user.msg.msg_insert'));
+        return redirect()->to(base_url('admin/user/manage'))
+            ->with('sweet-success', lang('boilerplate.user.msg.msg_insert'));
     }
 
     /**
      * Return the editable properties of a resource object.
      *
-     * @param int id
+     * @param int $id
      *
      * @return mixed
      */
@@ -185,9 +248,31 @@ class UserController extends BaseController
     }
 
     /**
+     * Return the editable properties of a resource object.
+     *
+     * @param int $id
+     *
+     * @return mixed
+     */
+    public function clone($id)
+    {
+        $data = [
+            'title'       => lang('boilerplate.user.title'),
+            'subtitle'    => lang('boilerplate.user.add'),
+            'permissions' => $this->authorize->permissions(),
+            'permission'  => (new PermissionModel())->getPermissionsForUser($id),
+            'roles'       => $this->authorize->groups(),
+            'role'        => (new GroupModel())->getGroupsForUser($id),
+            'user'        => $this->users->asArray()->find($id),
+        ];
+
+        return view('julio101290\boilerplate\Views\User\create', $data);
+    }
+
+    /**
      * Add or update a model resource, from "posted" properties.
      *
-     * @param int id
+     * @param int $id
      *
      * @return mixed
      */
@@ -197,6 +282,7 @@ class UserController extends BaseController
             'active'       => 'required',
             'username'     => "required|alpha_numeric_space|min_length[3]|is_unique[users.username,id,$id]",
             'email'        => "required|valid_email|is_unique[users.email,id,$id]",
+            'phone'        => 'permit_empty|max_length[32]',
             'password'     => 'if_exist',
             'pass_confirm' => 'matches[password]',
             'permission'   => 'if_exist',
@@ -216,44 +302,40 @@ class UserController extends BaseController
                 $user->password = $this->request->getPost('password');
             }
 
-            $user->active = $this->request->getPost('active');
-            $user->email = $this->request->getPost('email');
-            $user->username = $this->request->getPost('username');
+            $user->active    = $this->request->getPost('active');
+            $user->email     = $this->request->getPost('email');
+            $user->username  = $this->request->getPost('username');
             $user->firstname = $this->request->getPost('firstname');
-            $user->lastname = $this->request->getPost('lastname');
+            $user->lastname  = $this->request->getPost('lastname');
+            $user->phone     = $this->request->getPost('phone');
 
             $this->users->skipValidation(true)->update($id, $user);
 
-            // delete first permission from user
             $this->db->table('auth_users_permissions')->where('user_id', $id)->delete();
 
-            foreach ($this->request->getPost('permission') as $permission) {
-                // insert with new permission
+            foreach (($this->request->getPost('permission') ?? []) as $permission) {
                 $this->authorize->addPermissionToUser($permission, $id);
             }
 
-            // delete first groups from user
             $this->db->table('auth_groups_users')->where('user_id', $id)->delete();
 
-            foreach ($this->request->getPost('role') as $role) {
-                // insert with new role
+            foreach (($this->request->getPost('role') ?? []) as $role) {
                 $this->authorize->addUserToGroup($id, $role);
             }
 
             $this->db->transCommit();
         } catch (\Exception $e) {
             $this->db->transRollback();
-
-            return redirect()->back()->with('sweet-error', $e->getMessage());
+            return redirect()->to(base_url('admin/user/manage'))->with('sweet-error', $e->getMessage());
         }
 
-        return redirect()->back()->with('sweet-success', lang('boilerplate.user.msg.msg_update'));
+        return redirect()->to(base_url('admin/user/manage'))->with('sweet-success', lang('boilerplate.user.msg.msg_update'));
     }
 
     /**
      * Delete the designated resource object from the model.
      *
-     * @param int id
+     * @param int $id
      *
      * @return mixed
      */

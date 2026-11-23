@@ -34,12 +34,14 @@ class SeeInDatabase extends Constraint
     /**
      * Data used to compare results against.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $data;
 
     /**
      * SeeInDatabase constructor.
+     *
+     * @param array<string, mixed> $data
      */
     public function __construct(ConnectionInterface $db, array $data)
     {
@@ -68,7 +70,7 @@ class SeeInDatabase extends Constraint
             "a row in the table [%s] matches the attributes \n%s\n\n%s",
             $table,
             $this->toString(false, JSON_PRETTY_PRINT),
-            $this->getAdditionalInfo($table)
+            $this->getAdditionalInfo($table),
         );
     }
 
@@ -81,7 +83,7 @@ class SeeInDatabase extends Constraint
 
         $similar = $builder->where(
             array_key_first($this->data),
-            $this->data[array_key_first($this->data)]
+            $this->data[array_key_first($this->data)],
         )->limit($this->show)->get()->getResultArray();
 
         if ($similar !== []) {

@@ -17,6 +17,7 @@ use CodeIgniter\HTTP\SiteURI;
 use CodeIgniter\HTTP\URI;
 use CodeIgniter\Router\Exceptions\RouterException;
 use Config\App;
+use Config\Hostnames;
 
 // CodeIgniter URL Helpers
 
@@ -24,11 +25,11 @@ if (! function_exists('site_url')) {
     /**
      * Returns a site URL as defined by the App config.
      *
-     * @param array|string $relativePath URI string or array of URI segments.
-     * @param string|null  $scheme       URI scheme. E.g., http, ftp. If empty
-     *                                   string '' is set, a protocol-relative
-     *                                   link is returned.
-     * @param App|null     $config       Alternate configuration to use.
+     * @param list<string>|string $relativePath URI string or array of URI segments.
+     * @param string|null         $scheme       URI scheme. E.g., http, ftp. If empty
+     *                                          string '' is set, a protocol-relative
+     *                                          link is returned.
+     * @param App|null            $config       Alternate configuration to use.
      */
     function site_url($relativePath = '', ?string $scheme = null, ?App $config = null): string
     {
@@ -45,10 +46,10 @@ if (! function_exists('base_url')) {
      * Returns the base URL as defined by the App config.
      * Base URLs are trimmed site URLs without the index page.
      *
-     * @param array|string $relativePath URI string or array of URI segments.
-     * @param string|null  $scheme       URI scheme. E.g., http, ftp. If empty
-     *                                   string '' is set, a protocol-relative
-     *                                   link is returned.
+     * @param list<string>|string $relativePath URI string or array of URI segments.
+     * @param string|null         $scheme       URI scheme. E.g., http, ftp. If empty
+     *                                          string '' is set, a protocol-relative
+     *                                          link is returned.
      */
     function base_url($relativePath = '', ?string $scheme = null): string
     {
@@ -67,10 +68,10 @@ if (! function_exists('current_url')) {
      * @param bool                 $returnObject True to return an object instead of a string
      * @param IncomingRequest|null $request      A request to use when retrieving the path
      *
-     * @return string|URI When returning string, the query and fragment parts are removed.
-     *                    When returning URI, the query and fragment parts are preserved.
+     * @return ($returnObject is true ? URI : string) When returning string, the query and fragment parts are removed.
+     *                                                When returning URI, the query and fragment parts are preserved.
      */
-    function current_url(bool $returnObject = false, ?IncomingRequest $request = null)
+    function current_url(bool $returnObject = false, ?IncomingRequest $request = null): string|URI
     {
         $request ??= service('request');
         /** @var CLIRequest|IncomingRequest $request */
@@ -87,9 +88,9 @@ if (! function_exists('previous_url')) {
      * If that's not available, however, we'll use a sanitized url from $_SERVER['HTTP_REFERER']
      * which can be set by the user so is untrusted and not set by certain browsers/servers.
      *
-     * @return string|URI
+     * @return ($returnObject is true ? URI : string)
      */
-    function previous_url(bool $returnObject = false)
+    function previous_url(bool $returnObject = false): string|URI
     {
         // Grab from the session first, if we have it,
         // since it's more reliable and safer.
@@ -145,10 +146,10 @@ if (! function_exists('anchor')) {
      *
      * Creates an anchor based on the local URL.
      *
-     * @param array|string        $uri        URI string or array of URI segments
-     * @param string              $title      The link title
-     * @param array|object|string $attributes Any attributes
-     * @param App|null            $altConfig  Alternate configuration to use
+     * @param list<string>|string                      $uri        URI string or array of URI segments
+     * @param string                                   $title      The link title
+     * @param array<string, scalar|null>|object|string $attributes Any attributes
+     * @param App|null                                 $altConfig  Alternate configuration to use
      */
     function anchor($uri = '', string $title = '', $attributes = '', ?App $altConfig = null): string
     {
@@ -178,10 +179,10 @@ if (! function_exists('anchor_popup')) {
      * Creates an anchor based on the local URL. The link
      * opens a new window based on the attributes specified.
      *
-     * @param string                    $uri        the URL
-     * @param string                    $title      the link title
-     * @param array|false|object|string $attributes any attributes
-     * @param App|null                  $altConfig  Alternate configuration to use
+     * @param string                                         $uri        the URL
+     * @param string                                         $title      the link title
+     * @param array<string, scalar|null>|false|object|string $attributes any attributes
+     * @param App|null                                       $altConfig  Alternate configuration to use
      */
     function anchor_popup($uri = '', string $title = '', $attributes = false, ?App $altConfig = null): string
     {
@@ -204,12 +205,14 @@ if (! function_exists('anchor_popup')) {
 
             // Ref: http://www.w3schools.com/jsref/met_win_open.asp
             $windowName = '_blank';
-        } elseif (! empty($attributes['window_name'])) {
+        } elseif (($attributes['window_name'] ?? '') !== '') {
             $windowName = $attributes['window_name'];
             unset($attributes['window_name']);
         } else {
             $windowName = '_blank';
         }
+
+        $atts = [];
 
         foreach (['width' => '800', 'height' => '600', 'scrollbars' => 'yes', 'menubar' => 'no', 'status' => 'yes', 'resizable' => 'yes', 'screenx' => '0', 'screeny' => '0'] as $key => $val) {
             $atts[$key] = $attributes[$key] ?? $val;
@@ -228,9 +231,9 @@ if (! function_exists('mailto')) {
     /**
      * Mailto Link
      *
-     * @param string              $email      the email address
-     * @param string              $title      the link title
-     * @param array|object|string $attributes any attributes
+     * @param string                                   $email      the email address
+     * @param string                                   $title      the link title
+     * @param array<string, scalar|null>|object|string $attributes any attributes
      */
     function mailto(string $email, string $title = '', $attributes = ''): string
     {
@@ -248,9 +251,9 @@ if (! function_exists('safe_mailto')) {
      *
      * Create a spam-protected mailto link written in Javascript
      *
-     * @param string              $email      the email address
-     * @param string              $title      the link title
-     * @param array|object|string $attributes any attributes
+     * @param string                                   $email      the email address
+     * @param string                                   $title      the link title
+     * @param array<string, scalar|null>|object|string $attributes any attributes
      */
     function safe_mailto(string $email, string $title = '', $attributes = ''): string
     {
@@ -351,7 +354,15 @@ if (! function_exists('auto_link')) {
     function auto_link(string $str, string $type = 'both', bool $popup = false): string
     {
         // Find and replace any URLs.
-        if ($type !== 'email' && preg_match_all('#(\w*://|www\.)[a-z0-9]+(-+[a-z0-9]+)*(\.[a-z0-9]+(-+[a-z0-9]+)*)+(/([^\s()<>;]+\w)?/?)?#i', $str, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+        if (
+            $type !== 'email'
+            && preg_match_all(
+                '#([a-z][a-z0-9+\-.]*://|www\.)[a-z0-9]+(-+[a-z0-9]+)*(\.[a-z0-9]+(-+[a-z0-9]+)*)+(/([^\s()<>;]+\w)?/?)?#i',
+                $str,
+                $matches,
+                PREG_OFFSET_CAPTURE | PREG_SET_ORDER,
+            ) >= 1
+        ) {
             // Set our target HTML if using popup links.
             $target = ($popup) ? ' target="_blank"' : '';
 
@@ -370,7 +381,15 @@ if (! function_exists('auto_link')) {
         }
 
         // Find and replace any emails.
-        if ($type !== 'url' && preg_match_all('#([\w\.\-\+]+@[a-z0-9\-]+\.[a-z0-9\-\.]+[^[:punct:]\s])#i', $str, $matches, PREG_OFFSET_CAPTURE)) {
+        if (
+            $type !== 'url'
+            && preg_match_all(
+                '#([\w\.\-\+]+@[a-z0-9\-]+\.[a-z0-9\-\.]+[^[:punct:]\s])#i',
+                $str,
+                $matches,
+                PREG_OFFSET_CAPTURE,
+            ) >= 1
+        ) {
             foreach (array_reverse($matches[0]) as $match) {
                 if (filter_var($match[0], FILTER_VALIDATE_EMAIL) !== false) {
                     $str = substr_replace($str, safe_mailto($match[0]), $match[1], strlen($match[0]));
@@ -404,7 +423,7 @@ if (! function_exists('prep_url')) {
 
         // force replace http:// with https://
         if ($secure) {
-            $str = preg_replace('/^(?:http):/i', 'https:', $str);
+            return preg_replace('/^(?:http):/i', 'https:', $str);
         }
 
         return $str;
@@ -440,7 +459,7 @@ if (! function_exists('url_title')) {
             $str = preg_replace('#' . $key . '#iu', $val, $str);
         }
 
-        if ($lowercase === true) {
+        if ($lowercase) {
             $str = mb_strtolower($str);
         }
 
@@ -514,5 +533,52 @@ if (! function_exists('url_is')) {
         $currentPath = '/' . trim(uri_string(), '/ ');
 
         return (bool) preg_match("|^{$path}$|", $currentPath, $matches);
+    }
+}
+
+if (! function_exists('parse_subdomain')) {
+    /**
+     * Parses the subdomain from the current host name.
+     *
+     * @param string|null $host The hostname to parse. If null, uses the current request's host.
+     *
+     * @return string The subdomain, or an empty string if none exists.
+     */
+    function parse_subdomain(?string $host = null): string
+    {
+        $host ??= service('request')->getUri()->getHost();
+
+        // Handle localhost and IP addresses - they don't have subdomains
+        if ($host === 'localhost' || filter_var($host, FILTER_VALIDATE_IP)) {
+            return '';
+        }
+
+        $parts     = explode('.', $host);
+        $partCount = count($parts);
+
+        // Need at least 3 parts for a subdomain (subdomain.domain.tld)
+        // e.g., api.example.com
+        if ($partCount < 3) {
+            return '';
+        }
+
+        // Check if we have a two-part TLD (e.g., co.uk, com.au)
+        $lastTwoParts = $parts[$partCount - 2] . '.' . $parts[$partCount - 1];
+
+        if (in_array($lastTwoParts, Hostnames::TWO_PART_TLDS, true)) {
+            // For two-part TLD, need at least 4 parts for subdomain
+            // e.g., api.example.co.uk (4 parts)
+            if ($partCount < 4) {
+                return ''; // No subdomain, just domain.co.uk
+            }
+
+            // Remove the two-part TLD and domain name (last 3 parts)
+            // e.g., admin.api.example.co.uk -> admin.api
+            return implode('.', array_slice($parts, 0, $partCount - 3));
+        }
+
+        // Standard TLD: Remove TLD and domain (last 2 parts)
+        // e.g., admin.api.example.com -> admin.api
+        return implode('.', array_slice($parts, 0, $partCount - 2));
     }
 }

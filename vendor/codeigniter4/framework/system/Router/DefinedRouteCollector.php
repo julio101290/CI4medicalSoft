@@ -18,12 +18,10 @@ use Generator;
 
 /**
  * Collect all defined routes for display.
- *
- * @see \CodeIgniter\Router\DefinedRouteCollectorTest
  */
-final class DefinedRouteCollector
+final readonly class DefinedRouteCollector
 {
-    public function __construct(private readonly RouteCollection $routeCollection)
+    public function __construct(private RouteCollectionInterface $routeCollection)
     {
     }
 

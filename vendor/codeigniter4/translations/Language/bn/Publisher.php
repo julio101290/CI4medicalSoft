@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -16,7 +18,8 @@ return [
     'fileNotAllowed'        => '{0} {1} এর জন্য নিম্নলিখিত সীমাবদ্ধতা ব্যর্থ করে: {2}',
 
     // Publish Command
-    'publishMissing' => 'সমস্ত নেমস্পেস জুড়ে {0}-এ কোনো প্রকাশক ক্লাস সনাক্ত করা যায়নি।',
-    'publishSuccess' => '{0} {2}-এ {1} ফাইল(গুলি) প্রকাশ করেছে।',
-    'publishFailure' => '{0} {1}-এ প্রকাশ করতে ব্যর্থ হয়েছে!',
+    'publishMissing'          => 'সমস্ত নেমস্পেস জুড়ে {0}-এ কোনো প্রকাশক ক্লাস সনাক্ত করা যায়নি।',
+    'publishMissingNamespace' => '{0} নামস্থানে/নেমস্পেসে {1} কোনও প্রকাশক ক্লাস সনাক্ত করা যায়নি।',
+    'publishSuccess'          => '{0} {2}-এ {1} ফাইল(গুলি) প্রকাশ করেছে।',
+    'publishFailure'          => '{0} {1}-এ প্রকাশ করতে ব্যর্থ হয়েছে!',
 ];

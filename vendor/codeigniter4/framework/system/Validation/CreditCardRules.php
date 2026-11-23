@@ -19,7 +19,6 @@ namespace CodeIgniter\Validation;
  * Provides validation methods for common credit-card inputs.
  *
  * @see http://en.wikipedia.org/wiki/Credit_card_number
- * @see \CodeIgniter\Validation\CreditCardRulesTest
  */
 class CreditCardRules
 {
@@ -31,7 +30,7 @@ class CreditCardRules
      *  prefixes    - List of possible prefixes for the card
      *  checkdigit  - Boolean on whether we should do a modulus10 check on the numbers.
      *
-     * @var array
+     * @var array<string, array{name: string, length: string, prefixes: string, checkdigit: bool}>
      */
     protected $cards = [
         'American Express' => [
@@ -199,8 +198,7 @@ class CreditCardRules
         // Remove any spaces and dashes
         $ccNumber = str_replace([' ', '-'], '', $ccNumber);
 
-        // Non-numeric values cannot be a number...duh
-        if (! is_numeric($ccNumber)) {
+        if (! ctype_digit($ccNumber)) {
             return false;
         }
 

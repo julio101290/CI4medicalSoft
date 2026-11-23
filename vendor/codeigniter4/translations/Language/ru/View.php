@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -17,5 +19,6 @@ return [
     'noCellClass'           => 'Не предоставлен класс ячейки представления.',
     'invalidCellClass'      => 'Не удается найти класс {0} ячеек представления.',
     'tagSyntaxError'        => 'У вас есть синтаксическая ошибка в тегах парсера: {0}',
-    'invalidDecoratorClass' => '"{0}" неверный View Decorator.',  // TODO: Декоратор Просмотра ???
+    'invalidDecoratorClass' => '"{0}" неверный View Decorator.',
+    'restrictedConditional' => 'Условный оператор парсера не разрешен в ограниченном режиме: "{0}"',
 ];

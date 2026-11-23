@@ -20,8 +20,6 @@ use RecursiveIteratorIterator;
  * Class FileCollection
  *
  * Provides easy access to uploaded files for a request.
- *
- * @see \CodeIgniter\HTTP\Files\FileCollectionTest
  */
 class FileCollection
 {
@@ -31,7 +29,7 @@ class FileCollection
      * Populated the first time either files(), file(), or hasFile()
      * is called.
      *
-     * @var array|null
+     * @var array<string, array<array-key, UploadedFile>|UploadedFile>|null
      */
     protected $files;
 
@@ -40,7 +38,7 @@ class FileCollection
      * Each element in the array will be an instance of UploadedFile.
      * The key of each element will be the client filename.
      *
-     * @return array|null
+     * @return array<string, array<array-key, UploadedFile>|UploadedFile>|null
      */
     public function all()
     {
@@ -150,11 +148,13 @@ class FileCollection
 
         $this->files = [];
 
-        if ($_FILES === []) {
+        $files = service('superglobals')->getFilesArray();
+
+        if ($files === []) {
             return;
         }
 
-        $files = $this->fixFilesArray($_FILES);
+        $files = $this->fixFilesArray($files);
 
         foreach ($files as $name => $file) {
             $this->files[$name] = $this->createFileObject($file);
@@ -165,7 +165,9 @@ class FileCollection
      * Given a file array, will create UploadedFile instances. Will
      * loop over an array and create objects for each.
      *
-     * @return list<UploadedFile>|UploadedFile
+     * @param array<string, mixed> $array
+     *
+     * @return array<array-key, array<array-key, UploadedFile>|UploadedFile>|UploadedFile
      */
     protected function createFileObject(array $array)
     {
@@ -185,11 +187,11 @@ class FileCollection
 
         return new UploadedFile(
             $array['tmp_name'] ?? null,
-            $array['name'] ?? null,
+            $array['name'],
             $array['type'] ?? null,
             ($array['size'] ?? null) === null ? null : (int) $array['size'],
             $array['error'] ?? null,
-            $array['full_path'] ?? null
+            $array['full_path'] ?? null,
         );
     }
 
@@ -201,6 +203,10 @@ class FileCollection
      * of this method.
      *
      * @see http://php.net/manual/en/reserved.variables.files.php#118294
+     *
+     * @param array<string, mixed> $data
+     *
+     * @return array<string, mixed>
      */
     protected function fixFilesArray(array $data): array
     {
@@ -219,7 +225,7 @@ class FileCollection
                 $stack    = [&$pointer];
                 $iterator = new RecursiveIteratorIterator(
                     new RecursiveArrayIterator($value),
-                    RecursiveIteratorIterator::SELF_FIRST
+                    RecursiveIteratorIterator::SELF_FIRST,
                 );
 
                 foreach ($iterator as $key => $val) {
@@ -244,8 +250,8 @@ class FileCollection
     /**
      * Navigate through an array looking for a particular index
      *
-     * @param array $index The index sequence we are navigating down
-     * @param array $value The portion of the array to process
+     * @param list<string>                                                  $index The index sequence we are navigating down
+     * @param array<array-key, array<array-key, UploadedFile>|UploadedFile> $value The portion of the array to process
      *
      * @return list<UploadedFile>|UploadedFile|null
      */
@@ -253,7 +259,7 @@ class FileCollection
     {
         $currentIndex = array_shift($index);
 
-        if (isset($currentIndex) && is_array($index) && $index && is_array($value[$currentIndex]) && $value[$currentIndex]) {
+        if (isset($currentIndex) && $index !== [] && array_key_exists($currentIndex, $value) && is_array($value[$currentIndex])) {
             return $this->getValueDotNotationSyntax($index, $value[$currentIndex]);
         }
 

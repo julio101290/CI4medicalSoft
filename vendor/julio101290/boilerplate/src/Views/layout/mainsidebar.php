@@ -7,11 +7,32 @@
         <?php if (config('Boilerplate')->theme['sidebar']['user']['visible']) { ?>
             <div class="user-panel py-3 d-flex">
                 <div class="image">
-                    <img src="https://cdn.jsdelivr.net/npm/admin-lte@3.0.2/dist/img/avatar.png" class="img-circle elevation-<?= config('Boilerplate')->theme['sidebar']['user']['shadow'] ?>"
-                         alt="User Image">
+                    <?php
+                    $profileImage = user()->profile_image;
+
+                    // Verificar si existe el archivo en el servidor
+                    if (!$profileImage || !file_exists(FCPATH . $profileImage)) {
+                        $profileImage = 'https://cdn.jsdelivr.net/npm/admin-lte@3.0.2/dist/img/avatar.png';
+                    } else {
+                        $profileImage = base_url($profileImage);
+                    }
+                    ?>
+                    <img src="<?= $profileImage ?>" 
+                         class="img-circle elevation-<?= config('Boilerplate')->theme['sidebar']['user']['shadow'] ?>"
+                         alt="<?= user()->username ?>">
                 </div>
                 <div class="info">
-                    <a href="<?= base_url(route_to('user-profile')) ?>" class="d-block"><?= user()->username ?></a>
+                    <?php
+                    $profileImage = user()->profile_image;
+
+                    // Verificar si existe el archivo en el servidor
+                    if (!$profileImage || !file_exists(FCPATH . $profileImage)) {
+                        $profileImage = 'https://cdn.jsdelivr.net/npm/admin-lte@3.0.2/dist/img/avatar.png';
+                    } else {
+                        $profileImage = base_url($profileImage);
+                    }
+                    ?>
+                    <a href="<?= $profileImage ?>" class="d-block"><?= user()->username ?></a>
                 </div>
             </div>
             <div class="form-inline">

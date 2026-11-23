@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,4 +13,6 @@
 
 return [
     'notImplemented' => 'Funktionen "{0}" är inte implementerad.',
+    'cannotPaginate' => 'Kan inte hämta paginerat data.',
+    'paginateError'  => 'Ett fel inträffade då resultatet skulle pagineras.',
 ];

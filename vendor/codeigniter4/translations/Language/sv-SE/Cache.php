@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,6 +13,7 @@
 
 return [
     'unableToWrite'   => 'Cache kan ej skriva till "{0}"',
+    'invalidHandler'  => 'Cache driver "{0}" är inte en giltig cache handler.',
     'invalidHandlers' => 'Cache-inställningarna måste innehålla en array $validHandlers.',
     'noBackup'        => 'Cache-inställningarna måste ha en handler och backupHandler satt.',
     'handlerNotFound' => 'Cache-inställningarna har en felaktig handler eller backup handler satt.',

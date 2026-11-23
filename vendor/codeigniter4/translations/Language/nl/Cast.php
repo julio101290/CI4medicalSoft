@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,10 +13,18 @@
 
 // Cast language settings
 return [
+    'baseCastMissing'        => 'De "{0}" class moet de "CodeIgniter\Entity\Cast\BaseCast" class erven.',
+    'enumInvalidCaseName'    => 'Ongeldige case name "{0}" voor enum "{1}".',
+    'enumInvalidType'        => 'Enum verwacht van type "{1}", maar vond type "{0}".',
+    'enumInvalidValue'       => 'Ongeldige waarde "{1}" voor enum "{0}".',
+    'enumMissingClass'       => 'Enum class moet gespecificeerd zijn voor enum casting.',
+    'enumNotEnum'            => '"{0}" is geen geldige enum class.',
+    'invalidCastMethod'      => 'De "{0}" is een ongeldige cast methode, geldige methodes zijn: ["get", "set"].',
+    'invalidTimestamp'       => 'Type casting "timestamp" expects a correct timestamp.',
+    'jsonErrorCtrlChar'      => 'Onverwacht controle karakter gevonden',
     'jsonErrorDepth'         => 'Maximale stack diepte overschreden',
     'jsonErrorStateMismatch' => 'Underflow of de modus komen niet overeen',
-    'jsonErrorCtrlChar'      => 'ONverwacht controle karakter gevonden',
     'jsonErrorSyntax'        => 'Syntax fout, foutieve JSON',
+    'jsonErrorUnknown'       => 'Onbekende fout',
     'jsonErrorUtf8'          => 'Foutieve UTF-8 karakters, mogelijk foutieve encoding',
-    'jsonErrorUnknown'       => 'Ongekende fout',
 ];

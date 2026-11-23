@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,13 +13,13 @@
 
 // Pager language settings
 return [
-    'pageNavigation'         => 'Navigácia stránky',
+    'pageNavigation'         => 'Navigácia stránok',
     'first'                  => 'Prvá',
     'previous'               => 'Predošlá',
     'next'                   => 'Ďalšia',
     'last'                   => 'Posledná',
     'older'                  => 'Staršie',
     'newer'                  => 'Novšie',
-    'invalidTemplate'        => '{0} je neplatná Pager predloha.',
-    'invalidPaginationGroup' => '{0} je neplatná skupina pre stránkovanie (Pagination).',
+    'invalidTemplate'        => '"{0}" nie je platná šablóna Pager.',
+    'invalidPaginationGroup' => '"{0}" nie je platná skupina stránkovania (Pagination).',
 ];

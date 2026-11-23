@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -61,9 +63,10 @@ return [
     'disallowedAction' => 'Veiksmas, kurio prašote, neleistinas.',
 
     // Uploaded file moving
-    'alreadyMoved' => 'Įkeltasis failas jau perkeltas.',
-    'invalidFile'  => 'Pirminis failas nėra teisingas failas.',
-    'moveFailed'   => 'Nepavyko perkelti failo {0} į {1} ({2})',
+    'alreadyMoved'    => 'Įkeltasis failas jau perkeltas.',
+    'invalidFile'     => 'Pirminis failas nėra teisingas failas.',
+    'invalidFileName' => 'Įkelto failo pavadinimas neteisingas.',
+    'moveFailed'      => 'Nepavyko perkelti failo {0} į {1} ({2})',
 
     'uploadErrOk'        => 'Failas įkeltas sėkmingai.',
     'uploadErrIniSize'   => 'Failo „%s“ dydis viršija jūsų upload_max_filesize ini direktyvą.',

@@ -22,8 +22,6 @@ use Kint\Kint;
 
 /**
  * Check the Config values.
- *
- * @see \CodeIgniter\Commands\Utilities\ConfigCheckTest
  */
 final class ConfigCheck extends BaseCommand
 {
@@ -73,7 +71,7 @@ final class ConfigCheck extends BaseCommand
     protected $options = [];
 
     /**
-     * {@inheritDoc}
+     * @return int
      */
     public function run(array $params)
     {
@@ -109,7 +107,7 @@ final class ConfigCheck extends BaseCommand
             CLI::write($this->getKintD($config));
         } else {
             CLI::write(
-                CLI::color($this->getVarDump($config), 'cyan')
+                CLI::color($this->getVarDump($config), 'cyan'),
             );
         }
 
@@ -150,7 +148,7 @@ final class ConfigCheck extends BaseCommand
         return preg_replace(
             '!.*system/Commands/Utilities/ConfigCheck.php.*\n!u',
             '',
-            $output
+            $output,
         );
     }
 }

@@ -11,11 +11,13 @@
 
 namespace CodeIgniter\Config;
 
+use CodeIgniter\Autoloader\FileLocatorInterface;
+use CodeIgniter\Exceptions\ConfigException;
+use CodeIgniter\Exceptions\RuntimeException;
 use Config\Encryption;
 use Config\Modules;
 use ReflectionClass;
 use ReflectionException;
-use RuntimeException;
 
 /**
  * Class BaseConfig
@@ -27,7 +29,6 @@ use RuntimeException;
  * These can be set within the .env file.
  *
  * @phpstan-consistent-constructor
- * @see \CodeIgniter\Config\BaseConfigTest
  */
 class BaseConfig
 {
@@ -35,7 +36,7 @@ class BaseConfig
      * An optional array of classes that will act as Registrars
      * for rapidly setting config class properties.
      *
-     * @var array
+     * @var list<class-string|object>
      */
     public static $registrars = [];
 
@@ -45,11 +46,21 @@ class BaseConfig
     public static bool $override = true;
 
     /**
-     * Has module discovery happened yet?
+     * Has module discovery completed?
      *
      * @var bool
      */
     protected static $didDiscovery = false;
+
+    /**
+     * Is module discovery running or not?
+     */
+    protected static bool $discovering = false;
+
+    /**
+     * The processing Registrar file for error message.
+     */
+    protected static string $registrarFile = '';
 
     /**
      * The modules configuration.
@@ -58,6 +69,9 @@ class BaseConfig
      */
     protected static $moduleConfig;
 
+    /**
+     * @param array<string, mixed> $array
+     */
     public static function __set_state(array $array)
     {
         static::$override = false;
@@ -118,22 +132,43 @@ class BaseConfig
         foreach ($properties as $property) {
             $this->initEnvValue($this->{$property}, $property, $prefix, $shortPrefix);
 
-            if ($this instanceof Encryption && $property === 'key') {
-                if (str_starts_with($this->{$property}, 'hex2bin:')) {
-                    // Handle hex2bin prefix
-                    $this->{$property} = hex2bin(substr($this->{$property}, 8));
-                } elseif (str_starts_with($this->{$property}, 'base64:')) {
-                    // Handle base64 prefix
-                    $this->{$property} = base64_decode(substr($this->{$property}, 7), true);
+            if ($this instanceof Encryption) {
+                if ($property === 'key') {
+                    $this->{$property} = $this->parseEncryptionKey($this->{$property});
+                } elseif ($property === 'previousKeys') {
+                    $keysArray  = is_string($this->{$property}) ? array_map(trim(...), explode(',', $this->{$property})) : $this->{$property};
+                    $parsedKeys = [];
+
+                    foreach ($keysArray as $key) {
+                        $parsedKeys[] = $this->parseEncryptionKey($key);
+                    }
+
+                    $this->{$property} = $parsedKeys;
                 }
             }
         }
     }
 
     /**
+     * Parse encryption key with hex2bin: or base64: prefix
+     */
+    protected function parseEncryptionKey(string $key): string
+    {
+        if (str_starts_with($key, 'hex2bin:')) {
+            return hex2bin(substr($key, 8));
+        }
+
+        if (str_starts_with($key, 'base64:')) {
+            return base64_decode(substr($key, 7), true);
+        }
+
+        return $key;
+    }
+
+    /**
      * Initialization an environment-specific configuration setting
      *
-     * @param array|bool|float|int|string|null $property
+     * @param array<array-key, mixed>|bool|float|int|string|null $property
      *
      * @return void
      */
@@ -188,10 +223,10 @@ class BaseConfig
                 return $_ENV["{$shortPrefix}_{$underscoreProperty}"];
 
             case array_key_exists("{$shortPrefix}.{$property}", $_SERVER):
-                return $_SERVER["{$shortPrefix}.{$property}"];
+                return $_SERVER["{$shortPrefix}.{$property}"]; // @phpstan-ignore codeigniter.superglobalsOffsetAccess (reads live $_SERVER, not the snapshot service)
 
             case array_key_exists("{$shortPrefix}_{$underscoreProperty}", $_SERVER):
-                return $_SERVER["{$shortPrefix}_{$underscoreProperty}"];
+                return $_SERVER["{$shortPrefix}_{$underscoreProperty}"]; // @phpstan-ignore codeigniter.superglobalsOffsetAccess (reads live $_SERVER, not the snapshot service)
 
             case array_key_exists("{$prefix}.{$property}", $_ENV):
                 return $_ENV["{$prefix}.{$property}"];
@@ -200,10 +235,10 @@ class BaseConfig
                 return $_ENV["{$prefix}_{$underscoreProperty}"];
 
             case array_key_exists("{$prefix}.{$property}", $_SERVER):
-                return $_SERVER["{$prefix}.{$property}"];
+                return $_SERVER["{$prefix}.{$property}"]; // @phpstan-ignore codeigniter.superglobalsOffsetAccess (reads live $_SERVER, not the snapshot service)
 
             case array_key_exists("{$prefix}_{$underscoreProperty}", $_SERVER):
-                return $_SERVER["{$prefix}_{$underscoreProperty}"];
+                return $_SERVER["{$prefix}_{$underscoreProperty}"]; // @phpstan-ignore codeigniter.superglobalsOffsetAccess (reads live $_SERVER, not the snapshot service)
 
             default:
                 $value = getenv("{$shortPrefix}.{$property}");
@@ -230,10 +265,25 @@ class BaseConfig
         }
 
         if (! static::$didDiscovery) {
+            // Discovery must be completed before the first instantiation of any Config class.
+            if (static::$discovering) {
+                throw new ConfigException(
+                    'During Auto-Discovery of Registrars,'
+                    . ' "' . static::class . '" executes Auto-Discovery again.'
+                    . ' "' . clean_path(static::$registrarFile) . '" seems to have bad code.',
+                );
+            }
+
+            static::$discovering = true;
+
+            /** @var FileLocatorInterface */
             $locator         = service('locator');
             $registrarsFiles = $locator->search('Config/Registrar.php');
 
             foreach ($registrarsFiles as $file) {
+                // Saves the file for error message.
+                static::$registrarFile = $file;
+
                 $className = $locator->findQualifiedNameFromPath($file);
 
                 if ($className === false) {
@@ -244,6 +294,7 @@ class BaseConfig
             }
 
             static::$didDiscovery = true;
+            static::$discovering  = false;
         }
 
         $shortName = (new ReflectionClass($this))->getShortName();

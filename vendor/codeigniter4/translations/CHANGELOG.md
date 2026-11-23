@@ -5,6 +5,192 @@ All notable changes to this library will be documented in this file:
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v4.7.6](https://github.com/codeigniter4/translations/compare/v4.7.4...v4.7.6) - 2026-11-18
+
+### Changed
+
+- cs (Czech)
+- hu (Hungarian)
+- ko (Korean)
+- lt (Lithuanian)
+- nl (Dutch)
+- pt-BR (Brazilian)
+- ro (Romanian)
+- sk (Slovak)
+- sv-SE (Swedish)
+
+### Others
+
+- chore(deps): bump actions/deploy-pages in the actions group (#558)
+- chore: revise locale maintainer details in README (#559)
+- fix: update translations and order in the tests (#566)
+- chore(deps): bump shivammathur/setup-php (#565)
+- chore: remove the ANSI colors since escaped by phpunit 12.5
+- chore: update workflows and add `no-api:true` to composer.json
+- chore(deps-dev): update phpunit/phpunit requirement (#572)
+- chore: update the baseline language keys
+
+## [v4.7.4](https://github.com/codeigniter4/translations/compare/v4.7.2...v4.7.4) - 2026-08-05
+
+### Changed
+
+- de (German)
+- ko (Korean)
+- nl (Dutch)
+- sv-SE (Swedish)
+
+### Others
+
+- chore(deps): bump shivammathur/setup-php in the actions group (#545)
+- chore(deps): bump the actions group across 1 directory with 2 updates (#548)
+- chore(deps): bump the actions group with 2 updates (#551)
+- Replace the nightly build cron with an upstream language baseline check
+- chore(deps): bump the actions group across 1 directory with 3 updates (#555)
+
+## [v4.7.2](https://github.com/codeigniter4/translations/compare/v4.7.0...v4.7.2) - 2026-04-21
+
+### Added
+
+- mr (Marathi)
+
+### Changed
+
+- de (German)
+- hu (Hungarian)
+- ko (Korean)
+- lt (Lithuanian)
+- pt-BR (Brazilian)
+- ro (Romanian)
+- sv-SE (Swedish)
+
+### Others
+
+- chore(deps): bump actions/deploy-pages from 4 to 5 (#537)
+- chore(deps): bump actions/configure-pages from 5 to 6 (#539)
+- Adds `declare(strict_types=1)` to all PHP files (#542)
+- chore(deps): bump actions/upload-pages-artifact from 4 to 5 (#543)
+- Security harden the workflows
+
+## [v4.7.0](https://github.com/codeigniter4/translations/compare/v4.6.4...v4.7.0) - 2026-03-09
+
+### Changed
+
+- ar (Arabic)
+- es (Spanish)
+- fa (Farsi)
+- hu (Hungarian)
+- ko (Korean)
+- pl (Polish)
+- ro (Romanian)
+- ru (Russian)
+- sv-SE (Swedish)
+
+### Others
+
+- chore: update to PHP 8.2, PHP 8.5, and cleanup workflow scripts (#519)
+- chore: reduce GitHub API rate limit hits (#527)
+- chore: fix README link
+- chore: use min supported phpunit version for PHP 8.2
+- refactor: cleanup CI script
+- chore: optimise scripts
+
+## [v4.6.4](https://github.com/codeigniter4/translations/compare/v4.6.3...v4.6.4) - 2025-12-12
+
+### Changed
+
+- fa (Farsi)
+- fr (French)
+- gu (Gujarati)
+- hi (Hindi)
+- id (Indonesian)
+- ko (Korean)
+- ru (Russian)
+- sv-SE (Swedish)
+- sw (Swahili)
+
+### Others
+
+- chore(deps): bump actions/checkout from 4 to 5 (#500)
+- chore(deps): bump actions/upload-pages-artifact from 3 to 4 (#501)
+- chore(deps): bump actions/cache from 4 to 5 (#514)
+- chore(deps): bump actions/checkout from 5 to 6 (#505)
+
+## [v4.6.3](https://github.com/codeigniter4/translations/compare/v4.6.2...v4.6.3) - 2025-08-02
+
+### Changed
+
+- bn (Bengali)
+
+## [v4.6.2](https://github.com/codeigniter4/translations/compare/v4.6.1...v4.6.2) - 2025-07-26
+
+### Added
+
+- gu (Gujarati)
+- hi (Hindi)
+
+### Changed
+
+- ko (Korean)
+- pl (Polish)
+- sv-SE (Swedish)
+
+### Fixed
+
+- fix: use `0` as percent when file is missing for `array_sum()` (#490)
+- fix translation testing (#492)
+- Fix data provider order
+
+### Others
+
+- Don't use branch alias for `codeigniter4/codeigniter4`
+- chore: use `system/util_bootstrap.php` for non-test scripts
+- chore: make `bin/generate-changelog` executable
+- Remove deprecated fixer
+
+## [v4.6.1](https://github.com/codeigniter4/translations/compare/v4.6.0...v4.6.1) - 2025-05-02
+
+### Changed
+
+- ar (Arabic)
+- id (Indonesian)
+- pt-BR (Brazilian)
+
+### Others
+
+- chore: bump runner to ubuntu-24.04
+- chore: check code style using lowest and highest PHP version (#487)
+- chore: added PHP `8.4` to Github Action (#488)
+
+## [v4.6.0](https://github.com/codeigniter4/translations/compare/v4.5.4...v4.6.0) - 2025-02-21
+
+### Changed
+
+- de (German)
+- es (Spanish)
+- fa (Farsi)
+- ja (Japanese)
+- ko (Korean)
+- pt (Portuguese)
+- ru (Russian)
+
+### Others
+
+- chore: update license year once (#472)
+- style: fix coding styles (#475)
+- chore: fix badges (#480)
+
+## [v4.5.4](https://github.com/codeigniter4/translations/compare/v4.5.3...v4.5.4) - 2024-11-15
+
+### Changed
+
+- nl (Dutch)
+- ru (Russian)
+- vi (Vietnamese)
+
+### Others
+
+- chore(deps): bump peter-evans/create-pull-request from 6 to 7 (#468)
+
 ## [v4.5.3](https://github.com/codeigniter4/translations/compare/v4.5.2...v4.5.3) - 2024-07-25
 
 ### Added

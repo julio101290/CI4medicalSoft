@@ -152,6 +152,9 @@ $routes->group('admin', function ($routes) {
     ]);
     $routes->post('bitacora/save', 'BitacoraController::save');
     $routes->post('bitacora/getBitacora', 'BitacoraController::getBitacora');
+    
+    $routes->get('consultas/generarDesdeCita/(:num)', 'ConsultasController::generarDesdeCita/$1');
+    
 });
 
 /*

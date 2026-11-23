@@ -17,8 +17,6 @@ use Config\App;
 
 /**
  * Representation of an incoming, server-side HTTP request.
- *
- * @see \CodeIgniter\HTTP\RequestTest
  */
 class Request extends OutgoingRequest implements RequestInterface
 {
@@ -33,11 +31,11 @@ class Request extends OutgoingRequest implements RequestInterface
     {
         $this->config = $config ?? config(App::class);
 
-        if (empty($this->method)) {
+        if ($this->method === null || $this->method === '') {
             $this->method = $this->getServer('REQUEST_METHOD') ?? Method::GET;
         }
 
-        if (empty($this->uri)) {
+        if (! $this->uri instanceof URI) {
             $this->uri = new URI();
         }
     }

@@ -16,9 +16,12 @@ namespace CodeIgniter\Database\OCI8;
 use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Database\RawSql;
+use stdClass;
 
 /**
  * Builder for OCI8
+ *
+ * @extends BaseBuilder<Connection>
  */
 class Builder extends BaseBuilder
 {
@@ -32,7 +35,7 @@ class Builder extends BaseBuilder
     /**
      * ORDER BY random keyword
      *
-     * @var array
+     * @var list<string>
      */
     protected $randomKeyword = [
         '"DBMS_RANDOM"."RANDOM"',
@@ -47,23 +50,6 @@ class Builder extends BaseBuilder
      * @var string
      */
     protected $countString = 'SELECT COUNT(1) ';
-
-    /**
-     * Limit used flag
-     *
-     * If we use LIMIT, we'll add a field that will
-     * throw off num_fields later.
-     *
-     * @var bool
-     */
-    protected $limitUsed = false;
-
-    /**
-     * A reference to the database connection.
-     *
-     * @var Connection
-     */
-    protected $db;
 
     /**
      * Generates a platform-specific insert string from the supplied data.
@@ -89,13 +75,13 @@ class Builder extends BaseBuilder
             $data = implode(
                 " FROM DUAL UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    static fn ($value): string => 'SELECT ' . implode(', ', array_map(
+                        static fn ($key, $index): string => $index . ' ' . $key,
                         $keys,
-                        $value
+                        $value,
                     )),
-                    $values
-                )
+                    $values,
+                ),
             ) . " FROM DUAL\n";
         }
 
@@ -107,14 +93,14 @@ class Builder extends BaseBuilder
      */
     protected function _replace(string $table, array $keys, array $values): string
     {
-        $fieldNames = array_map(static fn ($columnName) => trim($columnName, '"'), $keys);
+        $fieldNames = array_map(static fn ($columnName): string => trim($columnName, '"'), $keys);
 
-        $uniqueIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames) {
+        $uniqueIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames): bool {
             $hasAllFields = count(array_intersect($index->fields, $fieldNames)) === count($index->fields);
 
             return ($index->type === 'PRIMARY') && $hasAllFields;
         });
-        $replaceableFields = array_filter($keys, static function ($columnName) use ($uniqueIndexes) {
+        $replaceableFields = array_filter($keys, static function ($columnName) use ($uniqueIndexes): bool {
             foreach ($uniqueIndexes as $index) {
                 if (in_array(trim($columnName, '"'), $index->fields, true)) {
                     return false;
@@ -126,7 +112,7 @@ class Builder extends BaseBuilder
 
         $sql = 'MERGE INTO ' . $table . "\n USING (SELECT ";
 
-        $sql .= implode(', ', array_map(static fn ($columnName, $value) => $value . ' ' . $columnName, $keys, $values));
+        $sql .= implode(', ', array_map(static fn ($columnName, $value): string => $value . ' ' . $columnName, $keys, $values));
 
         $sql .= ' FROM DUAL) "_replace" ON ( ';
 
@@ -134,16 +120,16 @@ class Builder extends BaseBuilder
         $onList[] = '1 != 1';
 
         foreach ($uniqueIndexes as $index) {
-            $onList[] = '(' . implode(' AND ', array_map(static fn ($columnName) => $table . '."' . $columnName . '" = "_replace"."' . $columnName . '"', $index->fields)) . ')';
+            $onList[] = '(' . implode(' AND ', array_map(static fn ($columnName): string => $table . '."' . $columnName . '" = "_replace"."' . $columnName . '"', $index->fields)) . ')';
         }
 
         $sql .= implode(' OR ', $onList) . ') WHEN MATCHED THEN UPDATE SET ';
 
-        $sql .= implode(', ', array_map(static fn ($columnName) => $columnName . ' = "_replace".' . $columnName, $replaceableFields));
+        $sql .= implode(', ', array_map(static fn ($columnName): string => $columnName . ' = "_replace".' . $columnName, $replaceableFields));
 
         $sql .= ' WHEN NOT MATCHED THEN INSERT (' . implode(', ', $replaceableFields) . ') VALUES ';
 
-        return $sql . (' (' . implode(', ', array_map(static fn ($columnName) => '"_replace".' . $columnName, $replaceableFields)) . ')');
+        return $sql . (' (' . implode(', ', array_map(static fn ($columnName): string => '"_replace".' . $columnName, $replaceableFields)) . ')');
     }
 
     /**
@@ -160,9 +146,9 @@ class Builder extends BaseBuilder
     /**
      * Compiles a delete string and runs the query
      *
-     * @param mixed $where
+     * @param array<array-key, mixed>|RawSql|string $where
      *
-     * @return mixed
+     * @return bool|string
      *
      * @throws DatabaseException
      */
@@ -214,28 +200,13 @@ class Builder extends BaseBuilder
     protected function _limit(string $sql, bool $offsetIgnore = false): string
     {
         $offset = (int) ($offsetIgnore === false ? $this->QBOffset : 0);
-        if (version_compare($this->db->getVersion(), '12.1', '>=')) {
-            // OFFSET-FETCH can be used only with the ORDER BY clause
-            if (empty($this->QBOrderBy)) {
-                $sql .= ' ORDER BY 1';
-            }
 
-            return $sql . ' OFFSET ' . $offset . ' ROWS FETCH NEXT ' . $this->QBLimit . ' ROWS ONLY';
+        // OFFSET-FETCH can be used only with the ORDER BY clause
+        if (! is_array($this->QBOrderBy) || $this->QBOrderBy === []) {
+            $sql .= ' ORDER BY 1';
         }
 
-        $this->limitUsed    = true;
-        $limitTemplateQuery = 'SELECT * FROM (SELECT INNER_QUERY.*, ROWNUM RNUM FROM (%s) INNER_QUERY WHERE ROWNUM < %d)' . ($offset !== 0 ? ' WHERE RNUM >= %d' : '');
-
-        return sprintf($limitTemplateQuery, $sql, $offset + $this->QBLimit + 1, $offset);
-    }
-
-    /**
-     * Resets the query builder values.  Called by the get() function
-     */
-    protected function resetSelect()
-    {
-        $this->limitUsed = false;
-        parent::resetSelect();
+        return $sql . ' OFFSET ' . $offset . ' ROWS FETCH NEXT ' . $this->QBLimit . ' ROWS ONLY';
     }
 
     /**
@@ -273,7 +244,7 @@ class Builder extends BaseBuilder
             $sql .= 'ON (' . implode(
                 ' AND ',
                 array_map(
-                    static fn ($key, $value) => (
+                    static fn ($key, $value): RawSql|string => (
                         ($value instanceof RawSql && is_string($key))
                         ?
                         $table . '.' . $key . ' = ' . $value
@@ -287,8 +258,8 @@ class Builder extends BaseBuilder
                         )
                     ),
                     array_keys($constraints),
-                    $constraints
-                )
+                    $constraints,
+                ),
             ) . ")\n";
 
             $sql .= "WHEN MATCHED THEN UPDATE\n";
@@ -298,12 +269,12 @@ class Builder extends BaseBuilder
             $sql .= implode(
                 ",\n",
                 array_map(
-                    static fn ($key, $value) => $table . '.' . $key . ($value instanceof RawSql ?
+                    static fn ($key, $value): string => $table . '.' . $key . ($value instanceof RawSql ?
                     ' = ' . $value :
                     ' = ' . $alias . '.' . $value),
                     array_keys($updateFields),
-                    $updateFields
-                )
+                    $updateFields,
+                ),
             );
 
             $this->QBOptions['sql'] = $sql;
@@ -312,16 +283,23 @@ class Builder extends BaseBuilder
         if (isset($this->QBOptions['setQueryAsData'])) {
             $data = $this->QBOptions['setQueryAsData'];
         } else {
+            $updateFields = $this->QBOptions['updateFields'] ?? [];
+            $lengths      = $this->longestValues($keys, $values);
+
             $data = implode(
                 " UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    fn (array $value): string => sprintf('SELECT %s FROM DUAL', implode(', ', array_map(
+                        fn (string $key, float|int|string $index): string => sprintf(
+                            '%s %s',
+                            $this->cast((string) $index, $this->getSourceField($table, $key, $updateFields), $lengths[$key]),
+                            $key,
+                        ),
                         $keys,
-                        $value
-                    )) . ' FROM DUAL',
-                    $values
-                )
+                        $value,
+                    ))),
+                    $values,
+                ),
             ) . "\n";
         }
 
@@ -341,10 +319,10 @@ class Builder extends BaseBuilder
         if ($sql === '') {
             $constraints = $this->QBOptions['constraints'] ?? [];
 
-            if (empty($constraints)) {
-                $fieldNames = array_map(static fn ($columnName) => trim($columnName, '"'), $keys);
+            if ($constraints === []) {
+                $fieldNames = array_map(static fn ($columnName): string => trim($columnName, '"'), $keys);
 
-                $uniqueIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames) {
+                $uniqueIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames): bool {
                     $hasAllFields = count(array_intersect($index->fields, $fieldNames)) === count($index->fields);
 
                     return ($index->type === 'PRIMARY' || $index->type === 'UNIQUE') && $hasAllFields;
@@ -359,7 +337,7 @@ class Builder extends BaseBuilder
                 $constraints = $this->onConstraint($constraints)->QBOptions['constraints'] ?? [];
             }
 
-            if (empty($constraints)) {
+            if ($constraints === []) {
                 if ($this->db->DBDebug) {
                     throw new DatabaseException('No constraint found for upsert.');
                 }
@@ -378,7 +356,7 @@ class Builder extends BaseBuilder
             $sql .= implode(
                 ' AND ',
                 array_map(
-                    static fn ($key, $value) => (
+                    static fn ($key, $value): RawSql|string => (
                         ($value instanceof RawSql && is_string($key))
                         ?
                         $table . '.' . $key . ' = ' . $value
@@ -392,8 +370,8 @@ class Builder extends BaseBuilder
                         )
                     ),
                     array_keys($constraints),
-                    $constraints
-                )
+                    $constraints,
+                ),
             ) . ")\n";
 
             $sql .= "WHEN MATCHED THEN UPDATE SET\n";
@@ -401,18 +379,18 @@ class Builder extends BaseBuilder
             $sql .= implode(
                 ",\n",
                 array_map(
-                    static fn ($key, $value) => $key . ($value instanceof RawSql ?
+                    static fn ($key, $value): string => $key . ($value instanceof RawSql ?
                     " = {$value}" :
                     " = {$alias}.{$value}"),
                     array_keys($updateFields),
-                    $updateFields
-                )
+                    $updateFields,
+                ),
             );
 
             $sql .= "\nWHEN NOT MATCHED THEN INSERT (" . implode(', ', $keys) . ")\nVALUES ";
 
             $sql .= (' ('
-                . implode(', ', array_map(static fn ($columnName) => "{$alias}.{$columnName}", $keys))
+                . implode(', ', array_map(static fn ($columnName): string => "{$alias}.{$columnName}", $keys))
                 . ')');
 
             $this->QBOptions['sql'] = $sql;
@@ -424,13 +402,13 @@ class Builder extends BaseBuilder
             $data = implode(
                 " FROM DUAL UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    static fn ($value): string => 'SELECT ' . implode(', ', array_map(
+                        static fn ($key, $index): string => $index . ' ' . $key,
                         $keys,
-                        $value
+                        $value,
                     )),
-                    $values
-                )
+                    $values,
+                ),
             ) . " FROM DUAL\n";
         }
 
@@ -467,7 +445,7 @@ class Builder extends BaseBuilder
             $sql .= 'WHERE ' . implode(
                 ' AND ',
                 array_map(
-                    static fn ($key, $value) => (
+                    static fn ($key, $value): RawSql|string => (
                         $value instanceof RawSql ?
                         $value :
                         (
@@ -477,21 +455,14 @@ class Builder extends BaseBuilder
                         )
                     ),
                     array_keys($constraints),
-                    $constraints
-                )
+                    $constraints,
+                ),
             );
-
-            // convert binds in where
-            foreach ($this->QBWhere as $key => $where) {
-                foreach ($this->binds as $field => $bind) {
-                    $this->QBWhere[$key]['condition'] = str_replace(':' . $field . ':', $bind[0], $where['condition']);
-                }
-            }
 
             $sql .= ' ' . str_replace(
                 'WHERE ',
                 'AND ',
-                $this->compileWhereHaving('QBWhere')
+                $this->compileWhereHaving('QBWhere'),
             ) . ')';
 
             $this->QBOptions['sql'] = $sql;
@@ -500,20 +471,27 @@ class Builder extends BaseBuilder
         if (isset($this->QBOptions['setQueryAsData'])) {
             $data = $this->QBOptions['setQueryAsData'];
         } else {
+            $constraints = $this->QBOptions['constraints'] ?? [];
+            $lengths     = $this->longestValues($keys, $values);
+
             $data = implode(
                 " FROM DUAL UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    fn (array $value): string => sprintf('SELECT %s', implode(', ', array_map(
+                        fn (string $key, float|int|string $index): string => sprintf(
+                            '%s %s',
+                            $this->cast((string) $index, $this->getSourceField($table, $key, $constraints), $lengths[$key]),
+                            $key,
+                        ),
                         $keys,
-                        $value
-                    )),
-                    $values
-                )
+                        $value,
+                    ))),
+                    $values,
+                ),
             ) . " FROM DUAL\n";
         }
 
-        return str_replace('{:_table_:}', $data, $sql);
+        return $this->compileBatchBinds(str_replace('{:_table_:}', $data, $sql));
     }
 
     /**
@@ -522,5 +500,83 @@ class Builder extends BaseBuilder
     protected function fieldsFromQuery(string $sql): array
     {
         return $this->db->query('SELECT * FROM (' . $sql . ') "_u_" WHERE ROWNUM = 1')->getFieldNames();
+    }
+
+    /**
+     * Returns the longest escaped value per key across the batch.
+     *
+     * @param list<string>                 $keys
+     * @param list<list<float|int|string>> $values
+     *
+     * @return array<string, int>
+     */
+    private function longestValues(array $keys, array $values): array
+    {
+        $lengths = [];
+
+        foreach ($keys as $i => $key) {
+            $lengths[$key] = max(array_map(static fn (array $row): int => mb_strlen((string) $row[$i]), $values));
+        }
+
+        return $lengths;
+    }
+
+    /**
+     * Returns the field shared by every destination column fed from the source key, or null when their types differ.
+     *
+     * @param array<array-key, RawSql|string> $map Destination column to source key.
+     */
+    private function getSourceField(string $table, string $key, array $map): ?stdClass
+    {
+        $columns = array_filter(array_keys($map, $key, true), is_string(...));
+
+        if ($columns === []) {
+            return $this->getField($table, $key);
+        }
+
+        $fields = array_map(fn (string $column): ?stdClass => $this->getField($table, $column), $columns);
+        $types  = array_unique(array_map(static fn (?stdClass $field): string => $field instanceof stdClass ? $field->type . '(' . $field->max_length . ')' : '', $fields));
+
+        return count($types) === 1 ? reset($fields) : null;
+    }
+
+    /**
+     * Returns the literal converted to the field type, or unchanged when the field is unknown or a LOB.
+     *
+     * @param int $length Longest value for the key in the batch.
+     */
+    private function cast(string $value, ?stdClass $field, int $length): string
+    {
+        if (! $field instanceof stdClass) {
+            return $value;
+        }
+
+        return match ($field->type) {
+            // Every row gets the same fixed width, wide enough for the longest value, so the UNION ALL stays CHAR and nothing is truncated.
+            'CHAR', 'NCHAR'                                             => sprintf('CAST(%s AS %s(%d))', $value, $field->type, max((int) $field->max_length, $length)),
+            'VARCHAR2'                                                  => sprintf('TO_CHAR(%s)', $value),
+            'NVARCHAR2'                                                 => sprintf('TO_NCHAR(%s)', $value),
+            'RAW', 'LONG RAW', 'CLOB', 'NCLOB', 'BLOB', 'BFILE', 'LONG' => $value,
+            default                                                     => sprintf('CAST(%s AS %s)', $value, $field->type),
+        };
+    }
+
+    /**
+     * @param string $table     Protected table name.
+     * @param string $fieldName Field name. May be protected.
+     */
+    private function getField(string $table, string $fieldName): ?stdClass
+    {
+        $fieldName = trim($fieldName, $this->db->escapeChar);
+
+        if (! isset($this->QBOptions['fields'][$table])) {
+            $this->QBOptions['fields'][$table] = [];
+
+            foreach ($this->db->getFieldData($table) as $field) {
+                $this->QBOptions['fields'][$table][$field->name] = $field;
+            }
+        }
+
+        return $this->QBOptions['fields'][$table][$fieldName] ?? null;
     }
 }

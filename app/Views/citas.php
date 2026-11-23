@@ -187,7 +187,29 @@
     })
 
 
+    /*=============================================
+     CONVERTIR CITA A CONSULTA
+     =============================================*/
+    $(".tablaCitas").on("click", ".btnConvertirConsulta", function () {
 
+        var idCita = $(this).attr("idCita");
+
+        Swal.fire({
+            title: '¿Convertir cita en consulta?',
+            text: "Se abrirá una nueva consulta con los datos del paciente y el motivo de la cita.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, generar consulta',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = `<?= base_url('admin/consultas/generarDesdeCita') ?>/` + idCita;
+            }
+        });
+
+    });
 
 </script>
 <?= $this->endSection() ?>

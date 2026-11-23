@@ -18,8 +18,6 @@ use Config\App;
 
 /**
  * Generate a sample URI path from route key regex.
- *
- * @see \CodeIgniter\Commands\Utilities\Routes\SampleURIGeneratorTest
  */
 final class SampleURIGenerator
 {
@@ -57,7 +55,7 @@ final class SampleURIGenerator
             $sampleUri = str_replace(
                 '{locale}',
                 config(App::class)->defaultLocale,
-                $routeKey
+                $routeKey,
             );
         }
 

@@ -14,17 +14,17 @@ declare(strict_types=1);
 namespace CodeIgniter\DataCaster\Cast;
 
 /**
- * Class FloatCast
- *
  * (PHP) [float --> float       ] --> (DB driver) --> (DB column) float
  *       [      <-- float|string] <-- (DB driver) <-- (DB column) float
+ *
+ * @extends BaseCast<float, float|string>
  */
 class FloatCast extends BaseCast
 {
     public static function get(
         mixed $value,
         array $params = [],
-        ?object $helper = null
+        ?object $helper = null,
     ): float {
         if (! is_float($value) && ! is_string($value)) {
             self::invalidTypeValueError($value);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -60,7 +62,7 @@ return [
     'valid_date'            => 'Поле {field} має містити дійсну дату.',
 
     // Credit Cards
-    'valid_cc_num' => 'Поле {field} має містити дійсний номер кредитної картки.',
+    'valid_cc_number' => 'Поле {field} має містити дійсний номер кредитної картки.',
 
     // Files
     'uploaded' => 'Поле {field} не містить файл.',

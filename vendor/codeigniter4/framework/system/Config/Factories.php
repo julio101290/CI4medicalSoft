@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Config;
 
+use CodeIgniter\Autoloader\FileLocatorInterface;
 use CodeIgniter\Database\ConnectionInterface;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use CodeIgniter\Model;
-use InvalidArgumentException;
 
 /**
  * Factories for creating instances.
@@ -25,9 +26,9 @@ use InvalidArgumentException;
  * large performance boost and helps keep code clean of lengthy
  * instantiation checks.
  *
+ * @method static object|null     cells(string $alias, array<string, bool|string|null> $options = [])
  * @method static BaseConfig|null config(...$arguments)
- * @method static Model|null      models(string $alias, array $options = [], ?ConnectionInterface &$conn = null)
- * @see \CodeIgniter\Config\FactoriesTest
+ * @method static Model|null      models(string $alias, array<string, bool|string|null> $options = [], ?ConnectionInterface &$conn = null)
  */
 final class Factories
 {
@@ -37,7 +38,7 @@ final class Factories
      *
      * @var array<string, array<string, bool|string|null>>
      */
-    private static $options = [];
+    private static array $options = [];
 
     /**
      * Explicit options for the Config
@@ -65,7 +66,7 @@ final class Factories
      *
      * @var array<string, array<string, class-string>>
      */
-    private static $aliases = [];
+    private static array $aliases = [];
 
     /**
      * Store for instances of any component that
@@ -78,7 +79,7 @@ final class Factories
      *
      * @var array<string, array<class-string, object>>
      */
-    private static $instances = [];
+    private static array $instances = [];
 
     /**
      * Whether the component instances are updated?
@@ -87,7 +88,7 @@ final class Factories
      *
      * @internal For caching only
      */
-    private static $updated = [];
+    private static array $updated = [];
 
     /**
      * Define the class to load. You can *override* the concrete class.
@@ -106,7 +107,7 @@ final class Factories
             }
 
             throw new InvalidArgumentException(
-                'Already defined in Factories: ' . $component . ' ' . $alias . ' -> ' . self::$aliases[$component][$alias]
+                'Already defined in Factories: ' . $component . ' ' . $alias . ' -> ' . self::$aliases[$component][$alias],
             );
         }
 
@@ -126,6 +127,8 @@ final class Factories
      * Loads instances based on the method component name. Either
      * creates a new instance or returns an existing shared instance.
      *
+     * @param array<array-key, mixed> $arguments
+     *
      * @return object|null
      */
     public static function __callStatic(string $component, array $arguments)
@@ -139,7 +142,7 @@ final class Factories
         // Determine the component-specific options
         $options = array_merge(self::getOptions($component), $options);
 
-        if (! $options['getShared']) {
+        if (! (bool) $options['getShared']) {
             if (isset(self::$aliases[$options['component']][$alias])) {
                 $class = self::$aliases[$options['component']][$alias];
 
@@ -162,7 +165,7 @@ final class Factories
         }
 
         // Try to locate the class
-        if (! $class = self::locateClass($options, $alias)) {
+        if (($class = self::locateClass($options, $alias)) === null) {
             return null;
         }
 
@@ -191,6 +194,9 @@ final class Factories
     /**
      * Gets the defined instance. If not exists, creates new one.
      *
+     * @param array<string, bool|string|null> $options
+     * @param array<array-key, mixed>         $arguments
+     *
      * @return object|null
      */
     private static function getDefinedInstance(array $options, string $alias, array $arguments)
@@ -213,7 +219,7 @@ final class Factories
         }
 
         // Try to locate the class
-        if (! $class = self::locateClass($options, $alias)) {
+        if (($class = self::locateClass($options, $alias)) === null) {
             return null;
         }
 
@@ -229,6 +235,8 @@ final class Factories
 
     /**
      * Creates the shared instance.
+     *
+     * @param array<array-key, mixed> $arguments
      */
     private static function createInstance(string $component, string $class, array $arguments): void
     {
@@ -263,8 +271,8 @@ final class Factories
     /**
      * Finds a component class
      *
-     * @param array  $options The array of component-specific directives
-     * @param string $alias   Class alias. See the $aliases property.
+     * @param array<string, bool|string|null> $options The array of component-specific directives
+     * @param string                          $alias   Class alias. See the $aliases property.
      */
     private static function locateClass(array $options, string $alias): ?string
     {
@@ -299,6 +307,7 @@ final class Factories
         }
 
         // Have to do this the hard way...
+        /** @var FileLocatorInterface */
         $locator = service('locator');
 
         // Check if the class alias was namespaced
@@ -310,7 +319,7 @@ final class Factories
         }
         // No namespace? Search for it
         // Check all namespaces, prioritizing App and modules
-        elseif (! $files = $locator->search($options['path'] . DIRECTORY_SEPARATOR . $alias)) {
+        elseif (($files = $locator->search($options['path'] . DIRECTORY_SEPARATOR . $alias)) === []) {
             return null;
         }
 
@@ -339,8 +348,8 @@ final class Factories
     /**
      * Verifies that a class & config satisfy the "preferApp" option
      *
-     * @param array  $options The array of component-specific directives
-     * @param string $alias   Class alias. See the $aliases property.
+     * @param array<string, bool|string|null> $options The array of component-specific directives
+     * @param string                          $alias   Class alias. See the $aliases property.
      */
     private static function verifyPreferApp(array $options, string $alias): bool
     {
@@ -360,8 +369,8 @@ final class Factories
     /**
      * Verifies that a class & config satisfy the "instanceOf" option
      *
-     * @param array  $options The array of component-specific directives
-     * @param string $alias   Class alias. See the $aliases property.
+     * @param array<string, bool|string|null> $options The array of component-specific directives
+     * @param string                          $alias   Class alias. See the $aliases property.
      */
     private static function verifyInstanceOf(array $options, string $alias): bool
     {
@@ -406,8 +415,8 @@ final class Factories
     /**
      * Normalizes, stores, and returns the configuration for a specific component
      *
-     * @param string $component Lowercase, plural component name
-     * @param array  $values    option values
+     * @param string                          $component Lowercase, plural component name
+     * @param array<string, bool|string|null> $values    Option values
      *
      * @return array<string, bool|string|null> The result after applying defaults and normalization
      */
@@ -448,7 +457,7 @@ final class Factories
                 self::$options[$component],
                 self::$aliases[$component],
                 self::$instances[$component],
-                self::$updated[$component]
+                self::$updated[$component],
             );
 
             return;
@@ -511,6 +520,12 @@ final class Factories
     /**
      * Gets component data for caching.
      *
+     * @return array{
+     *   options: array<string, bool|string|null>,
+     *   aliases: array<string, class-string>,
+     *   instances: array<class-string, object>,
+     * }
+     *
      * @internal For caching only
      */
     public static function getComponentInstances(string $component): array
@@ -532,6 +547,12 @@ final class Factories
 
     /**
      * Sets component data
+     *
+     * @param array{
+     *   options: array<string, bool|string|null>,
+     *   aliases: array<string, class-string>,
+     *   instances: array<class-string, object>,
+     * } $data
      *
      * @internal For caching only
      */

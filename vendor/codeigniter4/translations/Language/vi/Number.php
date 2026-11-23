@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -21,6 +23,6 @@ return [
     'thousand'    => ' ngàn',
     'million'     => ' triệu',
     'billion'     => ' tỷ',
-    'trillion'    => ' ngìn tỷ',
+    'trillion'    => ' nghìn tỷ',
     'quadrillion' => ' triệu tỷ',
 ];

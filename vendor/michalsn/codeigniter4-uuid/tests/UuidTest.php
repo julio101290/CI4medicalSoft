@@ -82,6 +82,17 @@ class UuidTest extends CIUnitTestCase
         $this->assertSame('9669-0800200c9a66', substr($uuid->toString(), 19));
 	}
 
+    public function testUuid7()
+    {
+        $this->uuid = new Uuid($this->config);
+
+        $uuid = $this->uuid->uuid7(new \DateTimeImmutable('@281474976710.655'));
+        $this->assertInstanceOf(\Ramsey\Uuid\Lazy\LazyUuidFromString::class, $uuid);
+        $this->assertInstanceOf(DateTimeImmutable::class, $uuid->getDateTime());
+        $this->assertSame(2, $uuid->getVariant());
+        $this->assertSame(7, $uuid->getVersion());
+    }
+
 	public function testFromString()
     {
     	$this->uuid = new Uuid($this->config);
@@ -136,5 +147,17 @@ class UuidTest extends CIUnitTestCase
         
         $result = $this->uuid->isValid('ff6f8cb0-0800200c9a66');
         $this->assertFalse($result);
+    }
+
+    public function testFromValue()
+    {
+        $this->uuid = new Uuid($this->config);
+
+        $uuid = $this->uuid->fromValue('ff6f8cb0-c57d-11e1-9b21-0800200c9a66');
+        $bytes = $uuid->getBytes();
+
+        $fromBytesUuid = $this->uuid->fromValue($bytes);
+
+        $this->assertTrue($uuid->equals($fromBytesUuid));
     }
 }

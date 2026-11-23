@@ -76,6 +76,9 @@ class TestGenerator extends BaseCommand
      */
     public function run(array $params)
     {
+        // Ensure tests are always suffixed with 'Test'
+        $params['suffix'] = null;
+
         $this->component = 'Test';
         $this->template  = 'test.tpl.php';
 
@@ -102,9 +105,9 @@ class TestGenerator extends BaseCommand
                 str_replace(
                     '/',
                     '\\',
-                    $this->getOption('namespace')
+                    $this->getOption('namespace'),
                 ),
-                '\\'
+                '\\',
             );
         }
 
@@ -143,7 +146,7 @@ class TestGenerator extends BaseCommand
             CLI::error(
                 lang('CLI.namespaceNotDefined', [$namespace]),
                 'light_gray',
-                'red'
+                'red',
             );
             CLI::newLine();
 
@@ -157,7 +160,7 @@ class TestGenerator extends BaseCommand
             . str_replace(
                 '\\',
                 DIRECTORY_SEPARATOR,
-                trim(str_replace($namespace . '\\', '', $class), '\\')
+                trim(str_replace($namespace . '\\', '', $class), '\\'),
             ) . '.php';
 
         return implode(
@@ -165,28 +168,25 @@ class TestGenerator extends BaseCommand
             array_slice(
                 explode(DIRECTORY_SEPARATOR, $file),
                 0,
-                -1
-            )
+                -1,
+            ),
         ) . DIRECTORY_SEPARATOR . $this->basename($file);
     }
 
     /**
      * Returns test file path for the namespace.
      */
-    private function searchTestFilePath(string $namespace): ?string
+    private function searchTestFilePath(string $testNamespace): ?string
     {
-        $bases = service('autoloader')->getNamespace($namespace);
+        /** @var list<non-empty-string> $testPaths */
+        $testPaths = service('autoloader')->getNamespace($testNamespace);
 
-        $base = null;
-
-        foreach ($bases as $candidate) {
-            if (str_contains($candidate, '/tests/')) {
-                $base = $candidate;
-
-                break;
+        foreach ($testPaths as $candidate) {
+            if (str_contains($candidate, DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR)) {
+                return $candidate;
             }
         }
 
-        return $base;
+        return null;
     }
 }

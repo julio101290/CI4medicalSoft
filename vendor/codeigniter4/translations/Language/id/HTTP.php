@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -19,6 +21,8 @@ return [
 
     // IncomingRequest
     'invalidNegotiationType' => '"{0}" bukan sebuah jenis negosiasi yang valid. Harus salah satu: media, charset, encoding, language.',
+    'invalidJSON'            => 'Gagal mengurai string JSON. Kesalahan: "{0}"',
+    'unsupportedJSONFormat'  => 'Format JSON yang diberikan tidak didukung.',
 
     // Message
     'invalidHTTPProtocol' => 'Versi Protokol HTTP Tidak Valid. Harus salah satu: "{0}"',

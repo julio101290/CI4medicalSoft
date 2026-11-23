@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -20,6 +22,7 @@ return [
     'gap'           => 'فاصله ای در دنباله‌ی مایگریشن در نزدیک این ورژن وجود دارد: ',
     'classNotFound' => 'کلاس مایگریشن "%s" پیدا نشد.',
     'missingMethod' => 'کلاس مایگریشن متد "%s" را ندارد.',
+    'locked'        => 'فرآیند مایگریشن در حال حاضر در یک پردازش دیگر در حال اجراست. از اجرای مجدد صرف‌ نظر شد.',
 
     // Migration Command
     'migHelpLatest'   => "\t\tمایگریت دستابیس به آخرین مایگریشن در دسترس.",

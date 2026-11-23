@@ -16,10 +16,12 @@ namespace CodeIgniter\Database\SQLite3;
 use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Database\RawSql;
-use InvalidArgumentException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 
 /**
  * Builder for SQLite3
+ *
+ * @extends BaseBuilder<Connection>
  */
 class Builder extends BaseBuilder
 {
@@ -42,14 +44,14 @@ class Builder extends BaseBuilder
     /**
      * ORDER BY random keyword
      *
-     * @var array
+     * @var list<string>
      */
     protected $randomKeyword = [
         'RANDOM()',
     ];
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected $supportedIgnoreStatements = [
         'insert' => 'OR IGNORE',
@@ -142,24 +144,24 @@ class Builder extends BaseBuilder
         if ($sql === '') {
             $constraints = $this->QBOptions['constraints'] ?? [];
 
-            if (empty($constraints)) {
-                $fieldNames = array_map(static fn ($columnName) => trim($columnName, '`'), $keys);
+            if ($constraints === []) {
+                $fieldNames = array_map(static fn ($columnName): string => trim($columnName, '`'), $keys);
 
-                $allIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames) {
+                $allIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames): bool {
                     $hasAllFields = count(array_intersect($index->fields, $fieldNames)) === count($index->fields);
 
                     return ($index->type === 'PRIMARY' || $index->type === 'UNIQUE') && $hasAllFields;
                 });
 
-                foreach (array_map(static fn ($index) => $index->fields, $allIndexes) as $index) {
-                    $constraints[] = current($index);
+                foreach ($allIndexes as $index) {
+                    $constraints = $index->fields;
                     break;
                 }
 
                 $constraints = $this->onConstraint($constraints)->QBOptions['constraints'] ?? [];
             }
 
-            if (empty($constraints)) {
+            if ($constraints === []) {
                 if ($this->db->DBDebug) {
                     throw new DatabaseException('No constraint found for upsert.');
                 }
@@ -179,7 +181,7 @@ class Builder extends BaseBuilder
 
             $sql = 'INSERT INTO ' . $table . ' (';
 
-            $sql .= implode(', ', array_map(static fn ($columnName) => $columnName, $keys));
+            $sql .= implode(', ', array_map(static fn ($columnName): string => $columnName, $keys));
 
             $sql .= ")\n";
 
@@ -192,12 +194,12 @@ class Builder extends BaseBuilder
             $sql .= implode(
                 ",\n",
                 array_map(
-                    static fn ($key, $value) => $key . ($value instanceof RawSql ?
+                    static fn ($key, $value): string => $key . ($value instanceof RawSql ?
                         " = {$value}" :
                         " = {$alias}.{$value}"),
                     array_keys($updateFields),
-                    $updateFields
-                )
+                    $updateFields,
+                ),
             );
 
             $this->QBOptions['sql'] = $sql;
@@ -240,7 +242,7 @@ class Builder extends BaseBuilder
                 // @codeCoverageIgnore
             }
 
-            if (is_string(current(array_keys($constraints)))) {
+            if (is_string(array_key_first($constraints))) {
                 $concat1 = implode(' || ', array_keys($constraints));
                 $concat2 = implode(' || ', array_values($constraints));
             } else {
@@ -265,13 +267,13 @@ class Builder extends BaseBuilder
             $data = implode(
                 " UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    static fn ($value): string => 'SELECT ' . implode(', ', array_map(
+                        static fn ($key, $index): string => $index . ' ' . $key,
                         $keys,
-                        $value
+                        $value,
                     )),
-                    $values
-                )
+                    $values,
+                ),
             ) . "\n";
         }
 

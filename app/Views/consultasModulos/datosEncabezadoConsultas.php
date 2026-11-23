@@ -37,6 +37,7 @@
                             <input type="text" id="doctor" name="doctor" disabled value="<?= $userName ?>">
                             <input type="hidden" id="idDoctor" name="idDoctor" value="<?= $idUser ?>">
                             <input type="hidden" id="idConsulta" name="idConsulta" value="<?= $idConsulta ?>">
+                            <input type="hidden" id="idCita" name="idCita" value="<?= $idCita ?? 0 ?>">
                             <input type="hidden" id="uuid" name="uuid" value="<?= $uuid ?>">
                         </div>
                     </div>
@@ -169,11 +170,9 @@
                                                         </div>
                                                     EOT;
                                         }
-                                        
-                                         echo $rows;
-                                    }
 
-                                   
+                                        echo $rows;
+                                    }
                                     ?>
 
 
@@ -227,7 +226,7 @@
                                 <button type="button" class="btn bg-blue btnTratamientosAnteriores" data-toggle="modal" data-target="#modalMostrarTratamientosAnteriores" data-dismiss="modal" idcodigo="'1" required="" data-placement="top" title="Consultas Anteriores">
 
 
-                                <?= lang('consultas.tratamientosAnteriores') ?>
+<?= lang('consultas.tratamientosAnteriores') ?>
 
 
                                 </button>
@@ -249,15 +248,15 @@
                                 <div class="renglonesTratamientos">
 
 
-                                    <?php
-                                    if (isset($tratamientosConsulta)) {
+<?php
+if (isset($tratamientosConsulta)) {
 
 
-                                        $rows = "";
+    $rows = "";
 
-                                        foreach ($tratamientosConsulta as $key => $value) {
+    foreach ($tratamientosConsulta as $key => $value) {
 
-                                            $rows .= <<< EOT
+        $rows .= <<< EOT
                                                          <div class="form-group row nuevoDiagnosticoEnfermedad">
                                                             <div class="col-2"> 
                                                                 <button type="button" class="btn btn-danger quitarTratamiento"
@@ -271,13 +270,11 @@
                                                             </div>
                                                         </div>
                                                     EOT;
-                                        }
-                                        
-                                        echo $rows;
-                                    }
+    }
 
-                                    
-                                    ?>
+    echo $rows;
+}
+?>
 
                                 </div>
 
@@ -380,46 +377,39 @@
 
     function guardarConsulta() {
 
-
         listarDiagnosticos();
         listarTratamientos();
         var UUID = $("#uuid").val();
         var idPaciente = $("#paciente").val();
         var fechaHora = $("#fechaHora").val();
         var idDoctor = $("#idDoctor").val();
+        var idCita = $("#idCita").val();
         var motivoConsulta = $("#motivoConsulta").val();
         var diagnosticos = $("#listaDiagnosticoEnfermedad").val();
         var tratamientos = $("#listaTratamiento").val();
 
-        var ajaxGuardarConsulta = "ajaxGuardarConsulta";
-
-
         $(".btnGuardarConsultaAjax").attr("disabled", true);
 
-        console.log("nombres", nombres);
         var datos = new FormData();
         datos.append("paciente", idPaciente);
         datos.append("fechaHora", fechaHora);
         datos.append("idDoctor", idDoctor);
+        datos.append("idCita", idCita);
         datos.append("motivoConsulta", motivoConsulta);
         datos.append("diagnosticos", diagnosticos);
         datos.append("tratamientos", tratamientos);
         datos.append("uuid", UUID);
 
         $.ajax({
-
             url: "<?= base_url(route_to('admin/consultas/guardar')) ?>",
             method: "POST",
             data: datos,
             cache: false,
             contentType: false,
             processData: false,
-            //dataType:"json",
             success: function (respuesta) {
 
-
                 if (respuesta.match(/Correctamente.*/)) {
-
 
                     Toast.fire({
                         icon: 'success',
@@ -436,17 +426,9 @@
                     });
 
                     $(".btnGuardarConsultaAjax").removeAttr("disabled");
-
-
                 }
-
             }
-
-        }
-
-        )
-
-
+        });
     }
 
     /*=============================================

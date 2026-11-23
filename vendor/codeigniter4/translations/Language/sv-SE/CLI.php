@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -16,30 +18,33 @@ return [
     'generator'          => [
         'cancelOperation' => 'Operationen har avbrutits.',
         'className'       => [
-            'cell'       => 'Cell klassnamn',
-            'command'    => 'Command klassnamn',
-            'config'     => 'Config klassnamn',
-            'controller' => 'Controller klassnamn',
-            'default'    => 'Klassnamn',
-            'entity'     => 'Entity klassnamn',
-            'filter'     => 'Filter klassnamn',
-            'migration'  => 'Migration klassnamn',
-            'model'      => 'Model klassnamn',
-            'seeder'     => 'Seeder klassnamn',
-            'test'       => 'Test klassnamn',
-            'validation' => 'Validation klassnamn',
+            'cell'        => 'Cell klassnamn',
+            'command'     => 'Command klassnamn',
+            'config'      => 'Config klassnamn',
+            'controller'  => 'Controller klassnamn',
+            'default'     => 'Klassnamn',
+            'entity'      => 'Entity klassnamn',
+            'filter'      => 'Filter klassnamn',
+            'migration'   => 'Migration klassnamn',
+            'model'       => 'Model klassnamn',
+            'seeder'      => 'Seeder klassnamn',
+            'test'        => 'Test klassnamn',
+            'transformer' => 'Transformer klassnamn',
+            'validation'  => 'Validation klassnamn',
         ],
-        'commandType'      => 'Typ av kommando',
-        'databaseGroup'    => 'Databasgrupp',
-        'fileCreate'       => 'Skapade filen: "{0}"',
-        'fileError'        => 'Fel då filen skulle skapas: "{0}"',
-        'fileExist'        => 'Filen finns redan: "{0}"',
-        'fileOverwrite'    => 'Skrev över filen: "{0}"',
-        'parentClass'      => 'Föräldraklass',
-        'returnType'       => 'Returtyp',
-        'tableName'        => 'Tabellnamn',
-        'usingCINamespace' => 'Varning: Om namespace "CodeIgniter" används kommer filen att skapas i katalogen system.',
-        'viewName'         => [
+        'commandType'              => 'Typ av kommando',
+        'databaseGroup'            => 'Databasgrupp',
+        'fileCreate'               => 'Skapade filen: "{0}"',
+        'fileError'                => 'Fel då filen skulle skapas: "{0}"',
+        'fileExist'                => 'Filen finns redan: "{0}"',
+        'fileOverwrite'            => 'Skrev över filen: "{0}"',
+        'parentClass'              => 'Föräldraklass',
+        'returnType'               => 'Returtyp',
+        'tableName'                => 'Tabellnamn',
+        'undefinedDatabaseGroup'   => 'Databasgruppen "{0}" är inte definierad.',
+        'unsupportedSessionDriver' => 'Sessioner lagrade i databasen stöds enbart av MySQLi och Postgre. Databasgruppen "{0}" använder "{1}" drivern.',
+        'usingCINamespace'         => 'Varning: Om namespace "CodeIgniter" används kommer filen att skapas i katalogen system.',
+        'viewName'                 => [
             'cell' => 'Cell view namn',
         ],
     ],
@@ -49,4 +54,9 @@ return [
     'helpUsage'           => 'Användning:',
     'invalidColor'        => 'Ogiltig "{0}" färg: "{1}".',
     'namespaceNotDefined' => 'Namespace "{0}" är inte definierat.',
+    'signals'             => [
+        'noPcntlExtension' => 'PCNTL extension är inte tillgänglig. Hantering av signaler avaktiverad.',
+        'noPosixExtension' => 'SIGTSTP/SIGCONT hantering kräver POSIX extension. Dessa signaler kommer inte att registreras.',
+        'failedSignal'     => 'Kunde inte registrera hanterare för signal: "{0}".',
+    ],
 ];

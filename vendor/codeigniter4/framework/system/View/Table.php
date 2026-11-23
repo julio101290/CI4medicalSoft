@@ -19,8 +19,6 @@ use CodeIgniter\Database\BaseResult;
  * HTML Table Generating Class
  *
  * Lets you create tables manually or from database result objects, or arrays.
- *
- * @see \CodeIgniter\View\TableTest
  */
 class Table
 {
@@ -83,7 +81,7 @@ class Table
     /**
      * Callback for custom table layout
      *
-     * @var callable|null
+     * @var (callable(mixed): mixed)|null
      */
     public $function;
 
@@ -108,8 +106,7 @@ class Table
     /**
      * Set the template
      *
-     * @param         array<string, string>        $template
-     * @phpstan-param array<string, string>|string $template
+     * @param array<string, string>|string $template
      *
      * @return bool
      */
@@ -228,13 +225,13 @@ class Table
             $missingKeys = array_diff_key($keyIndex, $tmpRow);
 
             // Remove all keys which don't exist in $keyIndex
-            $tmpRow = array_filter($tmpRow, static fn ($k) => array_key_exists($k, $keyIndex), ARRAY_FILTER_USE_KEY);
+            $tmpRow = array_filter($tmpRow, static fn ($k): bool => array_key_exists($k, $keyIndex), ARRAY_FILTER_USE_KEY);
 
             // add missing keys to row, but use $this->emptyCells
-            $tmpRow = array_merge($tmpRow, array_map(fn ($v) => ['data' => $this->emptyCells], $missingKeys));
+            $tmpRow = array_merge($tmpRow, array_map(fn ($v): array => ['data' => $this->emptyCells], $missingKeys));
 
             // order keys by $keyIndex values
-            uksort($tmpRow, static fn ($k1, $k2) => $keyIndex[$k1] <=> $keyIndex[$k2]);
+            uksort($tmpRow, static fn ($k1, $k2): int => $keyIndex[$k1] <=> $keyIndex[$k2]);
         }
         $this->rows[] = $tmpRow;
 
@@ -261,7 +258,7 @@ class Table
      *
      * Ensures a standard associative array format for all cell data
      *
-     * @param array<int, mixed> $args
+     * @param array<array-key, mixed> $args
      *
      * @return array<string, array<string, mixed>>|list<array<string, mixed>>
      */
@@ -333,7 +330,7 @@ class Table
         $out = $this->template['table_open'] . $this->newline;
 
         // Add any caption here
-        if ($this->caption) {
+        if (isset($this->caption) && $this->caption !== '') {
             $out .= '<caption>' . $this->caption . '</caption>' . $this->newline;
         }
 
@@ -504,9 +501,7 @@ class Table
         }
 
         foreach ($this->_defaultTemplate() as $field => $template) {
-            if (! isset($this->template[$field])) {
-                $this->template[$field] = $template;
-            }
+            $this->template[$field] ??= $template;
         }
     }
 

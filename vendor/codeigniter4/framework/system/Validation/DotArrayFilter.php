@@ -13,40 +13,29 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Validation;
 
-/**
- * @see \CodeIgniter\Validation\DotArrayFilterTest
- */
 final class DotArrayFilter
 {
     /**
      * Creates a new array with only the elements specified in dot array syntax.
      *
-     * This code comes from the dot_array_search() function.
+     * @param list<string>            $indexes The dot array syntax pattern to use for filtering.
+     * @param array<array-key, mixed> $array   The array to filter.
      *
-     * @param array $indexes The dot array syntax pattern to use for filtering.
-     * @param array $array   The array to filter.
-     *
-     * @return array The filtered array.
+     * @return array<array-key, mixed> The filtered array.
      */
     public static function run(array $indexes, array $array): array
     {
         $result = [];
 
         foreach ($indexes as $index) {
-            // See https://regex101.com/r/44Ipql/1
-            $segments = preg_split(
-                '/(?<!\\\\)\./',
-                rtrim($index, '* '),
-                0,
-                PREG_SPLIT_NO_EMPTY
-            );
+            $segments = preg_split('/(?<!\\\\)\./', $index, -1, PREG_SPLIT_NO_EMPTY);
+            $segments = array_map(static fn ($key): string => str_replace('\.', '.', $key), $segments);
 
-            $segments = array_map(
-                static fn ($key) => str_replace('\.', '.', $key),
-                $segments
-            );
+            $filteredArray = self::filter($segments, $array);
 
-            $result = array_replace_recursive($result, self::filter($segments, $array));
+            if ($filteredArray !== []) {
+                $result = array_replace_recursive($result, $filteredArray);
+            }
         }
 
         return $result;
@@ -55,60 +44,62 @@ final class DotArrayFilter
     /**
      * Used by `run()` to recursively filter the array with wildcards.
      *
-     * @param array $indexes The dot array syntax pattern to use for filtering.
-     * @param array $array   The array to filter.
+     * @param list<string>            $indexes The dot array syntax pattern to use for filtering.
+     * @param array<array-key, mixed> $array   The array to filter.
      *
-     * @return array The filtered array.
+     * @return array<array-key, mixed> The filtered array.
      */
     private static function filter(array $indexes, array $array): array
     {
-        // If index is empty, returns empty array.
+        // If there are no indexes left, return an empty array
         if ($indexes === []) {
             return [];
         }
 
-        // Grab the current index.
+        // Get the current index
         $currentIndex = array_shift($indexes);
 
-        if (! isset($array[$currentIndex]) && $currentIndex !== '*') {
+        // If the current index doesn't exist and is not a wildcard, return an empty array.
+        // Use array_key_exists() so explicit null values are preserved.
+        if ($currentIndex !== '*' && ! array_key_exists($currentIndex, $array)) {
             return [];
         }
 
-        // Handle Wildcard (*)
+        // Handle the wildcard '*' at the current level
         if ($currentIndex === '*') {
-            $answer = [];
+            $result = [];
 
+            // Iterate over all keys at this level
             foreach ($array as $key => $value) {
-                if (! is_array($value)) {
-                    continue;
-                }
-
-                $result = self::filter($indexes, $value);
-
-                if ($result !== []) {
-                    $answer[$key] = $result;
+                if ($indexes === []) {
+                    // If no indexes are left, capture the entire value
+                    $result[$key] = $value;
+                } elseif (is_array($value)) {
+                    // If there are still indexes left, continue filtering recursively
+                    $filtered = self::filter($indexes, $value);
+                    if ($filtered !== []) {
+                        $result[$key] = $filtered;
+                    }
                 }
             }
 
-            return $answer;
+            return $result;
         }
 
-        // If this is the last index, make sure to return it now,
-        // and not try to recurse through things.
+        // If this is the last index, return the value as-is, including null.
         if ($indexes === []) {
             return [$currentIndex => $array[$currentIndex]];
         }
 
-        // Do we need to recursively filter this value?
-        if (is_array($array[$currentIndex]) && $array[$currentIndex] !== []) {
-            $result = self::filter($indexes, $array[$currentIndex]);
+        // If the current value is an array, recursively filter it
+        if (is_array($array[$currentIndex])) {
+            $filtered = self::filter($indexes, $array[$currentIndex]);
 
-            if ($result !== []) {
-                return [$currentIndex => $result];
+            if ($filtered !== []) {
+                return [$currentIndex => $filtered];
             }
         }
 
-        // Otherwise, not found.
         return [];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -21,7 +23,6 @@ return [
     'unsupportedImageCreate' => 'Servern har inte support för den GD funktion som behövs för att hantera denna typ av bild.',
     'jpgOrPngRequired'       => 'De angivna funktionerna för storleksförändring av bilden fungerar enbart med JPEG och PNG bilder.',
     'rotateUnsupported'      => 'Rotering av bilder verkar inte supporteras på din server.',
-    'libPathInvalid'         => 'Sökvägen till binärbiblioteket är inte korrekt. Ange korrekt sökväg i inställningarna. "{0}"',
     'imageProcessFailed'     => 'Kunde inte processa bilden. Kontrollera att servern har support för det valda formatet och att sökvägen till binärbiblioteket är korrekt.',
     'rotationAngleRequired'  => 'En rotationsvinkel krävs för att kunna rotera bilden.',
     'invalidPath'            => 'Sökvägen till bilden är inte korrekt.',
@@ -30,4 +31,7 @@ return [
     'saveFailed'             => 'Kunde inte spara bilden. Kontrollera att bildfilen och filkatalogen är skrivbara.',
     'invalidDirection'       => 'Flip direction kan bara vara "vertical" eller "horizontal". Givet: "{0}"',
     'exifNotSupported'       => 'Denna PHP installation stödjer inte läsning av EXIF-data.',
+
+    // @deprecated
+    'libPathInvalid' => 'Sökvägen till binärbiblioteket är inte korrekt. Ange korrekt sökväg i inställningarna. "{0}"',
 ];

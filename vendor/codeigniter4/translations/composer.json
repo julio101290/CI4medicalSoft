@@ -10,22 +10,23 @@
         "slack": "https://codeigniterchat.slack.com"
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-intl": "*"
     },
     "require-dev": {
         "ext-tokenizer": "*",
         "codeigniter/coding-standard": "^1.7",
-        "codeigniter4/codeigniter4": "4.x-dev",
+        "codeigniter4/codeigniter4": "dev-develop",
         "friendsofphp/php-cs-fixer": "^3.53",
         "nexusphp/cs-config": "^3.22",
-        "phpunit/phpunit": "^10.5 || ^11.0"
+        "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4.5"
     },
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/codeigniter4/CodeIgniter4",
-            "canonical": true
+            "canonical": true,
+            "no-api": true
         }
     ],
     "autoload": {
@@ -36,7 +37,8 @@
     "autoload-dev": {
         "psr-4": {
             "Translations\\Tests\\": "tests/Language/",
-            "Translations\\Tests\\AutoReview\\": "tests/AutoReview"
+            "Translations\\Tests\\AutoReview\\": "tests/AutoReview",
+            "Translations\\Tests\\Upstream\\": "tests/Upstream"
         }
     },
     "config": {

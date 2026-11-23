@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -29,6 +31,7 @@ return [
     'differs'               => 'Het veld {field} moet verschillen van het {param} veld.',
     'equals'                => 'Het veld {field} moet gelijk zijn aan: {param}.',
     'exact_length'          => 'Het veld {field} moet exact {param} karakters lang zijn.',
+    'field_exists'          => 'Het veld {field} moet aanwezig zijn.',
     'greater_than'          => 'Het veld {field} moet een waarde groter dan {param} bevatten.',
     'greater_than_equal_to' => 'Het veld {field} moet een waarde groter dan of gelijk aan {param} bevatten.',
     'hex'                   => 'Het veld {field} mag enkel hexadecimale karakters bevatten.',
@@ -44,11 +47,13 @@ return [
     'max_length'            => 'Het veld {field} mag niet meer dan {param} karakters lang zijn.',
     'min_length'            => 'Het veld {field} moet minstens {param} karakters lang zijn.',
     'not_equals'            => 'Het veld {field} mag niet zijn: {param}.',
+    'not_in_list'           => 'Het veld {field} mag niet een van deze waarden zijn: {param}.',
     'numeric'               => 'Het veld {field} mag enkel nummer bevatten.',
     'regex_match'           => 'Het veld {field} is geen correct formaat.',
     'required'              => 'Het veld {field} is verplicht.',
     'required_with'         => 'Het veld {field} is verplicht wanneer {param} aanwezig is.',
     'required_without'      => 'Het veld {field} is verplicht wanneer {param} niet aanwezig is.',
+    'string'                => 'Het veld {field} moet een geldige string zijn.',
     'timezone'              => 'Het veld {field} moet een geldige tijdzone zijn.',
     'valid_base64'          => 'Het veld {field} moet een geldige base64 string zijn.',
     'valid_email'           => 'Het veld {field} moet een geldig emailadres bevatten.',
@@ -57,9 +62,10 @@ return [
     'valid_url'             => 'Het veld {field} moet een geldige URL bevatten.',
     'valid_url_strict'      => 'Het veld {field} moet een geldige URL bevatten.',
     'valid_date'            => 'Het veld {field} moet een geldige datum bevatten.',
+    'valid_json'            => 'Het veld {field} moet geldige json informatie bevatten.',
 
     // Credit Cards
-    'valid_cc_num' => '{field} lijkt geen geldige credit card nummer te bevatten.',
+    'valid_cc_number' => '{field} lijkt geen geldige credit card nummer te bevatten.',
 
     // Files
     'uploaded' => '{field} bevat geen geldig upload bestand.',
@@ -67,5 +73,6 @@ return [
     'is_image' => '{field} bevat geen geldige afbeelding.',
     'mime_in'  => '{field} heeft geen geldig mime type.',
     'ext_in'   => '{field} heeft geen geldige file extensie.',
-    'max_dims' => '{field} is geen afbeelding, is te breed of te hoog',
+    'max_dims' => '{field} is geen afbeelding, of is te breed of te hoog',
+    'min_dims' => '{field} is geen afbeelding, of is niet breed of hoog genoeg.',
 ];

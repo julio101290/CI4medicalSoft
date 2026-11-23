@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,6 +15,8 @@
 return [
     'pageNotFound'    => '404 - Sidan kunde inte hittas',
     'sorryCannotFind' => 'Ledsen! Verkar inte kunna hitta sidan du söker.',
+    'badRequest'      => '400 - Felaktig förfrågan',
+    'sorryBadRequest' => 'Ledsen! Någonting är fel med din förfrågan.',
     'whoops'          => 'Hoppsan!',
     'weHitASnag'      => 'Ett problem har uppstått. Var god försök igen senare...',
 ];

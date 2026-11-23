@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,7 +13,7 @@
 
 // Fabricator language settings
 return [
-    'invalidModel'      => 'Na výrobu bol dodaný neplatný model.',
-    'missingFormatters' => 'Nie sú definované žiadne platné formátory.',
-    'createFailed'      => 'Výrobcu sa nepodarilo vložiť do tabuľky {0}: {1}.',
+    'invalidModel'      => 'Na generovanie bol zadaný neplatný model.',
+    'missingFormatters' => 'Nie sú definované žiadne platné formátovače.',
+    'createFailed'      => 'Fabricatoru sa nepodarilo vložiť záznam do tabuľky "{0}": {1}',
 ];

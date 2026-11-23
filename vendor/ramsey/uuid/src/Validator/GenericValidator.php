@@ -17,12 +17,13 @@ namespace Ramsey\Uuid\Validator;
 use Ramsey\Uuid\Uuid;
 
 use function preg_match;
-use function str_replace;
+use function preg_replace;
+use function strlen;
 
 /**
  * GenericValidator validates strings as UUIDs of any variant
  *
- * @psalm-immutable
+ * @immutable
  */
 final class GenericValidator implements ValidatorInterface
 {
@@ -32,9 +33,17 @@ final class GenericValidator implements ValidatorInterface
     private const VALID_PATTERN = '\A[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\z';
 
     /**
-     * @psalm-return non-empty-string
-     * @psalm-suppress MoreSpecificReturnType we know that the retrieved `string` is never empty
-     * @psalm-suppress LessSpecificReturnStatement we know that the retrieved `string` is never empty
+     * Pattern to match the optional "urn:" and "uuid:" prefixes and the optional pair of braces around a UUID.
+     */
+    private const WRAPPER_PATTERN = '/\A(?:urn:)?(?:uuid:)?(?:\{(.*)\}|(.*))\z/Dis';
+
+    /**
+     * The length of the longest valid form: "urn:uuid:", braces, and 36 characters.
+     */
+    private const MAX_LENGTH = 47;
+
+    /**
+     * @return non-empty-string
      */
     public function getPattern(): string
     {
@@ -43,8 +52,16 @@ final class GenericValidator implements ValidatorInterface
 
     public function validate(string $uuid): bool
     {
-        $uuid = str_replace(['urn:', 'uuid:', 'URN:', 'UUID:', '{', '}'], '', $uuid);
+        // No valid form is longer than a UUID in braces after the "urn:uuid:" prefix.
+        if (strlen($uuid) > self::MAX_LENGTH) {
+            return false;
+        }
 
+        // Remove one "urn:" prefix, one "uuid:" prefix, and one pair of braces around the UUID, if present.
+        /** @phpstan-ignore possiblyImpure.functionCall */
+        $uuid = preg_replace(self::WRAPPER_PATTERN, '$1$2', $uuid) ?? $uuid;
+
+        /** @phpstan-ignore possiblyImpure.functionCall */
         return $uuid === Uuid::NIL || preg_match('/' . self::VALID_PATTERN . '/Dms', $uuid);
     }
 }

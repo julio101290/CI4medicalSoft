@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,6 +13,8 @@
 
 // Files language settings
 return [
-    'fileNotFound' => 'Bestand niet gevonden: {0}',
-    'cannotMove'   => 'Kon bestand {0} niet verplaatsen naar {1} ({2})',
+    'fileNotFound'      => 'Bestand niet gevonden: {0}',
+    'cannotMove'        => 'Kon bestand {0} niet verplaatsen naar {1} ({2})',
+    'expectedDirectory' => '{0} verwacht een bestaande map.',
+    'expectedFile'      => '{0} verwacht een bestaand bestand.',
 ];

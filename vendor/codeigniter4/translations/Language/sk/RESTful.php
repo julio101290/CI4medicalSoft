@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,5 +13,7 @@
 
 // RESTful language settings
 return [
-    'notImplemented' => '"{0}" akcia nie je implementovaná.',
+    'notImplemented' => 'Akcia "{0}" nie je implementovaná.',
+    'cannotPaginate' => 'Nepodarilo sa načítať stránkované dáta.',
+    'paginateError'  => 'Pri stránkovaní výsledkov sa vyskytla chyba.',
 ];

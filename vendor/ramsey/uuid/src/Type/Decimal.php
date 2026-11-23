@@ -18,25 +18,27 @@ use Ramsey\Uuid\Exception\InvalidArgumentException;
 use ValueError;
 
 use function is_numeric;
+use function is_string;
+use function preg_replace;
 use function sprintf;
 use function str_starts_with;
+use function strpbrk;
+use function trim;
 
 /**
  * A value object representing a decimal
  *
- * This class exists for type-safety purposes, to ensure that decimals
- * returned from ramsey/uuid methods as strings are truly decimals and not some
- * other kind of string.
+ * This class exists for type-safety purposes, to ensure that decimals returned from ramsey/uuid methods as strings are
+ * truly decimals and not some other kind of string.
  *
- * To support values as true decimals and not as floats or doubles, we store the
- * decimals as strings.
+ * To support values as true decimals and not as floats or doubles, we store the decimals as strings.
  *
- * @psalm-immutable
+ * @immutable
  */
 final class Decimal implements NumberInterface
 {
     private string $value;
-    private bool $isNegative = false;
+    private bool $isNegative;
 
     public function __construct(float | int | string | self $value)
     {
@@ -49,18 +51,24 @@ final class Decimal implements NumberInterface
             );
         }
 
+        // Remove the whitespace that is_numeric() allows around a number.
+        $value = trim($value, " \t\n\r\v\f");
+
         // Remove the leading +-symbol.
         if (str_starts_with($value, '+')) {
             $value = substr($value, 1);
         }
 
-        // For cases like `-0` or `-0.0000`, convert the value to `0`.
-        if (abs((float) $value) === 0.0) {
+        // For cases like `-0` or `-0.0000`, convert the value to `0`. The value
+        // is zero when no digit before the exponent is 1 through 9.
+        if (strpbrk((string) preg_replace('/e.*\z/is', '', $value), '123456789') === false) {
             $value = '0';
         }
 
         if (str_starts_with($value, '-')) {
             $this->isNegative = true;
+        } else {
+            $this->isNegative = false;
         }
 
         $this->value = $value;
@@ -103,8 +111,6 @@ final class Decimal implements NumberInterface
      * Constructs the object from a serialized string representation
      *
      * @param string $data The serialized string representation of the object
-     *
-     * @psalm-suppress UnusedMethodCall
      */
     public function unserialize(string $data): void
     {
@@ -113,13 +119,11 @@ final class Decimal implements NumberInterface
 
     /**
      * @param array{string?: string} $data
-     *
-     * @psalm-suppress UnusedMethodCall
      */
     public function __unserialize(array $data): void
     {
         // @codeCoverageIgnoreStart
-        if (!isset($data['string'])) {
+        if (!is_string($data['string'] ?? null)) {
             throw new ValueError(sprintf('%s(): Argument #1 ($data) is invalid', __METHOD__));
         }
         // @codeCoverageIgnoreEnd

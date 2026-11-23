@@ -40,7 +40,7 @@ final class MigrationBuilder
             ConvertLogTypes::class,
         ],
 
-        '9.5' => [
+        '9.6' => [
             RemoveListeners::class,
             RemoveTestSuiteLoaderAttributes::class,
             RemoveCacheResultFileAttribute::class,
@@ -62,6 +62,10 @@ final class MigrationBuilder
 
         '10.0' => [
             MoveCoverageDirectoriesToSource::class,
+        ],
+
+        '10.4' => [
+            RemoveBeStrictAboutTodoAnnotatedTestsAttribute::class,
         ],
     ];
 

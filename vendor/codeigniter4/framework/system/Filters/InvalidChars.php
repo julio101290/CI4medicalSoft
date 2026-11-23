@@ -25,8 +25,6 @@ use CodeIgniter\Security\Exceptions\SecurityException;
  * invalid characters:
  *   - invalid UTF-8 characters
  *   - control characters except line break and tab code
- *
- * @see \CodeIgniter\Filters\InvalidCharsTest
  */
 class InvalidChars implements FilterInterface
 {
@@ -48,13 +46,11 @@ class InvalidChars implements FilterInterface
      * Check invalid characters.
      *
      * @param list<string>|null $arguments
-     *
-     * @return void
      */
     public function before(RequestInterface $request, $arguments = null)
     {
         if (! $request instanceof IncomingRequest) {
-            return;
+            return null;
         }
 
         $data = [
@@ -69,30 +65,38 @@ class InvalidChars implements FilterInterface
             $this->checkEncoding($values);
             $this->checkControl($values);
         }
+
+        return null;
     }
 
     /**
      * We don't have anything to do here.
      *
      * @param list<string>|null $arguments
-     *
-     * @return void
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
+        return null;
     }
 
     /**
      * Check the character encoding is valid UTF-8.
      *
-     * @param array|string $value
+     * @param array<array-key, mixed>|string $value
      *
-     * @return array|string
+     * @return array<array-key, mixed>|string
+     *
+     * @throws SecurityException
      */
     protected function checkEncoding($value)
     {
         if (is_array($value)) {
-            array_map($this->checkEncoding(...), $value);
+            foreach ($value as $key => $item) {
+                if (is_string($key)) {
+                    $this->checkEncoding($key);
+                }
+                $this->checkEncoding($item);
+            }
 
             return $value;
         }
@@ -107,14 +111,19 @@ class InvalidChars implements FilterInterface
     /**
      * Check for the presence of control characters except line breaks and tabs.
      *
-     * @param array|string $value
+     * @param array<array-key, mixed>|string $value
      *
-     * @return array|string
+     * @return array<array-key, mixed>|string
      */
     protected function checkControl($value)
     {
         if (is_array($value)) {
-            array_map($this->checkControl(...), $value);
+            foreach ($value as $key => $item) {
+                if (is_string($key)) {
+                    $this->checkControl($key);
+                }
+                $this->checkControl($item);
+            }
 
             return $value;
         }

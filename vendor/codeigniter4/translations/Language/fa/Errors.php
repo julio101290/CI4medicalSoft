@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,6 +15,8 @@
 return [
     'pageNotFound'    => '404 - صفحه پیدا نشد',
     'sorryCannotFind' => 'متاسفیم! به نظر نمی رسد صفحه ای که به دنبال آن هستید را پیدا کنید.',
+    'badRequest'      => '400 - درخواست نامعتیر.',
+    'sorryBadRequest' => 'متأسفیم! مشکلی در درخواست شما وجود دارد.',
     'whoops'          => 'اوو!',
     'weHitASnag'      => 'به نظر میرسد مشکلی وجود دارد. لطفا مجددا بعدا تلاش کنید ...',
 ];

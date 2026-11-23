@@ -24,7 +24,8 @@ class UuidModel extends Model
 
 	/**
 	 * Used UUID version.
-	 * Available options: uuid1, uuid2, uuid3, uuid4, uuid5, uuid6.
+	 * Available options: uuid1, uuid2, uuid3, uuid4, uuid5, uuid6, uuid7.
+     * `uuid7` is a best option for storing UUIDs in a byte format for new projects.
 	 *
 	 * @var string
 	 */
@@ -47,10 +48,10 @@ class UuidModel extends Model
 	/**
 	 * Model constructor.
 	 *
-	 * @param ConnectionInterface $db
-	 * @param ValidationInterface $validation
+	 * @param ConnectionInterface|null $db
+	 * @param ValidationInterface|null $validation
 	 */
-	public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
+	public function __construct(?ConnectionInterface &$db = null, ?ValidationInterface $validation = null)
 	{
 		// We have to ensure that uuidVersion is set correctly
 		if (! in_array($this->uuidVersion, config('Uuid')->supportedVersions))
@@ -127,7 +128,7 @@ class UuidModel extends Model
 					continue;
 				}
 
-				$row[$field] = $this->uuid->fromBytes($row[$field])->toString();
+				$row[$field] = $this->uuid->fromValue($row[$field])->toString();
 			}
 			else
 			{
@@ -136,7 +137,7 @@ class UuidModel extends Model
 					continue;
 				}
 
-				$row->{$field} = $this->uuid->fromBytes($row->{$field})->toString();
+				$row->{$field} = $this->uuid->fromValue($row->{$field})->toString();
 			}
 		}
 
@@ -161,12 +162,12 @@ class UuidModel extends Model
 		{
 			foreach ($key as &$val)
 			{
-				$val = $this->uuid->fromString($val)->getBytes();
+				$val = $this->uuid->fromValue($val)->getBytes();
 			}
 		}
 		elseif (! empty($key))
 		{
-			$key = $this->uuid->fromString($key)->getBytes();
+			$key = $this->uuid->fromValue($key)->getBytes();
 		}
 
 		return $key;
@@ -220,7 +221,7 @@ class UuidModel extends Model
 				continue;
 			}
 
-			$row[$field] = $this->uuid->fromString($row[$field])->getBytes();
+			$row[$field] = $this->uuid->fromValue($row[$field])->getBytes();
 		}
 
 		return $row;
@@ -278,12 +279,12 @@ class UuidModel extends Model
 	 * all results, while optionally limiting them.
 	 * This methods works only with dbCalls
 	 *
-	 * @param integer $limit  Limit
+	 * @param integer|null $limit  Limit
 	 * @param integer $offset Offset
 	 *
 	 * @return array
 	 */
-	protected function doFindAll(int $limit = null, int $offset = 0)
+	protected function doFindAll(?int $limit = null, int $offset = 0)
 	{
 		$result = parent::doFindAll($limit, $offset);
 		// Convert UUID fields from byte if needed
@@ -312,8 +313,8 @@ class UuidModel extends Model
 			$builder->groupBy($this->table . '.' . $this->primaryKey);
 		}
 
-		// Search when UUID6 is used as primary key
-		if (empty($builder->QBOrderBy) && in_array($this->primaryKey, $this->uuidFields) && $this->uuidUseBytes === false && $this->uuidVersion === 'uuid6')	
+		// Search when UUID6 or UUID7 is used as primary key
+		if (empty($builder->QBOrderBy) && in_array($this->primaryKey, $this->uuidFields) && $this->uuidUseBytes === false && in_array($this->uuidVersion, ['uuid6', 'uuid7']))
 		{
 			$builder->orderBy($this->table . '.' . $this->primaryKey, 'asc');
 		}
@@ -380,7 +381,7 @@ class UuidModel extends Model
 			// Convert UUID fields if needed
 			if ($val && in_array($key, $this->uuidFields) && $this->uuidUseBytes === true)
 			{
-				$val = ($this->uuid->fromString($val))->getBytes();
+				$val = ($this->uuid->fromValue($val))->getBytes();
 			}
 			
 			$builder->set($key, $val, $escape[$key] ?? null);
@@ -455,7 +456,7 @@ class UuidModel extends Model
 						{
 							if ($this->uuidUseBytes === true && ! empty($row[$field]))
 							{
-								$row[$field] = ($this->uuid->fromString($row[$field]))->getBytes();
+								$row[$field] = ($this->uuid->fromValue($row[$field]))->getBytes();
 							}
 						}
 					}
@@ -494,7 +495,7 @@ class UuidModel extends Model
 			// Convert UUID fields if needed
 			if ($val && in_array($key, $this->uuidFields) && $this->uuidUseBytes === true)
 			{
-				$val = ($this->uuid->fromString($val))->getBytes();
+				$val = ($this->uuid->fromValue($val))->getBytes();
 			}
 
 			$builder->set($key, $val, $escape[$key] ?? null);
@@ -516,7 +517,7 @@ class UuidModel extends Model
 	 *
 	 * @throws DatabaseException
 	 */
-	protected function doUpdateBatch(array $set = null, string $index = null, int $batchSize = 100, bool $returnSQL = false)
+	protected function doUpdateBatch(?array $set = null, ?string $index = null, int $batchSize = 100, bool $returnSQL = false)
 	{
 		foreach ($set as &$row)
 		{
@@ -527,7 +528,7 @@ class UuidModel extends Model
 				{
 					if (! empty($row[$field]))
 					{
-						$row[$field] = ($this->uuid->fromString($row[$field]))->getBytes();
+						$row[$field] = ($this->uuid->fromValue($row[$field]))->getBytes();
 					}
 				}
 			}

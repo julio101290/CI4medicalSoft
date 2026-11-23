@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -63,7 +65,7 @@ return [
     'valid_json'            => 'فیلد {field} باید یک json معتبر باشد.',
 
     // Credit Cards
-    'valid_cc_num' => 'فیلد {field} به نظر یک شماره کارت اعتباری معتبر نیست.',
+    'valid_cc_number' => 'فیلد {field} به نظر یک شماره کارت اعتباری معتبر نیست.',
 
     // Files
     'uploaded' => '{field} یک فایل آپلود شده‌ی معتبر نیست.',
@@ -72,4 +74,5 @@ return [
     'mime_in'  => '{field} mime type معتبری ندارد.',
     'ext_in'   => '{field} پسوند فایل معتبری ندارد.',
     'max_dims' => '{field} یا یک عکس صحیح نیست، یا عرض یا طول خیلی زیادی دارد.',
+    'min_dims' => '{field} یا عکس نیست، یا ابعاد آن به اندازه کافی عریض یا بلند نیست.',
 ];

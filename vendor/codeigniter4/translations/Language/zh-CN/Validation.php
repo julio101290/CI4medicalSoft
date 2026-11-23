@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -61,7 +63,7 @@ return [
     'valid_date'            => '{field} 字段的值必须是有效的日期。',
 
     // Credit Cards
-    'valid_cc_num' => '{field} 似乎不是一个有效的信用卡号码。',
+    'valid_cc_number' => '{field} 似乎不是一个有效的信用卡号码。',
 
     // Files
     'uploaded' => '{field} 不是一个有效的上传文件。',

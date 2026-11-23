@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -16,7 +18,8 @@ return [
     'fileNotAllowed'        => '{0} مطابق محدودیت های {1}: {2} با خطا موجه شد',
 
     // Publish Command
-    'publishMissing' => 'هیچ کلاس پابلیشری در {0} در بین فضای نام ها پیدا نشد.',
-    'publishSuccess' => '{0}، {1} تا {2} فایل پابلیش کرد.',
-    'publishFailure' => '{0} نتوانست {1} را منتشر کند!',
+    'publishMissing'          => 'هیچ کلاس پابلیشری در {0} در بین فضای نام ها پیدا نشد.',
+    'publishMissingNamespace' => 'کلاس‌های ناشر در {0} در فضای نام {1} شناسایی نشدند.',
+    'publishSuccess'          => '{0}، {1} تا {2} فایل پابلیش کرد.',
+    'publishFailure'          => '{0} نتوانست {1} را منتشر کند!',
 ];

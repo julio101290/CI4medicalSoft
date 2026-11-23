@@ -11,7 +11,8 @@
             <div class="card-header">
                 <div class="float-left">
                     <div class="btn-group">
-                        <a href="<?= base_url(route_to('admin/user/manage')) ?>" class="btn btn-sm btn-block btn-secondary"><i class="fas fa-arrow-left"></i>
+                        <a href="<?= base_url(route_to('admin/user/manage')) ?>" class="btn btn-sm btn-block btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
                         </a>
                     </div>
                 </div>
@@ -23,11 +24,12 @@
                         <label for="inputSkills" class="col-sm-2 col-form-label"><?= lang('boilerplate.user.fields.active') ?></label>
                         <div class="col-sm-8">
                             <select class="form-control select" name="active" style="width: 100%;">
-                                <option value="1" selected="selected"><?= lang('boilerplate.user.fields.active') ?></option>
-                                <option value="0"><?= lang('boilerplate.user.fields.non_active') ?></option>
+                                <option <?= $user['active'] == 1 ? 'selected' : '' ?> value="1"><?= lang('boilerplate.user.fields.active') ?></option>
+                                <option <?= $user['active'] == 0 ? 'selected' : '' ?> value="0"><?= lang('boilerplate.user.fields.non_active') ?></option>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label"><?= lang('Auth.email') ?></label>
                         <div class="col-sm-8">
@@ -35,7 +37,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                 </div>
-                                <input type="email" name="email" class="form-control <?= session('error.email') ? 'is-invalid' : '' ?>" value="<?= old('email') ?>" placeholder="<?= lang('Auth.email') ?>" autocomplete="off">
+                                <input type="email" name="email" class="form-control <?= session('error.email') ? 'is-invalid' : '' ?>" value="<?= old('email', $user['email'] ?? '') ?>" placeholder="<?= lang('Auth.email') ?>" autocomplete="off">
                                 <?php if (session('error.email')) { ?>
                                     <div class="invalid-feedback">
                                         <h6><?= session('error.email') ?></h6>
@@ -52,7 +54,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="firstname" class="form-control <?= session('error.firstname') ? 'is-invalid' : '' ?>" value="<?= old('firstname') ?>" placeholder="<?= lang('boilerplate.user.firstname') ?>" autocomplete="off">
+                                <input type="text" name="firstname" class="form-control <?= session('error.firstname') ? 'is-invalid' : '' ?>" value="<?= old('firstname', $user['firstname'] ?? '') ?>" placeholder="<?= lang('boilerplate.user.firstname') ?>" autocomplete="off">
                                 <?php if (session('error.firstname')) { ?>
                                     <div class="invalid-feedback">
                                         <h6><?= session('error.firstname') ?></h6>
@@ -62,7 +64,6 @@
                         </div>
                     </div>
 
-
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label"><?= lang('boilerplate.user.lastname') ?></label>
                         <div class="col-sm-8">
@@ -70,7 +71,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="lastname" class="form-control <?= session('error.lastname') ? 'is-invalid' : '' ?>" value="<?= old('lastname') ?>" placeholder="<?= lang('boilerplate.user.lastname') ?>" autocomplete="off">
+                                <input type="text" name="lastname" class="form-control <?= session('error.lastname') ? 'is-invalid' : '' ?>" value="<?= old('lastname', $user['lastname'] ?? '') ?>" placeholder="<?= lang('boilerplate.user.lastname') ?>" autocomplete="off">
                                 <?php if (session('error.lastname')) { ?>
                                     <div class="invalid-feedback">
                                         <h6><?= session('error.lastname') ?></h6>
@@ -80,7 +81,24 @@
                         </div>
                     </div>
 
-
+                    <div class="form-group row">
+                        <label for="inputPhone" class="col-sm-2 col-form-label">
+                            <?= lang('boilerplate.user.phone') !== 'boilerplate.user.phone' ? lang('boilerplate.user.phone') : 'Phone' ?>
+                        </label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                </div>
+                                <input type="text" name="phone" id="inputPhone" class="form-control <?= session('error.phone') ? 'is-invalid' : '' ?>" value="<?= old('phone', $user['phone'] ?? '') ?>" placeholder="Phone / Teléfono" autocomplete="off">
+                                <?php if (session('error.phone')) { ?>
+                                    <div class="invalid-feedback">
+                                        <h6><?= session('error.phone') ?></h6>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label"><?= lang('Auth.username') ?></label>
@@ -89,7 +107,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="username" class="form-control <?= session('error.username') ? 'is-invalid' : '' ?>" value="<?= old('username') ?>" placeholder="<?= lang('Auth.username') ?>" autocomplete="off">
+                                <input type="text" name="username" class="form-control <?= session('error.username') ? 'is-invalid' : '' ?>" value="<?= old('username', $user['username'] ?? '') ?>" placeholder="<?= lang('Auth.username') ?>" autocomplete="off">
                                 <?php if (session('error.username')) { ?>
                                     <div class="invalid-feedback">
                                         <h6><?= session('error.username') ?></h6>
@@ -98,6 +116,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label"><?= lang('Auth.password') ?></label>
                         <div class="col-sm-8">
@@ -114,6 +133,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label"><?= lang('Auth.repeatPassword') ?></label>
                         <div class="col-sm-8">
@@ -130,12 +150,17 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label"><?= lang('boilerplate.permission.title') ?></label>
                         <div class="col-sm-8">
                             <select class="form-control select" name="permission[]" multiple="multiple" data-placeholder="<?= lang('boilerplate.permission.fields.plc_name') ?>" style="width: 100%;">
-                                <?php foreach ($permissions as $permission) { ?>
-                                    <option <?= in_array($permission['id'], old('permission', [])) ? 'selected' : '' ?> value="<?= $permission['id'] ?>"><?= $permission['name'] ?></option>
+                                <?php foreach ($permissions as $value) { ?>
+                                    <?php if (array_key_exists($value['id'], $permission)) { ?>
+                                        <option value="<?= $value['id'] ?>" selected><?= $value['name'] ?></option>
+                                    <?php } else { ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                    <?php } ?>
                                 <?php } ?>
                             </select>
                             <?php if (session('error.permission')) { ?>
@@ -143,12 +168,17 @@
                             <?php } ?>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label"><?= lang('boilerplate.role.title') ?></label>
                         <div class="col-sm-8">
                             <select class="form-control select" name="role[]" multiple="multiple" data-placeholder="<?= lang('boilerplate.role.fields.plc_name') ?>" style="width: 100%;">
-                                <?php foreach ($roles as $role) { ?>
-                                    <option <?= in_array($role->id, old('role', [])) ? 'selected' : '' ?> value="<?= $role->id ?>"><?= $role->name ?></option>
+                                <?php foreach ($roles as $value) { ?>
+                                    <?php if (array_key_exists($value->id, $role)) { ?>
+                                        <option value="<?= $value->id ?>" selected><?= $value->name ?></option>
+                                    <?php } else { ?>
+                                        <option value="<?= $value->id ?>"><?= $value->name ?></option>
+                                    <?php } ?>
                                 <?php } ?>
                             </select>
                             <?php if (session('error.role')) { ?>
@@ -156,6 +186,7 @@
                             <?php } ?>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <div class="float-right">
@@ -179,4 +210,3 @@
     $('.select').select2();
 </script>
 <?= $this->endSection() ?>
-

@@ -13,12 +13,10 @@ declare(strict_types=1);
 
 namespace CodeIgniter\HTTP;
 
-use InvalidArgumentException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 
 /**
  * An HTTP message
- *
- * @see \CodeIgniter\HTTP\MessageTest
  */
 class Message implements MessageInterface
 {
@@ -27,14 +25,14 @@ class Message implements MessageInterface
     /**
      * Protocol version
      *
-     * @var string
+     * @var string|null
      */
     protected $protocolVersion;
 
     /**
      * List of valid protocol versions
      *
-     * @var array
+     * @var list<string>
      */
     protected $validProtocolVersions = [
         '1.0',
@@ -80,13 +78,13 @@ class Message implements MessageInterface
      * Returns a single header object. If multiple headers with the same
      * name exist, then will return an array of header objects.
      *
-     * @return array|Header|null
-     *
      * @deprecated Use Message::header() to make room for PSR-7
      *
      * @TODO Incompatible return value with PSR-7
      *
      * @codeCoverageIgnore
+     *
+     * @return array<string, Header>|Header|null
      */
     public function getHeader(string $name)
     {
@@ -119,7 +117,7 @@ class Message implements MessageInterface
         if ($this->hasMultipleHeaders($name)) {
             throw new InvalidArgumentException(
                 'The header "' . $name . '" already has multiple headers.'
-                . ' You cannot use getHeaderLine().'
+                . ' You cannot use getHeaderLine().',
             );
         }
 

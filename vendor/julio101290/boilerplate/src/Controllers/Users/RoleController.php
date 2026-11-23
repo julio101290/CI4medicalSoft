@@ -10,15 +10,14 @@ use CodeIgniter\API\ResponseTrait;
 /**
  * Class RoleController.
  */
-class RoleController extends BaseController
-{
+class RoleController extends BaseController {
+
     use ResponseTrait;
 
     /** @var \julio101290\boilerplate\Models\GroupModel */
     protected $group;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->group = new GroupModel();
     }
 
@@ -27,8 +26,7 @@ class RoleController extends BaseController
      *
      * @return array an array
      */
-    public function index()
-    {
+    public function index() {
         if ($this->request->isAJAX()) {
             $start = $this->request->getGet('start');
             $length = $this->request->getGet('length');
@@ -37,16 +35,16 @@ class RoleController extends BaseController
             $dir = $this->request->getGet('order[0][dir]');
 
             return $this->respond(Collection::datatable(
-                $this->group->getResource($search)->orderBy($order, $dir)->limit($length, $start)->get()->getResultObject(),
-                $this->group->getResource()->countAllResults(),
-                $this->group->getResource($search)->countAllResults()
-            ));
+                                    $this->group->getResource($search)->orderBy($order, $dir)->limit($length, $start)->get()->getResultObject(),
+                                    $this->group->getResource()->countAllResults(),
+                                    $this->group->getResource($search)->countAllResults()
+                            ));
         }
 
         return view('julio101290\boilerplate\Views\Role\index', [
-            'title'    => lang('boilerplate.role.title'),
+            'title' => lang('boilerplate.role.title'),
             'subtitle' => lang('boilerplate.role.subtitle'),
-            'data'     => $this->authorize->permissions(),
+            'data' => $this->authorize->permissions(),
         ]);
     }
 
@@ -55,12 +53,11 @@ class RoleController extends BaseController
      *
      * @return array an array
      */
-    public function new()
-    {
+    public function new() {
         $data = [
-            'title'    => lang('boilerplate.role.title'),
+            'title' => lang('boilerplate.role.title'),
             'subtitle' => lang('boilerplate.role.add'),
-            'data'     => $this->authorize->permissions(),
+            'data' => $this->authorize->permissions(),
         ];
 
         return view('julio101290\boilerplate\Views\Role\create', $data);
@@ -71,22 +68,29 @@ class RoleController extends BaseController
      *
      * @return array an array
      */
-    public function create()
-    {
+    public function create() {
         $validationRules = [
-            'name'        => 'required|min_length[5]|max_length[255]|is_unique[auth_groups.name]',
+            'name' => 'required|min_length[5]|max_length[255]|is_unique[auth_groups.name]',
             'description' => 'required|max_length[255]',
-            'permission'  => 'required',
+            'permission' => 'required',
         ];
 
+        
+        
+        
+        
+        
         $name = $this->request->getPost('name');
         $description = $this->request->getPost('description');
         $permission = $this->request->getPost('permission');
 
         if (!$this->validate($validationRules)) {
-            return redirect()->back()->withInput()->with('error', $this->validator->getErrors());
+            return redirect()->to('/admin/role/new')
+                            ->withInput()
+                            ->with('error', $this->validator->getErrors());
         }
 
+        
         $this->db->transBegin();
 
         try {
@@ -100,10 +104,12 @@ class RoleController extends BaseController
         } catch (\Exception $e) {
             $this->db->transRollback();
 
-            return redirect()->back()->with('sweet-error', $e->getMessage());
+            return redirect()->to('/admin/role')
+                            ->with('sweet-error', $e->getMessage());
         }
 
-        return redirect()->back()->with('sweet-success', lang('boilerplate.role.msg.msg_insert'));
+        return redirect()->to('/admin/role')
+                        ->with('sweet-success', lang('boilerplate.role.msg.msg_insert'));
     }
 
     /**
@@ -113,18 +119,17 @@ class RoleController extends BaseController
      *
      * @return array an array
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         if (is_null($this->authorize->group($id))) {
             return redirect()->back()->with('sweet-error', lang('boilerplate.role.msg.msg_get_fail', [$id]));
         }
 
         $data = [
-            'title'        => lang('boilerplate.role.title'),
-            'subtitle'     => lang('boilerplate.role.edit'),
-            'role'         => $this->authorize->group($id),
-            'permissions'  => $this->authorize->permissions(),
-            'permission'   => $this->authorize->groupPermissions($id),
+            'title' => lang('boilerplate.role.title'),
+            'subtitle' => lang('boilerplate.role.edit'),
+            'role' => $this->authorize->group($id),
+            'permissions' => $this->authorize->permissions(),
+            'permission' => $this->authorize->groupPermissions($id),
         ];
 
         return view('julio101290\boilerplate\Views\Role\edit', $data);
@@ -137,12 +142,11 @@ class RoleController extends BaseController
      *
      * @return array an array
      */
-    public function update($id = null)
-    {
+    public function update($id = null) {
         $validationRules = [
-            'name'        => 'required|min_length[5]|max_length[255]',
+            'name' => 'required|min_length[5]|max_length[255]',
             'description' => 'required|max_length[255]',
-            'permission'  => 'required',
+            'permission' => 'required',
         ];
 
         $name = $this->request->getPost('name');
@@ -184,8 +188,7 @@ class RoleController extends BaseController
      *
      * @return array an array
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         if (!$found = $this->authorize->deleteGroup($id)) {
             return $this->failNotFound(lang('boilerplate.role.msg.msg_get_fail', [$id]));
         }

@@ -2,7 +2,6 @@
 
 namespace julio101290\boilerplate\Filters;
 
-use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -55,14 +54,18 @@ class PermissionFilter implements FilterInterface
             $result = $result && $authorize->hasPermission($permission, $authenticate->id());
         }
 
-        if (!$result) {
+if (!$result) {
             if ($authenticate->silent()) {
                 $redirectURL = session('redirect_url') ?? '/';
                 unset($_SESSION['redirect_url']);
 
                 return redirect()->to($redirectURL)->with('error', lang('Auth.notEnoughPrivilege'));
             } else {
-                throw PageNotFoundException::forPageNotFound(lang('Auth.notEnoughPrivilege'));
+                // Notificar explícitamente que el fallo fue por permisos
+                return redirect()->to(base_url('admin/error404'))->with('permission_error', [
+                    'message'    => lang('Auth.notEnoughPrivilege') ?? 'No cuentas con los permisos para este módulo.',
+                    'permission' => implode(', ', $params),
+                ]);
             }
         }
     }
@@ -80,7 +83,7 @@ class PermissionFilter implements FilterInterface
      *
      * @return void
      */
-    public function after(RequestInterface $request, ResponseInterface $response, $arguements = null)
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
     }
 

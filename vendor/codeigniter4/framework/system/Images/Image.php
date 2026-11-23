@@ -18,22 +18,20 @@ use CodeIgniter\Images\Exceptions\ImageException;
 
 /**
  * Encapsulation of an Image file
- *
- * @see \CodeIgniter\Images\ImageTest
  */
 class Image extends File
 {
     /**
      * The original image width in pixels.
      *
-     * @var float|int
+     * @var int
      */
     public $origWidth;
 
     /**
      * The original image height in pixels.
      *
-     * @var float|int
+     * @var int
      */
     public $origHeight;
 
@@ -75,7 +73,7 @@ class Image extends File
 
         $targetName ??= $this->getFilename();
 
-        if (empty($targetName)) {
+        if ($targetName === '') {
             throw ImageException::forInvalidFile($targetName);
         }
 
@@ -97,13 +95,14 @@ class Image extends File
      *
      * A helper function that gets info about the file
      *
-     * @return array|bool
+     * @return array{width: int, height: int, image_type: int, size_str: string, mime_type: string}|bool
      */
     public function getProperties(bool $return = false)
     {
         $path = $this->getPathname();
+        $vals = getimagesize($path);
 
-        if (! $vals = getimagesize($path)) {
+        if ($vals === false) {
             throw ImageException::forFileNotSupported();
         }
 
@@ -116,7 +115,7 @@ class Image extends File
 
         $mime = 'image/' . ($types[$vals[2]] ?? 'jpg');
 
-        if ($return === true) {
+        if ($return) {
             return [
                 'width'      => $vals[0],
                 'height'     => $vals[1],

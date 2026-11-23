@@ -34,12 +34,13 @@ use Stringable;
  * @property-read string $quarter
  * @property-read string $second
  * @property-read int    $timestamp
+ * @property-read string $timezoneName
  * @property-read bool   $utc
  * @property-read string $weekOfMonth
  * @property-read string $weekOfYear
  * @property-read string $year
  *
- * @see \CodeIgniter\I18n\TimeTest
+ * @phpstan-consistent-constructor
  */
 class Time extends DateTimeImmutable implements Stringable
 {

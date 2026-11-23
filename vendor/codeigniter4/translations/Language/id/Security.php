@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -12,5 +14,8 @@
 // Security language settings
 return [
     'disallowedAction' => 'Tindakan yang Anda minta tidak diperbolehkan.',
-    'invalidSameSite'  => 'Nilai SameSite harus None, Lax, Strict, atau string kosong. Diberikan: "{0}"',
+    'insecureCookie'   => 'Upaya mengirim cookie melalui koneksi yang tidak aman.',
+
+    // @deprecated
+    'invalidSameSite' => 'Nilai SameSite harus None, Lax, Strict, atau string kosong. Diberikan: "{0}"',
 ];

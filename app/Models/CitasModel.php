@@ -11,7 +11,7 @@ class CitasModel extends Model {
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
-    protected $allowedFields = ['id', 'idPaciente', 'fechaHora', 'hastaFechaHora', 'observaciones', 'created_at', 'updated_at'];
+    protected $allowedFields = ['id', 'idPaciente', 'fechaHora', 'hastaFechaHora', 'estado', 'observaciones', 'created_at', 'updated_at'];
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
     protected $deletedField = 'deleted_at';
@@ -37,12 +37,13 @@ class CitasModel extends Model {
     public function mdlObtenerCita($idCita) {
 
         $resultado = $this->db->table('citas a, pacientes b')
-                        ->select('a.id,concat(b.nombres,\' \',b.apellidos) as nombrePaciente,a.observaciones,a.fechaHora,a.hastaFechaHora,estado,a.created_at,a.updated_at,a.idPaciente')
-                        ->where('a.idPaciente', 'b.id', false)
-                        ->where('a.deleted_at', null)
-                        ->where('a.id', $idCita, null)->get()->getResultArray();
+                ->select('a.id,concat(b.nombres,\' \',b.apellidos) as nombrePaciente,a.observaciones,a.fechaHora,a.hastaFechaHora,estado,a.created_at,a.updated_at,a.idPaciente')
+                ->where('a.idPaciente', 'b.id', false)
+                ->where('a.deleted_at', null)
+                ->where('a.id', $idCita)
+                ->get()
+                ->getResultArray();
 
-        return $resultado[0];
+        return $resultado[0] ?? null;
     }
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -14,6 +16,9 @@ return [
     'invalidExpiresTime'    => 'Felaktig typ "{0}" för "Expires" attributet. Förväntade antingen: string, integer eller DateTimeInterface objekt.',
     'invalidExpiresValue'   => 'Cookiens expire tid är inte giltig.',
     'invalidCookieName'     => 'Namnet på cookien "{0}" innehåller otillåtna tecken.',
+    'invalidCookieValue'    => 'Värdet på cookien innehåller ogiltiga tecken.',
+    'invalidCookiePath'     => 'Sökvägen på cookien innehåller ogiltiga tecken.',
+    'invalidCookieDomain'   => 'Domänen på cookien innehåller ogiltiga tecken.',
     'emptyCookieName'       => 'Namnet på cookien kan inte vara tomt.',
     'invalidSecurePrefix'   => 'Användning av prefixet "__Secure-" förutsätter att attributet "Secure" är satt.',
     'invalidHostPrefix'     => 'Användning av prefixet "__Host-" kräver att "Secure" flaggan är satt, kan inte ha ett "Domain" attribut, samt att "Path" är satt till "/".',

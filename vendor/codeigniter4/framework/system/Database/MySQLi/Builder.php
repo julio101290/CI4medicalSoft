@@ -19,6 +19,8 @@ use CodeIgniter\Database\RawSql;
 
 /**
  * Builder for MySQLi
+ *
+ * @extends BaseBuilder<Connection>
  */
 class Builder extends BaseBuilder
 {
@@ -33,7 +35,7 @@ class Builder extends BaseBuilder
      * Specifies which sql statements
      * support the ignore option.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $supportedIgnoreStatements = [
         'update' => 'IGNORE',
@@ -92,7 +94,7 @@ class Builder extends BaseBuilder
             $sql .= 'ON ' . implode(
                 ' AND ',
                 array_map(
-                    static fn ($key, $value) => (
+                    static fn ($key, $value): RawSql|string => (
                         ($value instanceof RawSql && is_string($key))
                         ?
                         $table . '.' . $key . ' = ' . $value
@@ -106,8 +108,8 @@ class Builder extends BaseBuilder
                         )
                     ),
                     array_keys($constraints),
-                    $constraints
-                )
+                    $constraints,
+                ),
             ) . "\n";
 
             $sql .= "SET\n";
@@ -115,12 +117,12 @@ class Builder extends BaseBuilder
             $sql .= implode(
                 ",\n",
                 array_map(
-                    static fn ($key, $value) => $table . '.' . $key . ($value instanceof RawSql ?
+                    static fn ($key, $value): string => $table . '.' . $key . ($value instanceof RawSql ?
                         ' = ' . $value :
                         ' = ' . $alias . '.' . $value),
                     array_keys($updateFields),
-                    $updateFields
-                )
+                    $updateFields,
+                ),
             );
 
             $this->QBOptions['sql'] = $sql;
@@ -132,13 +134,13 @@ class Builder extends BaseBuilder
             $data = implode(
                 " UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    static fn ($value): string => 'SELECT ' . implode(', ', array_map(
+                        static fn ($key, $index): string => $index . ' ' . $key,
                         $keys,
-                        $value
+                        $value,
                     )),
-                    $values
-                )
+                    $values,
+                ),
             ) . "\n";
         }
 

@@ -14,17 +14,17 @@ declare(strict_types=1);
 namespace CodeIgniter\DataCaster\Cast;
 
 /**
- * Class ArrayCast
- *
  * (PHP) [array --> string] --> (DB driver) --> (DB column) string
  *       [      <-- string] <-- (DB driver) <-- (DB column) string
+ *
+ * @extends BaseCast<array<array-key, mixed>, string>
  */
-class ArrayCast extends BaseCast implements CastInterface
+class ArrayCast extends BaseCast
 {
     public static function get(
         mixed $value,
         array $params = [],
-        ?object $helper = null
+        ?object $helper = null,
     ): array {
         if (! is_string($value)) {
             self::invalidTypeValueError($value);
@@ -40,7 +40,7 @@ class ArrayCast extends BaseCast implements CastInterface
     public static function set(
         mixed $value,
         array $params = [],
-        ?object $helper = null
+        ?object $helper = null,
     ): string {
         return serialize($value);
     }

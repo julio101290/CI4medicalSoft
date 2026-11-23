@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -29,6 +31,7 @@ return [
     'differs'               => 'Bidang {field} harus berbeda dari bidang {param}.',
     'equals'                => 'Bidang {field} harus persis: {param}.',
     'exact_length'          => 'Bidang {field} harus tepat {param} panjang karakter.',
+    'field_exists'          => 'Bidang {field} harus ada.',
     'greater_than'          => 'Bidang {field} harus berisi sebuah angka yang lebih besar dari {param}.',
     'greater_than_equal_to' => 'Bidang {field} harus berisi sebuah angka yang lebih besar atau sama dengan {param}.',
     'hex'                   => 'Bidang {field} hanya boleh berisi karakter heksadesimal.',
@@ -62,7 +65,7 @@ return [
     'valid_json'            => 'Bidang {field} harus berisi sebuah json yang valid.',
 
     // Credit Cards
-    'valid_cc_num' => '{field} tidak tampak sebagai sebuah nomor kartu kredit yang valid.',
+    'valid_cc_number' => '{field} tidak tampak sebagai sebuah nomor kartu kredit yang valid.',
 
     // Files
     'uploaded' => '{field} bukan sebuah berkas diunggah yang valid.',
@@ -71,4 +74,5 @@ return [
     'mime_in'  => '{field} tidak memiliki sebuah tipe mime yang valid.',
     'ext_in'   => '{field} tidak memiliki sebuah ekstensi berkas yang valid.',
     'max_dims' => '{field} bukan gambar, atau terlalu lebar atau tinggi.',
+    'min_dims' => '{field} bukan gambar, atau tidak cukup lebar atau tinggi.',
 ];

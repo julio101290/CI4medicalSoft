@@ -17,8 +17,6 @@ use DateTime;
 
 /**
  * History collector
- *
- * @see \CodeIgniter\Debug\Toolbar\Collectors\HistoryTest
  */
 class History extends BaseCollector
 {
@@ -55,7 +53,16 @@ class History extends BaseCollector
     protected $title = 'History';
 
     /**
-     * @var array History files
+     * @var list<array{
+     *   time: string,
+     *   datetime: string,
+     *   active: bool,
+     *   status: mixed,
+     *   method: mixed,
+     *   url: mixed,
+     *   isAJAX: string,
+     *   contentType: mixed
+     * }>
      */
     protected $files = [];
 
@@ -90,7 +97,7 @@ class History extends BaseCollector
             $contents = @json_decode($contents);
             if (json_last_error() === JSON_ERROR_NONE) {
                 preg_match('/debugbar_(.*)\.json$/s', $filename, $time);
-                $time = sprintf('%.6f', $time[1] ?? 0);
+                $time = sprintf('%.6F', $time[1] ?? 0);
 
                 // Debugbar files shown in History Collector
                 $files[] = [
@@ -111,6 +118,17 @@ class History extends BaseCollector
 
     /**
      * Returns the data of this collector to be formatted in the toolbar
+     *
+     * @return array{files: list<array{
+     *   time: string,
+     *   datetime: string,
+     *   active: bool,
+     *   status: mixed,
+     *   method: mixed,
+     *   url: mixed,
+     *   isAJAX: string,
+     *   contentType: mixed
+     * }>}
      */
     public function display(): array
     {

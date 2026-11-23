@@ -11,6 +11,7 @@ use App\Models\TratamientosConsultasModel;
 use App\Models\ConfiguracionesModel;
 use julio101290\boilerplate\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
+use App\Models\CitasModel;
 
 class ConsultasController extends BaseController {
 
@@ -23,6 +24,7 @@ class ConsultasController extends BaseController {
     protected $tratamientosConsultas;
     protected $configuraciones;
     protected $usuarios;
+    protected $citas;
 
     public function __construct() {
         $this->pacientes = new PacientesModel();
@@ -33,6 +35,7 @@ class ConsultasController extends BaseController {
         $this->tratamientosConsultas = new TratamientosConsultasModel();
         $this->configuraciones = new ConfiguracionesModel();
         $this->usuarios = new UserModel();
+        $this->citas = new CitasModel();
         helper('menu');
         helper('utilerias');
     }
@@ -98,6 +101,7 @@ class ConsultasController extends BaseController {
         $titulos["nombrePaciente"] = lang('citas.seleccionePaciente');
         $titulos["idConsulta"] = 0;
         $titulos["motivoConsulta"] = "";
+        $titulos["idCita"] = 0;
 
         $titulos["title"] = lang('consultas.title');
         $titulos["subtitle"] = lang('consultas.subtitle');
@@ -129,6 +133,7 @@ class ConsultasController extends BaseController {
 
         $titulos["title"] = lang('consultas.title');
         $titulos["subtitle"] = lang('consultas.subtitle');
+        $titulos["idCita"] = 0;
 
         $titulos["idPaciente"] = $datosConsulta[0]["paciente"];
         $titulos["nombrePaciente"] = $datosConsulta[0]["nombrePaciente"];
@@ -137,8 +142,41 @@ class ConsultasController extends BaseController {
 
         $titulos["diagnosticosConsulta"] = $diagnosticosConsulta;
         $titulos["tratamientosConsulta"] = $tratamientosConsulta;
-        
-     
+
+        return view('consultaMedica', $titulos);
+    }
+
+    public function generarDesdeCita($idCita) {
+
+        helper('auth');
+        $userName = user()->username;
+        $idUser = user()->id;
+
+        $datosCita = $this->citas->mdlObtenerCita($idCita);
+
+        if (!$datosCita) {
+            return redirect()->to(base_url('admin/citas'))
+                            ->with('sweet-error', 'La cita no existe o ya fue eliminada.');
+        }
+
+        // Usa la fecha/hora actual de atención.
+        // Si prefieres conservar la fecha agendada en la cita, cambia esta línea por:
+        // $fechaActual = fechaMySQLADateTimeHTML5($datosCita["fechaHora"]);
+        $fechaActual = fechaMySQLADateTimeHTML5(fechaHoraActual());
+
+        $titulos["fecha"] = $fechaActual;
+        $titulos["userName"] = $userName;
+        $titulos["idUser"] = $idUser;
+        $titulos["uuid"] = generaUUID();
+
+        $titulos["idPaciente"] = $datosCita["idPaciente"];
+        $titulos["nombrePaciente"] = $datosCita["nombrePaciente"];
+        $titulos["idConsulta"] = 0;
+        $titulos["idCita"] = $datosCita["id"];
+        $titulos["motivoConsulta"] = $datosCita["observaciones"];
+
+        $titulos["title"] = lang('consultas.title');
+        $titulos["subtitle"] = lang('consultas.subtitle');
 
         return view('consultaMedica', $titulos);
     }
@@ -238,6 +276,13 @@ class ConsultasController extends BaseController {
 
                 $datosBitacora["descripcion"] = lang('consultas.guardarConsulta') . json_encode($datos);
                 $datosBitacora["usuario"] = $userName;
+
+                // Si la consulta nació de una cita, la marcamos como atendida
+                if (!empty($datos["idCita"]) && (int) $datos["idCita"] > 0) {
+                    $this->citas->skipValidation(true)->update($datos["idCita"], [
+                        'estado' => 'Atendida' // Ajusta al valor de tu BD (ej. 1 o 'Atendida')
+                    ]);
+                }
 
                 $this->bitacora->save($datosBitacora);
 

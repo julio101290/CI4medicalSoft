@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,8 +13,8 @@
 
 // Encryption language settings
 return [
-    'noDriverRequested'    => 'Nebol požadovaný žiaden ovládač.',
-    'noHandlerAvailable'   => 'Nepodarilo sa nájsť dostupný {0} šifrovací handler.',
+    'noDriverRequested'    => 'Nebol požadovaný žiadny ovládač; Miss Daisy bude veľmi nahnevaná!',
+    'noHandlerAvailable'   => 'Nepodarilo sa nájsť dostupný šifrovací handler "{0}".',
     'unKnownHandler'       => '"{0}" nie je možné nakonfigurovať.',
     'starterKeyNeeded'     => 'Šifrovač potrebuje štartovací kľúč.',
     'authenticationFailed' => 'Dešifrovanie: autentizácia zlyhala.',

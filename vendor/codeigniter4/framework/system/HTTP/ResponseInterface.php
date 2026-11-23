@@ -15,10 +15,10 @@ namespace CodeIgniter\HTTP;
 
 use CodeIgniter\Cookie\Cookie;
 use CodeIgniter\Cookie\CookieStore;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
 use CodeIgniter\Pager\PagerInterface;
 use DateTime;
-use InvalidArgumentException;
 
 /**
  * Representation of an outgoing, server-side response.
@@ -136,16 +136,6 @@ interface ResponseInterface extends MessageInterface
     public function setStatusCode(int $code, string $reason = '');
 
     /**
-     * Gets the response phrase associated with the status code.
-     *
-     * @see http://tools.ietf.org/html/rfc7231#section-6
-     * @see http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
-     *
-     * @deprecated Use getReasonPhrase()
-     */
-    public function getReason(): string;
-
-    /**
      * Gets the response reason phrase associated with the status code.
      *
      * Because a reason phrase is not a required element in a response
@@ -210,7 +200,7 @@ interface ResponseInterface extends MessageInterface
     /**
      * Converts the $body into JSON and sets the Content Type header.
      *
-     * @param array|string $body
+     * @param mixed $body
      *
      * @return $this
      */
@@ -228,7 +218,7 @@ interface ResponseInterface extends MessageInterface
     /**
      * Converts $body into XML, and sets the correct Content-Type.
      *
-     * @param array|string $body
+     * @param mixed $body
      *
      * @return $this
      */
@@ -281,6 +271,8 @@ interface ResponseInterface extends MessageInterface
      *  - proxy-revalidate
      *  - no-transform
      *
+     * @param array<array-key, mixed> $options
+     *
      * @return $this
      */
     public function setCache(array $options = []);
@@ -320,15 +312,15 @@ interface ResponseInterface extends MessageInterface
      * Accepts an arbitrary number of binds (up to 7) or an associative
      * array in the first parameter containing all the values.
      *
-     * @param array|Cookie|string $name     Cookie name / array containing binds / Cookie object
-     * @param string              $value    Cookie value
-     * @param int                 $expire   Cookie expiration time in seconds
-     * @param string              $domain   Cookie domain (e.g.: '.yourdomain.com')
-     * @param string              $path     Cookie path (default: '/')
-     * @param string              $prefix   Cookie name prefix
-     * @param bool                $secure   Whether to only transfer cookies via SSL
-     * @param bool                $httponly Whether only make the cookie accessible via HTTP (no javascript)
-     * @param string|null         $samesite
+     * @param array<string, mixed>|Cookie|string $name     Cookie name / array containing binds / Cookie object
+     * @param string                             $value    Cookie value
+     * @param int|string                         $expire   Cookie expiration time in seconds
+     * @param string                             $domain   Cookie domain (e.g.: '.yourdomain.com')
+     * @param string                             $path     Cookie path (default: '/')
+     * @param string                             $prefix   Cookie name prefix
+     * @param bool                               $secure   Whether to only transfer cookies via SSL
+     * @param bool                               $httponly Whether only make the cookie accessible via HTTP (no javascript)
+     * @param string|null                        $samesite
      *
      * @return $this
      */
@@ -341,7 +333,7 @@ interface ResponseInterface extends MessageInterface
         $prefix = '',
         $secure = false,
         $httponly = false,
-        $samesite = null
+        $samesite = null,
     );
 
     /**

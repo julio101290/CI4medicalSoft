@@ -1,5 +1,60 @@
 <?= $this->extend('julio101290\boilerplate\Views\Authentication\index') ?>
 <?= $this->section('content') ?>
+
+<style>
+    body.login-page {
+        background: 
+        <?php if (file_exists(FCPATH . 'img/back.png')): ?>
+            /* Si la imagen existe en public/img/back.png, la aplica encima del degradado */
+            url('<?= base_url('img/back.png') ?>') no-repeat center center fixed,
+        <?php endif; ?>
+            /* Degradados por defecto si no existe la imagen o como respaldo */
+            radial-gradient(circle at top left, #1e3c72, transparent 60%),
+            radial-gradient(circle at bottom right, #2a5298, transparent 60%),
+            linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        background-size: cover;
+        min-height: 100vh;
+    }
+
+    .login-box {
+        animation: fadeSlide .6s ease-out;
+    }
+
+    @keyframes fadeSlide {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(8px);
+        border-radius: 14px;
+        box-shadow: 0 25px 45px rgba(0,0,0,.25);
+        border: none;
+    }
+
+    .login-card-body {
+        padding: 2rem;
+    }
+
+    .btn-primary {
+        border-radius: 25px;
+        font-weight: 600;
+        letter-spacing: .4px;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(0,0,0,.25);
+    }
+</style>
+
 <!-- /.login-logo -->
 <div class="card">
   <div class="card-body login-card-body">

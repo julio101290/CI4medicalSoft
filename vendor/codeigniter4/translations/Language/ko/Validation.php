@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -63,7 +65,7 @@ return [
     'valid_json'            => '{field} 필드 값은 유효한 json이어야 합니다.', // 'The {field} field must contain a valid json.'
 
     // Credit Cards
-    'valid_cc_num' => '{field}의 값은 잘못된 신용카드 번호입니다.', // '{field} does not appear to be a valid credit card number.'
+    'valid_cc_number' => '{field}의 값은 잘못된 신용카드 번호입니다.', // '{field} does not appear to be a valid credit card number.'
 
     // Files
     'uploaded' => '{field} 업로드 파일이 올바르지 않습니다.', // '{field} is not a valid uploaded file.'
@@ -72,4 +74,5 @@ return [
     'mime_in'  => '{field} 경우, 유효한 MIME 타입을 갖고 있지 않습니다.', // '{field} does not have a valid mime type.'
     'ext_in'   => '{field} 경우, 유효한 파일 확장자를 갖고 있지 않습니다.', // '{field} does not have a valid file extension.'
     'max_dims' => '{field} 경우, 이미지가 아니거나 이미지의 크기가 너무 넓거나 큽니다.', // '{field} is either not an image, or it is too wide or tall.'
+    'min_dims' => '{field} 경우, 이미지가 아니거나 이미지의 크기가 너무 좁거나 작습니다.', // '{field} is either not an image, or it is not wide or tall enough.'
 ];

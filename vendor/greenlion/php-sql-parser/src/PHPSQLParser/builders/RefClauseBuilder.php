@@ -67,6 +67,11 @@ class RefClauseBuilder implements Builder {
         return $builder->build($parsed);
     }
 
+    protected function buildWindowFunction($parsed) {
+        $builder = new WindowFunctionBuilder();
+        return $builder->build($parsed);
+    }
+
     protected function buildFunction($parsed) {
         $builder = new FunctionBuilder();
         return $builder->build($parsed);
@@ -102,6 +107,7 @@ class RefClauseBuilder implements Builder {
             $sql .= $this->buildColRef($v);
             $sql .= $this->buildOperator($v);
             $sql .= $this->buildConstant($v);
+            $sql .= $this->buildWindowFunction($v);
             $sql .= $this->buildFunction($v);
             $sql .= $this->buildBracketExpression($v);
             $sql .= $this->buildInList($v);

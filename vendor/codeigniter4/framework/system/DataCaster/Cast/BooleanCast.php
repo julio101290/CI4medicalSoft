@@ -14,17 +14,17 @@ declare(strict_types=1);
 namespace CodeIgniter\DataCaster\Cast;
 
 /**
- * Class BooleanCast
- *
  * (PHP) [bool --> bool      ] --> (DB driver) --> (DB column) bool|int(0/1)
  *       [     <-- string|int] <-- (DB driver) <-- (DB column) bool|int(0/1)
+ *
+ * @extends BaseCast<bool, mixed>
  */
 class BooleanCast extends BaseCast
 {
     public static function get(
         mixed $value,
         array $params = [],
-        ?object $helper = null
+        ?object $helper = null,
     ): bool {
         // For PostgreSQL
         if ($value === 't') {

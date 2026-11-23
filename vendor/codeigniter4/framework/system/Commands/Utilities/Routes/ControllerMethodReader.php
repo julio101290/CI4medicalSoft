@@ -18,15 +18,13 @@ use ReflectionMethod;
 
 /**
  * Reads a controller and returns a list of auto route listing.
- *
- * @see \CodeIgniter\Commands\Utilities\Routes\ControllerMethodReaderTest
  */
-final class ControllerMethodReader
+final readonly class ControllerMethodReader
 {
     /**
      * @param string $namespace the default namespace
      */
-    public function __construct(private readonly string $namespace)
+    public function __construct(private string $namespace)
     {
     }
 
@@ -57,7 +55,7 @@ final class ControllerMethodReader
                 $defaultController,
                 $uriByClass,
                 $classname,
-                $methodName
+                $methodName,
             );
             $output = [...$output, ...$routeWithoutController];
 
@@ -89,7 +87,7 @@ final class ControllerMethodReader
                     $defaultController,
                     $uriByClass,
                     $classname,
-                    $methodName
+                    $methodName,
                 );
                 $output = [...$output, ...$routeWithoutController];
 
@@ -147,13 +145,15 @@ final class ControllerMethodReader
 
     /**
      * Gets a route without default controller.
+     *
+     * @return list<array{route: string, handler: string}>
      */
     private function getRouteWithoutController(
         string $classShortname,
         string $defaultController,
         string $uriByClass,
         string $classname,
-        string $methodName
+        string $methodName,
     ): array {
         if ($classShortname !== $defaultController) {
             return [];
@@ -161,7 +161,7 @@ final class ControllerMethodReader
 
         $pattern                = '#' . preg_quote(lcfirst($defaultController), '#') . '\z#';
         $routeWithoutController = rtrim(preg_replace($pattern, '', $uriByClass), '/');
-        $routeWithoutController = $routeWithoutController ?: '/';
+        $routeWithoutController = $routeWithoutController !== '' && $routeWithoutController !== '0' ? $routeWithoutController : '/';
 
         return [[
             'route'   => $routeWithoutController,

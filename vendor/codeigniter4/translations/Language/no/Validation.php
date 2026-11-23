@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -56,7 +58,7 @@ return [
     'valid_date'            => 'Skjemafeltet {field} må inneholde en gyldig dato.',
 
     // Credit Cards
-    'valid_cc_num' => 'Skjemafeltet {field} ser ikke ut til å inneholde et gyldig kredittkortnummer.',
+    'valid_cc_number' => 'Skjemafeltet {field} ser ikke ut til å inneholde et gyldig kredittkortnummer.',
 
     // Files
     'uploaded' => 'Skjemafeltet {field} inneholder ikke en gyldig opplastet fil.',

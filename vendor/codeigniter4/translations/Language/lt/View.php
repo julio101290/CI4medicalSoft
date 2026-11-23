@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -18,4 +20,5 @@ return [
     'invalidCellClass'      => 'Nepavyksta rasti peržiūros užklausos klasės: „{0}“.',
     'tagSyntaxError'        => 'Analizatoriaus žymose yra sintaksės klaida: „{0}“',
     'invalidDecoratorClass' => '„{0}“ nėra teisingas rodinio dekoratorius (View Decorator).',
+    'restrictedConditional' => 'Analizatoriaus sąlyginis elementas neleidžiamas ribotame režime: „{0}“',
 ];

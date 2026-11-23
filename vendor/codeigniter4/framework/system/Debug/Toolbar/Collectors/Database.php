@@ -13,14 +13,13 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Debug\Toolbar\Collectors;
 
+use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\Query;
 use CodeIgniter\I18n\Time;
 use Config\Toolbar;
 
 /**
  * Collector for the Database tab of the Debug Toolbar.
- *
- * @see \CodeIgniter\Debug\Toolbar\Collectors\DatabaseTest
  */
 class Database extends BaseCollector
 {
@@ -55,7 +54,7 @@ class Database extends BaseCollector
     /**
      * Array of database connections.
      *
-     * @var array
+     * @var array<string, BaseConnection>
      */
     protected $connections;
 
@@ -63,7 +62,7 @@ class Database extends BaseCollector
      * The query instances that have been collected
      * through the DBQuery Event.
      *
-     * @var array
+     * @var list<array{query: Query, string: string, duplicate: bool, trace: list<array<string, mixed>>}>
      */
     protected static $queries = [];
 
@@ -88,7 +87,7 @@ class Database extends BaseCollector
         $config = config(Toolbar::class);
 
         // Provide default in case it's not set
-        $max = $config->maxQueries ?: 100;
+        $max = ($config->maxQueries === 0) ? 100 : $config->maxQueries;
 
         if (count(static::$queries) < $max) {
             $queryString = $query->getQuery();
@@ -104,7 +103,7 @@ class Database extends BaseCollector
             static::$queries[] = [
                 'query'     => $query,
                 'string'    => $queryString,
-                'duplicate' => in_array($queryString, array_column(static::$queries, 'string', null), true),
+                'duplicate' => in_array($queryString, array_column(static::$queries, 'string'), true),
                 'trace'     => $backtrace,
             ];
         }
@@ -113,7 +112,13 @@ class Database extends BaseCollector
     /**
      * Returns timeline data formatted for the toolbar.
      *
-     * @return array The formatted data or an empty array.
+     * @return list<array{
+     *   name: string,
+     *   component: string,
+     *   start: float|string|null,
+     *   duration: string,
+     *   query?: string,
+     * }>
      */
     protected function formatTimelineData(): array
     {
@@ -144,11 +149,20 @@ class Database extends BaseCollector
 
     /**
      * Returns the data of this collector to be formatted in the toolbar
+     *
+     * @return array{queries: list<array{
+     *   hover: string,
+     *   class: string,
+     *   duration: string,
+     *   sql: string,
+     *   trace: list<array<string, mixed>>,
+     *   trace-file: string,
+     *   qid: string
+     * }>}
      */
     public function display(): array
     {
-        $data            = [];
-        $data['queries'] = array_map(static function (array $query) {
+        return ['queries' => array_map(static function (array $query): array {
             $isDuplicate = $query['duplicate'] === true;
 
             $firstNonSystemLine = '';
@@ -195,9 +209,7 @@ class Database extends BaseCollector
                 'trace-file' => $firstNonSystemLine,
                 'qid'        => md5($query['query'] . Time::now()->format('0.u00 U')),
             ];
-        }, static::$queries);
-
-        return $data;
+        }, static::$queries)];
     }
 
     /**
@@ -218,7 +230,7 @@ class Database extends BaseCollector
         $this->getConnections();
 
         $queryCount      = count(static::$queries);
-        $uniqueCount     = count(array_filter(static::$queries, static fn ($query) => $query['duplicate'] === false));
+        $uniqueCount     = count(array_filter(static::$queries, static fn ($query): bool => $query['duplicate'] === false));
         $connectionCount = count($this->connections);
 
         return sprintf(
@@ -228,7 +240,7 @@ class Database extends BaseCollector
             $uniqueCount,
             $uniqueCount > 1 ? 'of them' : '',
             $connectionCount,
-            $connectionCount > 1 ? 's' : ''
+            $connectionCount > 1 ? 's' : '',
         );
     }
 
@@ -256,5 +268,14 @@ class Database extends BaseCollector
     private function getConnections(): void
     {
         $this->connections = \Config\Database::getConnections();
+    }
+
+    /**
+     * Reset collector state for worker mode.
+     * Clears collected queries between requests.
+     */
+    public function reset(): void
+    {
+        static::$queries = [];
     }
 }

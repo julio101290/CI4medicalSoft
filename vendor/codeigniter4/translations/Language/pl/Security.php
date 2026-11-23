@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -12,6 +14,7 @@
 // Security language settings
 return [
     'disallowedAction' => 'Żądana akcja nie jest dozwolona.',
+    'insecureCookie'   => 'Próba wysłania bezpiecznego pliku cookie przez niezabezpieczone połączenie.',
 
     // @deprecated
     'invalidSameSite' => 'Wartość SameSite musi mieć wartość "None", "Lax", "Strict" lub być pustym ciągiem. Podano: {0}',

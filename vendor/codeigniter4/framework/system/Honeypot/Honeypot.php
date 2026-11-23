@@ -21,8 +21,6 @@ use Config\Honeypot as HoneypotConfig;
 
 /**
  * class Honeypot
- *
- * @see \CodeIgniter\Honeypot\HoneypotTest
  */
 class Honeypot
 {
@@ -46,8 +44,6 @@ class Honeypot
             $this->config->container = '<div style="display:none">{template}</div>';
         }
 
-        $this->config->containerId ??= 'hpc';
-
         if ($this->config->template === '') {
             throw HoneypotException::forNoTemplate();
         }
@@ -66,7 +62,7 @@ class Honeypot
     {
         assert($request instanceof IncomingRequest);
 
-        return ! empty($request->getPost($this->config->name));
+        return ! in_array($request->getPost($this->config->name), [null, false, 0, 0.0, '', '0', []], true);
     }
 
     /**
@@ -85,7 +81,7 @@ class Honeypot
             $this->config->container = str_ireplace(
                 '>{template}',
                 ' id="' . $this->config->containerId . '">{template}',
-                $this->config->container
+                $this->config->container,
             );
         }
 
@@ -113,7 +109,7 @@ class Honeypot
         $template = str_ireplace('{name}', $this->config->name, $template);
 
         if ($this->config->hidden) {
-            $template = str_ireplace('{template}', $template, $this->config->container);
+            return str_ireplace('{template}', $template, $this->config->container);
         }
 
         return $template;

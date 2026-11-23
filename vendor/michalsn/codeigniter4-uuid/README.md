@@ -1,5 +1,4 @@
-# CodeIgniter 4 UUID [![](https://github.com/michalsn/codeigniter4-uuid/workflows/PHP%20Tests/badge.svg)](https://github.com/michalsn/codeigniter4-uuid/actions?query=workflow%3A%22PHP+Tests%22)
-
+# CodeIgniter 4 UUID [![PHP Tests](https://github.com/michalsn/codeigniter4-uuid/actions/workflows/php.yml/badge.svg)](https://github.com/michalsn/codeigniter4-uuid/actions/workflows/php.yml)
 This package make it easy to work with UUIDs in Codeigniter 4. It provide four classes to make that possible: `Uuid`, `UuidModel`, `UuidEntity` and `UuidCast`. This implementation is tighly coupled with [Ramsey\Uuid](https://github.com/ramsey/uuid).
 
 ## Installation via composer
@@ -213,7 +212,8 @@ For now this class doesn't support SQLite3 database when you want to strore UUID
 * Version 3: Name-based (MD5) - `uuid3`
 * Version 4: Random - `uuid4`
 * Version 5: Name-based (SHA-1) - `uuid5`
-* Version 6: Ordered-Time (nonstandard yet) - `uuid6`
+* Version 6: Ordered-Time - `uuid6`
+* Version 7: Ordered-Time Random - `uuid7`
 
 ## License
 

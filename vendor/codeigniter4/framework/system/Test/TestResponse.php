@@ -25,8 +25,6 @@ use PHPUnit\Framework\Constraint\IsEqual;
  * for test results.
  *
  * @mixin DOMParser
- *
- * @see \CodeIgniter\Test\TestResponseTest
  */
 class TestResponse
 {
@@ -153,7 +151,7 @@ class TestResponse
     {
         Assert::assertTrue(
             $this->isOK(),
-            "{$this->response->getStatusCode()} is not a successful status code, or Response has an empty body."
+            "{$this->response->getStatusCode()} is not a successful status code, or Response has an empty body.",
         );
     }
 
@@ -164,7 +162,7 @@ class TestResponse
     {
         Assert::assertFalse(
             $this->isOK(),
-            "{$this->response->getStatusCode()} is an unexpected successful status code, or Response body has content."
+            "{$this->response->getStatusCode()} is an unexpected successful status code, or Response body has content.",
         );
     }
 
@@ -287,7 +285,7 @@ class TestResponse
             Assert::assertSame(
                 $value,
                 $this->response->getHeaderLine($key),
-                "The value of '{$key}' header ({$this->response->getHeaderLine($key)}) does not match expected value."
+                "The value of '{$key}' header ({$this->response->getHeaderLine($key)}) does not match expected value.",
             );
         }
     }
@@ -331,7 +329,7 @@ class TestResponse
 
         Assert::assertGreaterThan(
             Time::now()->getTimestamp(),
-            $this->response->getCookie($key, $prefix)->getExpiresTimestamp()
+            $this->response->getCookie($key, $prefix)->getExpiresTimestamp(),
         );
     }
 
@@ -357,6 +355,8 @@ class TestResponse
 
     /**
      * Test that the response contains a matching JSON fragment.
+     *
+     * @param array<array-key, mixed> $fragment
      */
     public function assertJSONFragment(array $fragment, bool $strict = false): void
     {
@@ -378,7 +378,7 @@ class TestResponse
      * Asserts that the JSON exactly matches the passed in data.
      * If the value being passed in is a string, it must be a json_encoded string.
      *
-     * @param array|object|string $test
+     * @param array<array-key, mixed>|object|string $test
      */
     public function assertJSONExact($test): void
     {
@@ -420,7 +420,7 @@ class TestResponse
     {
         Assert::assertTrue(
             $this->domParser->see($search, $element),
-            "Text '{$search}' is not seen in response."
+            "Text '{$search}' is not seen in response.",
         );
     }
 
@@ -431,7 +431,7 @@ class TestResponse
     {
         Assert::assertTrue(
             $this->domParser->dontSee($search, $element),
-            "Text '{$search}' is unexpectedly seen in response."
+            "Text '{$search}' is unexpectedly seen in response.",
         );
     }
 
@@ -442,7 +442,7 @@ class TestResponse
     {
         Assert::assertTrue(
             $this->domParser->seeElement($search),
-            "Element with selector '{$search}' is not seen in response."
+            "Element with selector '{$search}' is not seen in response.",
         );
     }
 
@@ -453,7 +453,7 @@ class TestResponse
     {
         Assert::assertTrue(
             $this->domParser->dontSeeElement($search),
-            "Element with selector '{$search}' is unexpectedly seen in response.'"
+            "Element with selector '{$search}' is unexpectedly seen in response.'",
         );
     }
 
@@ -464,7 +464,7 @@ class TestResponse
     {
         Assert::assertTrue(
             $this->domParser->seeLink($text, $details),
-            "Anchor tag with text '{$text}' is not seen in response."
+            "Anchor tag with text '{$text}' is not seen in response.",
         );
     }
 
@@ -475,7 +475,7 @@ class TestResponse
     {
         Assert::assertTrue(
             $this->domParser->seeInField($field, $value),
-            "Input named '{$field}' with value '{$value}' is not seen in response."
+            "Input named '{$field}' with value '{$value}' is not seen in response.",
         );
     }
 

@@ -20,20 +20,18 @@ use Config\App;
 /**
  * Creates SiteURI using superglobals.
  *
- * This class also updates superglobal $_SERVER and $_GET.
- *
- * @see \CodeIgniter\HTTP\SiteURIFactoryTest
+ * This class also updates superglobal $_REQUEST, $_SERVER, and $_GET.
  */
-final class SiteURIFactory
+final readonly class SiteURIFactory
 {
-    public function __construct(private readonly App $appConfig, private readonly Superglobals $superglobals)
+    public function __construct(private App $appConfig, private Superglobals $superglobals)
     {
     }
 
     /**
      * Create the current URI object from superglobals.
      *
-     * This method updates superglobal $_SERVER and $_GET.
+     * This method updates superglobals $_SERVER, $_GET, and $_REQUEST.
      */
     public function createFromGlobals(): SiteURI
     {
@@ -105,7 +103,7 @@ final class SiteURIFactory
      * Will parse the REQUEST_URI and automatically detect the URI from it,
      * fixing the query string if necessary.
      *
-     * This method updates superglobal $_SERVER and $_GET.
+     * This method updates superglobals $_SERVER, $_GET, and $_REQUEST.
      *
      * @return string The route path (before normalization).
      */
@@ -132,7 +130,8 @@ final class SiteURIFactory
             && pathinfo($this->superglobals->server('SCRIPT_NAME'), PATHINFO_EXTENSION) === 'php'
         ) {
             // Compare each segment, dropping them until there is no match
-            $segments = $keep = explode('/', $path);
+            $segments = explode('/', rawurldecode($path));
+            $keep     = explode('/', $path);
 
             foreach (explode('/', $this->superglobals->server('SCRIPT_NAME')) as $i => $segment) {
                 // If these segments are not the same then we're done
@@ -144,6 +143,15 @@ final class SiteURIFactory
             }
 
             $path = implode('/', $keep);
+        }
+
+        // Cleanup: if indexPage is still visible in the path, remove it
+        if ($this->appConfig->indexPage !== '' && str_starts_with($path, $this->appConfig->indexPage)) {
+            $remainingPath = substr($path, strlen($this->appConfig->indexPage));
+            // Only remove if followed by '/' (route) or nothing (root)
+            if ($remainingPath === '' || str_starts_with($remainingPath, '/')) {
+                $path = ltrim($remainingPath, '/');
+            }
         }
 
         // This section ensures that even on servers that require the URI to
@@ -159,9 +167,11 @@ final class SiteURIFactory
             $this->superglobals->setServer('QUERY_STRING', $query);
         }
 
-        // Update our global GET for values likely to have been changed
+        // Refresh only the request values derived from superglobals after GET changes.
+        $previousRequestData = $this->superglobals->getRequestData();
         parse_str($this->superglobals->server('QUERY_STRING'), $get);
         $this->superglobals->setGetArray($get);
+        $this->refreshRequestAfterGetChange($previousRequestData);
 
         return URI::removeDotSegments($path);
     }
@@ -169,7 +179,7 @@ final class SiteURIFactory
     /**
      * Will parse QUERY_STRING and automatically detect the URI from it.
      *
-     * This method updates superglobal $_SERVER and $_GET.
+     * This method updates superglobals $_SERVER, $_GET, and $_REQUEST.
      *
      * @return string The route path (before normalization).
      */
@@ -191,9 +201,11 @@ final class SiteURIFactory
             $path = $query;
         }
 
-        // Update our global GET for values likely to have been changed
+        // Refresh only the request values derived from superglobals after GET changes.
+        $previousRequestData = $this->superglobals->getRequestData();
         parse_str($this->superglobals->server('QUERY_STRING'), $get);
         $this->superglobals->setGetArray($get);
+        $this->refreshRequestAfterGetChange($previousRequestData);
 
         return URI::removeDotSegments($path);
     }
@@ -213,11 +225,43 @@ final class SiteURIFactory
     }
 
     /**
+     * Update REQUEST once during URI parsing, leaving application-defined values alone.
+     *
+     * @param array<array-key, mixed> $previousRequestData
+     */
+    private function refreshRequestAfterGetChange(array $previousRequestData): void
+    {
+        $request     = $this->superglobals->getRequestArray();
+        $currentData = $this->superglobals->getRequestData();
+
+        foreach ($previousRequestData as $key => $value) {
+            // A different value was supplied directly in REQUEST; preserve it.
+            if (! array_key_exists($key, $request) || $request[$key] !== $value) {
+                continue;
+            }
+
+            if (array_key_exists($key, $currentData)) {
+                $request[$key] = $currentData[$key];
+            } else {
+                unset($request[$key]);
+            }
+        }
+
+        foreach ($currentData as $key => $value) {
+            if (! array_key_exists($key, $previousRequestData) && ! array_key_exists($key, $request)) {
+                $request[$key] = $value;
+            }
+        }
+
+        $this->superglobals->setRequestArray($request);
+    }
+
+    /**
      * @return string|null The current hostname. Returns null if no valid host.
      */
     private function getHost(): ?string
     {
-        $httpHostPort = $this->superglobals->server('HTTP_HOST') ?? null;
+        $httpHostPort = $this->superglobals->server('HTTP_HOST');
 
         if ($httpHostPort !== null) {
             [$httpHost] = explode(':', $httpHostPort, 2);

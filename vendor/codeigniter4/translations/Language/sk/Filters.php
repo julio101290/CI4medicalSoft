@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,6 +13,6 @@
 
 // Filters language settings
 return [
-    'noFilter'           => '{0} filter musí mať definovaný zhodujúci sa alias.',
-    'incorrectInterface' => '{0} musí implementovať CodeIgniter\Filters\FilterInterface.',
+    'noFilter'           => 'Filter "{0}" musí mať definovaný zodpovedajúci alias.',
+    'incorrectInterface' => '"{0}" musí implementovať CodeIgniter\Filters\FilterInterface.',
 ];

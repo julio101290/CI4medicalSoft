@@ -12,13 +12,13 @@
 namespace CodeIgniter\Test;
 
 use CodeIgniter\Controller;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\URI;
 use Config\App;
 use Config\Services;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -31,7 +31,7 @@ use Throwable;
  *
  *  $this->withRequest($request)
  *       ->withResponse($response)
- *       ->withURI($uri)
+ *       ->withUri($uri)
  *       ->withBody($body)
  *       ->controller('App\Controllers\Home')
  *       ->execute('methodName');
@@ -76,7 +76,7 @@ trait ControllerTestTrait
     /**
      * URI of this request.
      *
-     * @var string
+     * @var string|URI
      */
     protected $uri = 'http://example.com';
 
@@ -95,7 +95,7 @@ trait ControllerTestTrait
         // The URL helper is always loaded by the system so ensure it is available.
         helper('url');
 
-        if (empty($this->appConfig)) {
+        if (! $this->appConfig instanceof App) {
             $this->appConfig = config(App::class);
         }
 
@@ -104,22 +104,22 @@ trait ControllerTestTrait
             $this->uri = $factory->createFromGlobals();
         }
 
-        if (empty($this->request)) {
+        if (! $this->request instanceof IncomingRequest) {
             // Do some acrobatics, so we can use the Request service with our own URI
             $tempUri = service('uri');
             Services::injectMock('uri', $this->uri);
 
-            $this->withRequest(Services::incomingrequest($this->appConfig, false));
+            $this->withRequest(service('incomingrequest', $this->appConfig, false));
 
             // Restore the URI service
             Services::injectMock('uri', $tempUri);
         }
 
-        if (empty($this->response)) {
-            $this->response = Services::response($this->appConfig, false);
+        if (! $this->response instanceof ResponseInterface) {
+            $this->response = service('response', $this->appConfig, false);
         }
 
-        if (empty($this->logger)) {
+        if (! $this->logger instanceof LoggerInterface) {
             $this->logger = service('logger');
         }
     }
@@ -144,7 +144,7 @@ trait ControllerTestTrait
     /**
      * Runs the specified method on the controller and returns the results.
      *
-     * @param array $params
+     * @param mixed ...$params
      *
      * @return TestResponse
      *
@@ -285,7 +285,7 @@ trait ControllerTestTrait
         Services::injectMock('uri', $this->uri);
 
         // Update the Request instance, because Request has the SiteURI instance.
-        $this->request = Services::incomingrequest(null, false);
+        $this->request = service('incomingrequest', null, false);
         Services::injectMock('request', $this->request);
 
         return $this;

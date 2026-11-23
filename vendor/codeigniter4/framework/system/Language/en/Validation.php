@@ -65,7 +65,7 @@ return [
     'valid_json'            => 'The {field} field must contain a valid json.',
 
     // Credit Cards
-    'valid_cc_num' => '{field} does not appear to be a valid credit card number.',
+    'valid_cc_number' => '{field} does not appear to be a valid credit card number.',
 
     // Files
     'uploaded' => '{field} is not a valid uploaded file.',
@@ -74,4 +74,5 @@ return [
     'mime_in'  => '{field} does not have a valid mime type.',
     'ext_in'   => '{field} does not have a valid file extension.',
     'max_dims' => '{field} is either not an image, or it is too wide or tall.',
+    'min_dims' => '{field} is either not an image, or it is not wide or tall enough.',
 ];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,6 +13,6 @@
 
 // Log language settings
 return [
-    'invalidLogLevel'    => '{0} este un nivel de log invalid.',
+    'invalidLogLevel'    => '"{0}" este un nivel de log invalid.',
     'invalidMessageType' => 'Tipul de mesaj dat "{0}" nu este suportat.',
 ];

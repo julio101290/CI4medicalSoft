@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,6 +15,7 @@
 return [
     'invalidFormatter' => '"{0}" неверный Formatter класс.',
     'invalidJSON'      => 'Не удалось разобрать строку в JSON, Ошибка: "{0}".',
-    'invalidMime'      => 'Нет определён MIME-тип: "{0}".',
+    'invalidMime'      => 'Не определён MIME-тип: "{0}".',
+    'invalidXMLValue'  => 'Невозможно преобразовать значение типа "{0}" в строку для вывода в формате XML.',
     'missingExtension' => 'Расширение SimpleXML требуется для форматирования XML.',
 ];

@@ -7,8 +7,6 @@ The following languages have translations for CodeIgniter 3, but not yet for Cod
 | az     | Azerbaijani        | Qarakom           | Sübhan Cabbarov
 | ca     | Catalan            | Ignasimg          | Ignasi Molsosa
 | da     | Danish             | janhansson        | Jan Hansson
-| gu     | Gujarati           | sajid19991        | Sajid Mathupotra
-| hi     | Hindi              | shindesushilkumar | Sushilkumar Shinde
 | hr     | Croatian           | PaleRider981      | Mario Ljubicic
 | hy     | Armenian           | tgrnmrdn          | Tigran Muradyan
 | km     | Khmer              | Chanthoeun        | Chanthoeun Kim

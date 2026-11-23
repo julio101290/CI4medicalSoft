@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,6 +13,11 @@
 
 return [
     'baseCastMissing'        => 'Klassen "{0}" måste ärva från "CodeIgniter\Entity\Cast\BaseCast".',
+    'enumInvalidCaseName'    => 'Ogiltigt case-namn "{0}" för enum "{1}".',
+    'enumInvalidType'        => 'Förväntade enum av typ "{1}", men fick "{0}".',
+    'enumInvalidValue'       => 'Felaktigt värde "{1}" för enum "{0}".',
+    'enumMissingClass'       => 'Enum-klass måste vara specificerad för enum-casting.',
+    'enumNotEnum'            => 'Klassen "{0}" är inte en giltig enum-klass.',
     'invalidCastMethod'      => '"{0}" är en otillåten metod, tillåtna metoder är: ["get", "set"].',
     'invalidTimestamp'       => 'Cast av "timestamp" kräver en korrekt timestamp.',
     'jsonErrorCtrlChar'      => 'Hittade ett oväntat kontrolltecken',

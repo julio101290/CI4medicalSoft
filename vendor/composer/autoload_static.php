@@ -14,143 +14,143 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
     );
 
     public static $prefixLengthsPsr4 = array (
-        'j' => 
+        'j' =>
         array (
             'julio101290\\boilerplate\\' => 24,
         ),
-        'T' => 
+        'T' =>
         array (
             'Translations\\' => 13,
             'Tests\\Support\\' => 14,
         ),
-        'R' => 
+        'R' =>
         array (
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'PhpParser\\' => 10,
         ),
-        'M' => 
+        'M' =>
         array (
             'Myth\\Auth\\' => 10,
             'Michalsn\\Uuid\\' => 14,
         ),
-        'L' => 
+        'L' =>
         array (
             'Laminas\\Escaper\\' => 16,
         ),
-        'H' => 
+        'H' =>
         array (
             'Hermawan\\DataTables\\' => 20,
         ),
-        'F' => 
+        'F' =>
         array (
             'Faker\\' => 6,
         ),
-        'D' => 
+        'D' =>
         array (
             'DeepCopy\\' => 9,
         ),
-        'C' => 
+        'C' =>
         array (
             'CodeIgniter\\' => 12,
         ),
-        'B' => 
+        'B' =>
         array (
             'Brick\\Math\\' => 11,
         ),
-        'A' => 
+        'A' =>
         array (
             'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'julio101290\\boilerplate\\' => 
+        'julio101290\\boilerplate\\' =>
         array (
             0 => __DIR__ . '/..' . '/julio101290/boilerplate/src',
         ),
-        'Translations\\' => 
+        'Translations\\' =>
         array (
             0 => __DIR__ . '/..' . '/codeigniter4/translations',
         ),
-        'Tests\\Support\\' => 
+        'Tests\\Support\\' =>
         array (
             0 => __DIR__ . '/../..' . '/tests/_support',
         ),
-        'Ramsey\\Uuid\\' => 
+        'Ramsey\\Uuid\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
         ),
-        'Ramsey\\Collection\\' => 
+        'Ramsey\\Collection\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Psr\\Container\\' => 
+        'Psr\\Container\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'PhpParser\\' => 
+        'PhpParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'Myth\\Auth\\' => 
+        'Myth\\Auth\\' =>
         array (
             0 => __DIR__ . '/..' . '/julio101290/auth/src',
         ),
-        'Michalsn\\Uuid\\' => 
+        'Michalsn\\Uuid\\' =>
         array (
             0 => __DIR__ . '/..' . '/michalsn/codeigniter4-uuid/src',
         ),
-        'Laminas\\Escaper\\' => 
+        'Laminas\\Escaper\\' =>
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
         ),
-        'Hermawan\\DataTables\\' => 
+        'Hermawan\\DataTables\\' =>
         array (
             0 => __DIR__ . '/..' . '/hermawan/codeigniter4-datatables/src',
         ),
-        'Faker\\' => 
+        'Faker\\' =>
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'DeepCopy\\' => 
+        'DeepCopy\\' =>
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'CodeIgniter\\' => 
+        'CodeIgniter\\' =>
         array (
             0 => __DIR__ . '/..' . '/codeigniter4/framework/system',
         ),
-        'Brick\\Math\\' => 
+        'Brick\\Math\\' =>
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
-        'App\\' => 
+        'App\\' =>
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'o' => 
+        'o' =>
         array (
-            'org\\bovigo\\vfs\\' => 
+            'org\\bovigo\\vfs\\' =>
             array (
                 0 => __DIR__ . '/..' . '/mikey179/vfsstream/src/main/php',
             ),
         ),
-        'P' => 
+        'P' =>
         array (
-            'PHPSQLParser\\' => 
+            'PHPSQLParser\\' =>
             array (
                 0 => __DIR__ . '/..' . '/greenlion/php-sql-parser/src',
             ),
@@ -159,7 +159,6 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
 
     public static $classMap = array (
         'App\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Controllers/AuthController.php',
-        'App\\Controllers\\AutoCrudController' => __DIR__ . '/../..' . '/app/Controllers/AutoCrudController.php',
         'App\\Controllers\\BaseController' => __DIR__ . '/../..' . '/app/Controllers/BaseController.php',
         'App\\Controllers\\BitacoraController' => __DIR__ . '/../..' . '/app/Controllers/BitacoraController.php',
         'App\\Controllers\\CitasController' => __DIR__ . '/../..' . '/app/Controllers/CitasController.php',
@@ -192,16 +191,27 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'Brick\\Math\\BigRational' => __DIR__ . '/..' . '/brick/math/src/BigRational.php',
         'Brick\\Math\\Exception\\DivisionByZeroException' => __DIR__ . '/..' . '/brick/math/src/Exception/DivisionByZeroException.php',
         'Brick\\Math\\Exception\\IntegerOverflowException' => __DIR__ . '/..' . '/brick/math/src/Exception/IntegerOverflowException.php',
+        'Brick\\Math\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/brick/math/src/Exception/InvalidArgumentException.php',
         'Brick\\Math\\Exception\\MathException' => __DIR__ . '/..' . '/brick/math/src/Exception/MathException.php',
         'Brick\\Math\\Exception\\NegativeNumberException' => __DIR__ . '/..' . '/brick/math/src/Exception/NegativeNumberException.php',
+        'Brick\\Math\\Exception\\NoInverseException' => __DIR__ . '/..' . '/brick/math/src/Exception/NoInverseException.php',
         'Brick\\Math\\Exception\\NumberFormatException' => __DIR__ . '/..' . '/brick/math/src/Exception/NumberFormatException.php',
+        'Brick\\Math\\Exception\\PlatformException' => __DIR__ . '/..' . '/brick/math/src/Exception/PlatformException.php',
+        'Brick\\Math\\Exception\\RandomSourceException' => __DIR__ . '/..' . '/brick/math/src/Exception/RandomSourceException.php',
         'Brick\\Math\\Exception\\RoundingNecessaryException' => __DIR__ . '/..' . '/brick/math/src/Exception/RoundingNecessaryException.php',
         'Brick\\Math\\Internal\\Calculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator.php',
+        'Brick\\Math\\Internal\\CalculatorRegistry' => __DIR__ . '/..' . '/brick/math/src/Internal/CalculatorRegistry.php',
         'Brick\\Math\\Internal\\Calculator\\BcMathCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/BcMathCalculator.php',
         'Brick\\Math\\Internal\\Calculator\\GmpCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/GmpCalculator.php',
         'Brick\\Math\\Internal\\Calculator\\NativeCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/NativeCalculator.php',
+        'Brick\\Math\\Internal\\DecimalHelper' => __DIR__ . '/..' . '/brick/math/src/Internal/DecimalHelper.php',
+        'Brick\\Math\\Internal\\Safe' => __DIR__ . '/..' . '/brick/math/src/Internal/Safe.php',
+        'Brick\\Math\\NumberSyntax' => __DIR__ . '/..' . '/brick/math/src/NumberSyntax.php',
         'Brick\\Math\\RoundingMode' => __DIR__ . '/..' . '/brick/math/src/RoundingMode.php',
+        'CodeIgniter\\API\\ApiException' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/ApiException.php',
+        'CodeIgniter\\API\\BaseTransformer' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/BaseTransformer.php',
         'CodeIgniter\\API\\ResponseTrait' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/ResponseTrait.php',
+        'CodeIgniter\\API\\TransformerInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/TransformerInterface.php',
         'CodeIgniter\\Autoloader\\Autoloader' => __DIR__ . '/..' . '/codeigniter4/framework/system/Autoloader/Autoloader.php',
         'CodeIgniter\\Autoloader\\FileLocator' => __DIR__ . '/..' . '/codeigniter4/framework/system/Autoloader/FileLocator.php',
         'CodeIgniter\\Autoloader\\FileLocatorCached' => __DIR__ . '/..' . '/codeigniter4/framework/system/Autoloader/FileLocatorCached.php',
@@ -215,11 +225,13 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\CLI\\Exceptions\\CLIException' => __DIR__ . '/..' . '/codeigniter4/framework/system/CLI/Exceptions/CLIException.php',
         'CodeIgniter\\CLI\\GeneratorTrait' => __DIR__ . '/..' . '/codeigniter4/framework/system/CLI/GeneratorTrait.php',
         'CodeIgniter\\CLI\\InputOutput' => __DIR__ . '/..' . '/codeigniter4/framework/system/CLI/InputOutput.php',
+        'CodeIgniter\\CLI\\SignalTrait' => __DIR__ . '/..' . '/codeigniter4/framework/system/CLI/SignalTrait.php',
         'CodeIgniter\\Cache\\CacheFactory' => __DIR__ . '/..' . '/codeigniter4/framework/system/Cache/CacheFactory.php',
         'CodeIgniter\\Cache\\CacheInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Cache/CacheInterface.php',
         'CodeIgniter\\Cache\\Exceptions\\CacheException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Cache/Exceptions/CacheException.php',
         'CodeIgniter\\Cache\\FactoriesCache' => __DIR__ . '/..' . '/codeigniter4/framework/system/Cache/FactoriesCache.php',
         'CodeIgniter\\Cache\\FactoriesCache\\FileVarExportHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Cache/FactoriesCache/FileVarExportHandler.php',
+        'CodeIgniter\\Cache\\Handlers\\ApcuHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Cache/Handlers/ApcuHandler.php',
         'CodeIgniter\\Cache\\Handlers\\BaseHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Cache/Handlers/BaseHandler.php',
         'CodeIgniter\\Cache\\Handlers\\DummyHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Cache/Handlers/DummyHandler.php',
         'CodeIgniter\\Cache\\Handlers\\FileHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Cache/Handlers/FileHandler.php',
@@ -250,6 +262,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\Commands\\Generators\\ScaffoldGenerator' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Generators/ScaffoldGenerator.php',
         'CodeIgniter\\Commands\\Generators\\SeederGenerator' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Generators/SeederGenerator.php',
         'CodeIgniter\\Commands\\Generators\\TestGenerator' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Generators/TestGenerator.php',
+        'CodeIgniter\\Commands\\Generators\\TransformerGenerator' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Generators/TransformerGenerator.php',
         'CodeIgniter\\Commands\\Generators\\ValidationGenerator' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Generators/ValidationGenerator.php',
         'CodeIgniter\\Commands\\Help' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Help.php',
         'CodeIgniter\\Commands\\Housekeeping\\ClearDebugbar' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Housekeeping/ClearDebugbar.php',
@@ -257,6 +270,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\Commands\\ListCommands' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/ListCommands.php',
         'CodeIgniter\\Commands\\Server\\Serve' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Server/Serve.php',
         'CodeIgniter\\Commands\\Translation\\LocalizationFinder' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Translation/LocalizationFinder.php',
+        'CodeIgniter\\Commands\\Translation\\LocalizationSync' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Translation/LocalizationSync.php',
         'CodeIgniter\\Commands\\Utilities\\ConfigCheck' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Utilities/ConfigCheck.php',
         'CodeIgniter\\Commands\\Utilities\\Environment' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Utilities/Environment.php',
         'CodeIgniter\\Commands\\Utilities\\FilterCheck' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Utilities/FilterCheck.php',
@@ -273,6 +287,8 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\Commands\\Utilities\\Routes\\FilterCollector' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Utilities/Routes/FilterCollector.php',
         'CodeIgniter\\Commands\\Utilities\\Routes\\FilterFinder' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Utilities/Routes/FilterFinder.php',
         'CodeIgniter\\Commands\\Utilities\\Routes\\SampleURIGenerator' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Utilities/Routes/SampleURIGenerator.php',
+        'CodeIgniter\\Commands\\Worker\\WorkerInstall' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Worker/WorkerInstall.php',
+        'CodeIgniter\\Commands\\Worker\\WorkerUninstall' => __DIR__ . '/..' . '/codeigniter4/framework/system/Commands/Worker/WorkerUninstall.php',
         'CodeIgniter\\ComposerScripts' => __DIR__ . '/..' . '/codeigniter4/framework/system/ComposerScripts.php',
         'CodeIgniter\\Config\\AutoloadConfig' => __DIR__ . '/..' . '/codeigniter4/framework/system/Config/AutoloadConfig.php',
         'CodeIgniter\\Config\\BaseConfig' => __DIR__ . '/..' . '/codeigniter4/framework/system/Config/BaseConfig.php',
@@ -298,6 +314,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\DataCaster\\Cast\\CSVCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/DataCaster/Cast/CSVCast.php',
         'CodeIgniter\\DataCaster\\Cast\\CastInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/DataCaster/Cast/CastInterface.php',
         'CodeIgniter\\DataCaster\\Cast\\DatetimeCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/DataCaster/Cast/DatetimeCast.php',
+        'CodeIgniter\\DataCaster\\Cast\\EnumCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/DataCaster/Cast/EnumCast.php',
         'CodeIgniter\\DataCaster\\Cast\\FloatCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/DataCaster/Cast/FloatCast.php',
         'CodeIgniter\\DataCaster\\Cast\\IntBoolCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/DataCaster/Cast/IntBoolCast.php',
         'CodeIgniter\\DataCaster\\Cast\\IntegerCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/DataCaster/Cast/IntegerCast.php',
@@ -358,6 +375,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\Database\\SQLite3\\Table' => __DIR__ . '/..' . '/codeigniter4/framework/system/Database/SQLite3/Table.php',
         'CodeIgniter\\Database\\SQLite3\\Utils' => __DIR__ . '/..' . '/codeigniter4/framework/system/Database/SQLite3/Utils.php',
         'CodeIgniter\\Database\\Seeder' => __DIR__ . '/..' . '/codeigniter4/framework/system/Database/Seeder.php',
+        'CodeIgniter\\Database\\TableName' => __DIR__ . '/..' . '/codeigniter4/framework/system/Database/TableName.php',
         'CodeIgniter\\Debug\\BaseExceptionHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Debug/BaseExceptionHandler.php',
         'CodeIgniter\\Debug\\ExceptionHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Debug/ExceptionHandler.php',
         'CodeIgniter\\Debug\\ExceptionHandlerInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Debug/ExceptionHandlerInterface.php',
@@ -382,12 +400,14 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\Encryption\\Handlers\\BaseHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Encryption/Handlers/BaseHandler.php',
         'CodeIgniter\\Encryption\\Handlers\\OpenSSLHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Encryption/Handlers/OpenSSLHandler.php',
         'CodeIgniter\\Encryption\\Handlers\\SodiumHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Encryption/Handlers/SodiumHandler.php',
+        'CodeIgniter\\Encryption\\KeyRotationDecorator' => __DIR__ . '/..' . '/codeigniter4/framework/system/Encryption/KeyRotationDecorator.php',
         'CodeIgniter\\Entity\\Cast\\ArrayCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/ArrayCast.php',
         'CodeIgniter\\Entity\\Cast\\BaseCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/BaseCast.php',
         'CodeIgniter\\Entity\\Cast\\BooleanCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/BooleanCast.php',
         'CodeIgniter\\Entity\\Cast\\CSVCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/CSVCast.php',
         'CodeIgniter\\Entity\\Cast\\CastInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/CastInterface.php',
         'CodeIgniter\\Entity\\Cast\\DatetimeCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/DatetimeCast.php',
+        'CodeIgniter\\Entity\\Cast\\EnumCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/EnumCast.php',
         'CodeIgniter\\Entity\\Cast\\FloatCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/FloatCast.php',
         'CodeIgniter\\Entity\\Cast\\IntBoolCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/IntBoolCast.php',
         'CodeIgniter\\Entity\\Cast\\IntegerCast' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Cast/IntegerCast.php',
@@ -399,6 +419,8 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\Entity\\Entity' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Entity.php',
         'CodeIgniter\\Entity\\Exceptions\\CastException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Entity/Exceptions/CastException.php',
         'CodeIgniter\\Events\\Events' => __DIR__ . '/..' . '/codeigniter4/framework/system/Events/Events.php',
+        'CodeIgniter\\Exceptions\\BadFunctionCallException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/BadFunctionCallException.php',
+        'CodeIgniter\\Exceptions\\BadMethodCallException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/BadMethodCallException.php',
         'CodeIgniter\\Exceptions\\ConfigException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/ConfigException.php',
         'CodeIgniter\\Exceptions\\CriticalError' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/CriticalError.php',
         'CodeIgniter\\Exceptions\\DebugTraceableTrait' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/DebugTraceableTrait.php',
@@ -407,13 +429,18 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\Exceptions\\FrameworkException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/FrameworkException.php',
         'CodeIgniter\\Exceptions\\HTTPExceptionInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/HTTPExceptionInterface.php',
         'CodeIgniter\\Exceptions\\HasExitCodeInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/HasExitCodeInterface.php',
+        'CodeIgniter\\Exceptions\\InvalidArgumentException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/InvalidArgumentException.php',
+        'CodeIgniter\\Exceptions\\LogicException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/LogicException.php',
         'CodeIgniter\\Exceptions\\ModelException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/ModelException.php',
         'CodeIgniter\\Exceptions\\PageNotFoundException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/PageNotFoundException.php',
+        'CodeIgniter\\Exceptions\\RuntimeException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/RuntimeException.php',
         'CodeIgniter\\Exceptions\\TestException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Exceptions/TestException.php',
+        'CodeIgniter\\Files\\Exceptions\\ExceptionInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Files/Exceptions/ExceptionInterface.php',
         'CodeIgniter\\Files\\Exceptions\\FileException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Files/Exceptions/FileException.php',
         'CodeIgniter\\Files\\Exceptions\\FileNotFoundException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Files/Exceptions/FileNotFoundException.php',
         'CodeIgniter\\Files\\File' => __DIR__ . '/..' . '/codeigniter4/framework/system/Files/File.php',
         'CodeIgniter\\Files\\FileCollection' => __DIR__ . '/..' . '/codeigniter4/framework/system/Files/FileCollection.php',
+        'CodeIgniter\\Files\\FileSizeUnit' => __DIR__ . '/..' . '/codeigniter4/framework/system/Files/FileSizeUnit.php',
         'CodeIgniter\\Filters\\CSRF' => __DIR__ . '/..' . '/codeigniter4/framework/system/Filters/CSRF.php',
         'CodeIgniter\\Filters\\Cors' => __DIR__ . '/..' . '/codeigniter4/framework/system/Filters/Cors.php',
         'CodeIgniter\\Filters\\DebugToolbar' => __DIR__ . '/..' . '/codeigniter4/framework/system/Filters/DebugToolbar.php',
@@ -437,6 +464,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\HTTP\\Cors' => __DIR__ . '/..' . '/codeigniter4/framework/system/HTTP/Cors.php',
         'CodeIgniter\\HTTP\\DownloadResponse' => __DIR__ . '/..' . '/codeigniter4/framework/system/HTTP/DownloadResponse.php',
         'CodeIgniter\\HTTP\\Exceptions\\BadRequestException' => __DIR__ . '/..' . '/codeigniter4/framework/system/HTTP/Exceptions/BadRequestException.php',
+        'CodeIgniter\\HTTP\\Exceptions\\ExceptionInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/HTTP/Exceptions/ExceptionInterface.php',
         'CodeIgniter\\HTTP\\Exceptions\\HTTPException' => __DIR__ . '/..' . '/codeigniter4/framework/system/HTTP/Exceptions/HTTPException.php',
         'CodeIgniter\\HTTP\\Exceptions\\RedirectException' => __DIR__ . '/..' . '/codeigniter4/framework/system/HTTP/Exceptions/RedirectException.php',
         'CodeIgniter\\HTTP\\Files\\FileCollection' => __DIR__ . '/..' . '/codeigniter4/framework/system/HTTP/Files/FileCollection.php',
@@ -500,12 +528,16 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\RESTful\\BaseResource' => __DIR__ . '/..' . '/codeigniter4/framework/system/RESTful/BaseResource.php',
         'CodeIgniter\\RESTful\\ResourceController' => __DIR__ . '/..' . '/codeigniter4/framework/system/RESTful/ResourceController.php',
         'CodeIgniter\\RESTful\\ResourcePresenter' => __DIR__ . '/..' . '/codeigniter4/framework/system/RESTful/ResourcePresenter.php',
+        'CodeIgniter\\Router\\Attributes\\Cache' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/Attributes/Cache.php',
+        'CodeIgniter\\Router\\Attributes\\Filter' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/Attributes/Filter.php',
+        'CodeIgniter\\Router\\Attributes\\Restrict' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/Attributes/Restrict.php',
+        'CodeIgniter\\Router\\Attributes\\RouteAttributeInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/Attributes/RouteAttributeInterface.php',
         'CodeIgniter\\Router\\AutoRouter' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/AutoRouter.php',
         'CodeIgniter\\Router\\AutoRouterImproved' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/AutoRouterImproved.php',
         'CodeIgniter\\Router\\AutoRouterInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/AutoRouterInterface.php',
         'CodeIgniter\\Router\\DefinedRouteCollector' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/DefinedRouteCollector.php',
+        'CodeIgniter\\Router\\Exceptions\\ExceptionInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/Exceptions/ExceptionInterface.php',
         'CodeIgniter\\Router\\Exceptions\\MethodNotFoundException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/Exceptions/MethodNotFoundException.php',
-        'CodeIgniter\\Router\\Exceptions\\RedirectException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/Exceptions/RedirectException.php',
         'CodeIgniter\\Router\\Exceptions\\RouterException' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/Exceptions/RouterException.php',
         'CodeIgniter\\Router\\RouteCollection' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/RouteCollection.php',
         'CodeIgniter\\Router\\RouteCollectionInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Router/RouteCollectionInterface.php',
@@ -524,6 +556,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\Session\\Handlers\\FileHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Session/Handlers/FileHandler.php',
         'CodeIgniter\\Session\\Handlers\\MemcachedHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Session/Handlers/MemcachedHandler.php',
         'CodeIgniter\\Session\\Handlers\\RedisHandler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Session/Handlers/RedisHandler.php',
+        'CodeIgniter\\Session\\PersistsConnection' => __DIR__ . '/..' . '/codeigniter4/framework/system/Session/PersistsConnection.php',
         'CodeIgniter\\Session\\Session' => __DIR__ . '/..' . '/codeigniter4/framework/system/Session/Session.php',
         'CodeIgniter\\Session\\SessionInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Session/SessionInterface.php',
         'CodeIgniter\\Superglobals' => __DIR__ . '/..' . '/codeigniter4/framework/system/Superglobals.php',
@@ -568,6 +601,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'CodeIgniter\\Test\\StreamFilterTrait' => __DIR__ . '/..' . '/codeigniter4/framework/system/Test/StreamFilterTrait.php',
         'CodeIgniter\\Test\\TestLogger' => __DIR__ . '/..' . '/codeigniter4/framework/system/Test/TestLogger.php',
         'CodeIgniter\\Test\\TestResponse' => __DIR__ . '/..' . '/codeigniter4/framework/system/Test/TestResponse.php',
+        'CodeIgniter\\Test\\Utilities\\NativeHeadersStack' => __DIR__ . '/..' . '/codeigniter4/framework/system/Test/Utilities/NativeHeadersStack.php',
         'CodeIgniter\\Throttle\\Throttler' => __DIR__ . '/..' . '/codeigniter4/framework/system/Throttle/Throttler.php',
         'CodeIgniter\\Throttle\\ThrottlerInterface' => __DIR__ . '/..' . '/codeigniter4/framework/system/Throttle/ThrottlerInterface.php',
         'CodeIgniter\\Traits\\ConditionalTrait' => __DIR__ . '/..' . '/codeigniter4/framework/system/Traits/ConditionalTrait.php',
@@ -616,6 +650,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'DeepCopy\\Matcher\\PropertyTypeMatcher' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Matcher/PropertyTypeMatcher.php',
         'DeepCopy\\Reflection\\ReflectionHelper' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Reflection/ReflectionHelper.php',
         'DeepCopy\\TypeFilter\\Date\\DateIntervalFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Date/DateIntervalFilter.php',
+        'DeepCopy\\TypeFilter\\Date\\DatePeriodFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Date/DatePeriodFilter.php',
         'DeepCopy\\TypeFilter\\ReplaceFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/ReplaceFilter.php',
         'DeepCopy\\TypeFilter\\ShallowCopyFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/ShallowCopyFilter.php',
         'DeepCopy\\TypeFilter\\Spl\\ArrayObjectFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/ArrayObjectFilter.php',
@@ -1136,6 +1171,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'Hermawan\\DataTables\\Helper' => __DIR__ . '/..' . '/hermawan/codeigniter4-datatables/src/Helper.php',
         'Hermawan\\DataTables\\Request' => __DIR__ . '/..' . '/hermawan/codeigniter4-datatables/src/Request.php',
         'Laminas\\Escaper\\Escaper' => __DIR__ . '/..' . '/laminas/laminas-escaper/src/Escaper.php',
+        'Laminas\\Escaper\\EscaperInterface' => __DIR__ . '/..' . '/laminas/laminas-escaper/src/EscaperInterface.php',
         'Laminas\\Escaper\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/laminas/laminas-escaper/src/Exception/ExceptionInterface.php',
         'Laminas\\Escaper\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/laminas/laminas-escaper/src/Exception/InvalidArgumentException.php',
         'Laminas\\Escaper\\Exception\\RuntimeException' => __DIR__ . '/..' . '/laminas/laminas-escaper/src/Exception/RuntimeException.php',
@@ -1323,6 +1359,12 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPSQLParser\\builders\\WhereBracketExpressionBuilder' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/builders/WhereBracketExpressionBuilder.php',
         'PHPSQLParser\\builders\\WhereBuilder' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/builders/WhereBuilder.php',
         'PHPSQLParser\\builders\\WhereExpressionBuilder' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/builders/WhereExpressionBuilder.php',
+        'PHPSQLParser\\builders\\WindowBuilder' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/builders/WindowBuilder.php',
+        'PHPSQLParser\\builders\\WindowFrameBuilder' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/builders/WindowFrameBuilder.php',
+        'PHPSQLParser\\builders\\WindowFunctionBuilder' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/builders/WindowFunctionBuilder.php',
+        'PHPSQLParser\\builders\\WindowPartitionBuilder' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/builders/WindowPartitionBuilder.php',
+        'PHPSQLParser\\builders\\WindowSpecBuilder' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/builders/WindowSpecBuilder.php',
+        'PHPSQLParser\\builders\\WithStatementBuilder' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/builders/WithStatementBuilder.php',
         'PHPSQLParser\\exceptions\\InvalidParameterException' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/exceptions/InvalidParameterException.php',
         'PHPSQLParser\\exceptions\\UnableToCalculatePositionException' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/exceptions/UnableToCalculatePositionException.php',
         'PHPSQLParser\\exceptions\\UnableToCreateSQLException' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/exceptions/UnableToCreateSQLException.php',
@@ -1373,6 +1415,9 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPSQLParser\\processors\\UsingProcessor' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/processors/UsingProcessor.php',
         'PHPSQLParser\\processors\\ValuesProcessor' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/processors/ValuesProcessor.php',
         'PHPSQLParser\\processors\\WhereProcessor' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/processors/WhereProcessor.php',
+        'PHPSQLParser\\processors\\WindowFrameProcessor' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/processors/WindowFrameProcessor.php',
+        'PHPSQLParser\\processors\\WindowProcessor' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/processors/WindowProcessor.php',
+        'PHPSQLParser\\processors\\WindowSpecProcessor' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/processors/WindowSpecProcessor.php',
         'PHPSQLParser\\processors\\WithProcessor' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/processors/WithProcessor.php',
         'PHPSQLParser\\utils\\ExpressionToken' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/utils/ExpressionToken.php',
         'PHPSQLParser\\utils\\ExpressionType' => __DIR__ . '/..' . '/greenlion/php-sql-parser/src/PHPSQLParser/utils/ExpressionType.php',
@@ -1492,10 +1537,14 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPUnit\\Event\\TestSuite\\TestSuiteWithName' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Value/TestSuite/TestSuiteWithName.php',
         'PHPUnit\\Event\\Test\\AfterLastTestMethodCalled' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterLastTestMethodCalled.php',
         'PHPUnit\\Event\\Test\\AfterLastTestMethodCalledSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterLastTestMethodCalledSubscriber.php',
+        'PHPUnit\\Event\\Test\\AfterLastTestMethodErrored' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterLastTestMethodErrored.php',
+        'PHPUnit\\Event\\Test\\AfterLastTestMethodErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterLastTestMethodErroredSubscriber.php',
         'PHPUnit\\Event\\Test\\AfterLastTestMethodFinished' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterLastTestMethodFinished.php',
         'PHPUnit\\Event\\Test\\AfterLastTestMethodFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterLastTestMethodFinishedSubscriber.php',
         'PHPUnit\\Event\\Test\\AfterTestMethodCalled' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterTestMethodCalled.php',
         'PHPUnit\\Event\\Test\\AfterTestMethodCalledSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterTestMethodCalledSubscriber.php',
+        'PHPUnit\\Event\\Test\\AfterTestMethodErrored' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterTestMethodErrored.php',
+        'PHPUnit\\Event\\Test\\AfterTestMethodErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterTestMethodErroredSubscriber.php',
         'PHPUnit\\Event\\Test\\AfterTestMethodFinished' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterTestMethodFinished.php',
         'PHPUnit\\Event\\Test\\AfterTestMethodFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/AfterTestMethodFinishedSubscriber.php',
         'PHPUnit\\Event\\Test\\AssertionFailed' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/Assertion/AssertionFailed.php',
@@ -1510,6 +1559,8 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPUnit\\Event\\Test\\BeforeFirstTestMethodFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/BeforeFirstTestMethodFinishedSubscriber.php',
         'PHPUnit\\Event\\Test\\BeforeTestMethodCalled' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/BeforeTestMethodCalled.php',
         'PHPUnit\\Event\\Test\\BeforeTestMethodCalledSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/BeforeTestMethodCalledSubscriber.php',
+        'PHPUnit\\Event\\Test\\BeforeTestMethodErrored' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/BeforeTestMethodErrored.php',
+        'PHPUnit\\Event\\Test\\BeforeTestMethodErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/BeforeTestMethodErroredSubscriber.php',
         'PHPUnit\\Event\\Test\\BeforeTestMethodFinished' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/BeforeTestMethodFinished.php',
         'PHPUnit\\Event\\Test\\BeforeTestMethodFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/BeforeTestMethodFinishedSubscriber.php',
         'PHPUnit\\Event\\Test\\ComparatorRegistered' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/ComparatorRegistered.php',
@@ -1563,10 +1614,14 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPUnit\\Event\\Test\\PhpunitWarningTriggeredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/Issue/PhpunitWarningTriggeredSubscriber.php',
         'PHPUnit\\Event\\Test\\PostConditionCalled' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PostConditionCalled.php',
         'PHPUnit\\Event\\Test\\PostConditionCalledSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PostConditionCalledSubscriber.php',
+        'PHPUnit\\Event\\Test\\PostConditionErrored' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PostConditionErrored.php',
+        'PHPUnit\\Event\\Test\\PostConditionErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PostConditionErroredSubscriber.php',
         'PHPUnit\\Event\\Test\\PostConditionFinished' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PostConditionFinished.php',
         'PHPUnit\\Event\\Test\\PostConditionFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PostConditionFinishedSubscriber.php',
         'PHPUnit\\Event\\Test\\PreConditionCalled' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PreConditionCalled.php',
         'PHPUnit\\Event\\Test\\PreConditionCalledSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PreConditionCalledSubscriber.php',
+        'PHPUnit\\Event\\Test\\PreConditionErrored' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PreConditionErrored.php',
+        'PHPUnit\\Event\\Test\\PreConditionErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PreConditionErroredSubscriber.php',
         'PHPUnit\\Event\\Test\\PreConditionFinished' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PreConditionFinished.php',
         'PHPUnit\\Event\\Test\\PreConditionFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/HookMethod/PreConditionFinishedSubscriber.php',
         'PHPUnit\\Event\\Test\\PreparationFailed' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Test/Lifecycle/PreparationFailed.php',
@@ -1842,6 +1897,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPUnit\\Logging\\JUnit\\TestPreparationFailedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/JUnit/Subscriber/TestPreparationFailedSubscriber.php',
         'PHPUnit\\Logging\\JUnit\\TestPreparationStartedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/JUnit/Subscriber/TestPreparationStartedSubscriber.php',
         'PHPUnit\\Logging\\JUnit\\TestPreparedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/JUnit/Subscriber/TestPreparedSubscriber.php',
+        'PHPUnit\\Logging\\JUnit\\TestPrintedUnexpectedOutputSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/JUnit/Subscriber/TestPrintedUnexpectedOutputSubscriber.php',
         'PHPUnit\\Logging\\JUnit\\TestRunnerExecutionFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/JUnit/Subscriber/TestRunnerExecutionFinishedSubscriber.php',
         'PHPUnit\\Logging\\JUnit\\TestSkippedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/JUnit/Subscriber/TestSkippedSubscriber.php',
         'PHPUnit\\Logging\\JUnit\\TestSuiteFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/JUnit/Subscriber/TestSuiteFinishedSubscriber.php',
@@ -1856,7 +1912,9 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPUnit\\Logging\\TeamCity\\TestPreparedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestPreparedSubscriber.php',
         'PHPUnit\\Logging\\TeamCity\\TestRunnerExecutionFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestRunnerExecutionFinishedSubscriber.php',
         'PHPUnit\\Logging\\TeamCity\\TestSkippedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSkippedSubscriber.php',
+        'PHPUnit\\Logging\\TeamCity\\TestSuiteBeforeFirstTestMethodErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSuiteBeforeFirstTestMethodErroredSubscriber.php',
         'PHPUnit\\Logging\\TeamCity\\TestSuiteFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSuiteFinishedSubscriber.php',
+        'PHPUnit\\Logging\\TeamCity\\TestSuiteSkippedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSuiteSkippedSubscriber.php',
         'PHPUnit\\Logging\\TeamCity\\TestSuiteStartedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSuiteStartedSubscriber.php',
         'PHPUnit\\Logging\\TestDox\\HtmlRenderer' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TestDox/HtmlRenderer.php',
         'PHPUnit\\Logging\\TestDox\\NamePrettifier' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TestDox/NamePrettifier.php',
@@ -1915,6 +1973,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPUnit\\Metadata\\IgnoreDeprecations' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/IgnoreDeprecations.php',
         'PHPUnit\\Metadata\\IgnoreFunctionForCodeCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/IgnoreFunctionForCodeCoverage.php',
         'PHPUnit\\Metadata\\IgnoreMethodForCodeCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/IgnoreMethodForCodeCoverage.php',
+        'PHPUnit\\Metadata\\InvalidAttributeException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/Exception/InvalidAttributeException.php',
         'PHPUnit\\Metadata\\InvalidVersionRequirementException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/Exception/InvalidVersionRequirementException.php',
         'PHPUnit\\Metadata\\Metadata' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/Metadata.php',
         'PHPUnit\\Metadata\\MetadataCollection' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/MetadataCollection.php',
@@ -1971,6 +2030,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPUnit\\Runner\\ClassDoesNotExtendTestCaseException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/Exception/ClassDoesNotExtendTestCaseException.php',
         'PHPUnit\\Runner\\ClassIsAbstractException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/Exception/ClassIsAbstractException.php',
         'PHPUnit\\Runner\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/CodeCoverage.php',
+        'PHPUnit\\Runner\\CodeCoverageFileExistsException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/Exception/CodeCoverageFileExistsException.php',
         'PHPUnit\\Runner\\DirectoryDoesNotExistException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/Exception/DirectoryDoesNotExistException.php',
         'PHPUnit\\Runner\\ErrorException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/Exception/ErrorException.php',
         'PHPUnit\\Runner\\ErrorHandler' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/ErrorHandler.php',
@@ -2015,6 +2075,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPUnit\\Runner\\TestSuiteSorter' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/TestSuiteSorter.php',
         'PHPUnit\\Runner\\UnsupportedPhptSectionException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/Exception/UnsupportedPhptSectionException.php',
         'PHPUnit\\Runner\\Version' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/Version.php',
+        'PHPUnit\\TestRunner\\TestResult\\AfterTestClassMethodErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/TestResult/Subscriber/AfterTestClassMethodErroredSubscriber.php',
         'PHPUnit\\TestRunner\\TestResult\\BeforeTestClassMethodErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/TestResult/Subscriber/BeforeTestClassMethodErroredSubscriber.php',
         'PHPUnit\\TestRunner\\TestResult\\Collector' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/TestResult/Collector.php',
         'PHPUnit\\TestRunner\\TestResult\\ExecutionStartedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/TestResult/Subscriber/ExecutionStartedSubscriber.php',
@@ -2052,6 +2113,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PHPUnit\\TextUI\\CliArguments\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Configuration/Cli/Exception.php',
         'PHPUnit\\TextUI\\CliArguments\\XmlConfigurationFileFinder' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Configuration/Cli/XmlConfigurationFileFinder.php',
         'PHPUnit\\TextUI\\Command\\AtLeastVersionCommand' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Commands/AtLeastVersionCommand.php',
+        'PHPUnit\\TextUI\\Command\\CheckPhpConfigurationCommand' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Commands/CheckPhpConfigurationCommand.php',
         'PHPUnit\\TextUI\\Command\\Command' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Command.php',
         'PHPUnit\\TextUI\\Command\\GenerateConfigurationCommand' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Commands/GenerateConfigurationCommand.php',
         'PHPUnit\\TextUI\\Command\\ListGroupsCommand' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Commands/ListGroupsCommand.php',
@@ -2364,14 +2426,17 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PhpParser\\Lexer\\TokenEmulator\\AttributeEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/AttributeEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\EnumTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/EnumTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\ExplicitOctalEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/ExplicitOctalEmulator.php',
+        'PhpParser\\Lexer\\TokenEmulator\\FnTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/FnTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\KeywordEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/KeywordEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\MatchTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/MatchTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\NullsafeTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/NullsafeTokenEmulator.php',
+        'PhpParser\\Lexer\\TokenEmulator\\PipeOperatorEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/PipeOperatorEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\PropertyTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/PropertyTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\ReadonlyFunctionTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/ReadonlyFunctionTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\ReadonlyTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/ReadonlyTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\ReverseEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/ReverseEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\TokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/TokenEmulator.php',
+        'PhpParser\\Lexer\\TokenEmulator\\VoidCastEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/VoidCastEmulator.php',
         'PhpParser\\Modifiers' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Modifiers.php',
         'PhpParser\\NameContext' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/NameContext.php',
         'PhpParser\\Node' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node.php',
@@ -2390,6 +2455,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PhpParser\\NodeVisitor\\NodeConnectingVisitor' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/NodeVisitor/NodeConnectingVisitor.php',
         'PhpParser\\NodeVisitor\\ParentConnectingVisitor' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/NodeVisitor/ParentConnectingVisitor.php',
         'PhpParser\\Node\\Arg' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Arg.php',
+        'PhpParser\\Node\\ArgPlaceholder' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/ArgPlaceholder.php',
         'PhpParser\\Node\\ArrayItem' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/ArrayItem.php',
         'PhpParser\\Node\\Attribute' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Attribute.php',
         'PhpParser\\Node\\AttributeGroup' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/AttributeGroup.php',
@@ -2399,6 +2465,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PhpParser\\Node\\DeclareItem' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/DeclareItem.php',
         'PhpParser\\Node\\Expr' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr.php',
         'PhpParser\\Node\\Expr\\ArrayDimFetch' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/ArrayDimFetch.php',
+        'PhpParser\\Node\\Expr\\ArrayItem' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/ArrayItem.php',
         'PhpParser\\Node\\Expr\\Array_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Array_.php',
         'PhpParser\\Node\\Expr\\ArrowFunction' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/ArrowFunction.php',
         'PhpParser\\Node\\Expr\\Assign' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Assign.php',
@@ -2438,6 +2505,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PhpParser\\Node\\Expr\\BinaryOp\\Mul' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/BinaryOp/Mul.php',
         'PhpParser\\Node\\Expr\\BinaryOp\\NotEqual' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/BinaryOp/NotEqual.php',
         'PhpParser\\Node\\Expr\\BinaryOp\\NotIdentical' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/BinaryOp/NotIdentical.php',
+        'PhpParser\\Node\\Expr\\BinaryOp\\Pipe' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/BinaryOp/Pipe.php',
         'PhpParser\\Node\\Expr\\BinaryOp\\Plus' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/BinaryOp/Plus.php',
         'PhpParser\\Node\\Expr\\BinaryOp\\Pow' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/BinaryOp/Pow.php',
         'PhpParser\\Node\\Expr\\BinaryOp\\ShiftLeft' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/BinaryOp/ShiftLeft.php',
@@ -2456,9 +2524,11 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PhpParser\\Node\\Expr\\Cast\\Object_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Cast/Object_.php',
         'PhpParser\\Node\\Expr\\Cast\\String_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Cast/String_.php',
         'PhpParser\\Node\\Expr\\Cast\\Unset_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Cast/Unset_.php',
+        'PhpParser\\Node\\Expr\\Cast\\Void_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Cast/Void_.php',
         'PhpParser\\Node\\Expr\\ClassConstFetch' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/ClassConstFetch.php',
         'PhpParser\\Node\\Expr\\Clone_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Clone_.php',
         'PhpParser\\Node\\Expr\\Closure' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Closure.php',
+        'PhpParser\\Node\\Expr\\ClosureUse' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/ClosureUse.php',
         'PhpParser\\Node\\Expr\\ConstFetch' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/ConstFetch.php',
         'PhpParser\\Node\\Expr\\Empty_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Empty_.php',
         'PhpParser\\Node\\Expr\\Error' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/Error.php',
@@ -2504,9 +2574,13 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PhpParser\\Node\\PropertyHook' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/PropertyHook.php',
         'PhpParser\\Node\\PropertyItem' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/PropertyItem.php',
         'PhpParser\\Node\\Scalar' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar.php',
+        'PhpParser\\Node\\Scalar\\DNumber' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/DNumber.php',
+        'PhpParser\\Node\\Scalar\\Encapsed' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/Encapsed.php',
+        'PhpParser\\Node\\Scalar\\EncapsedStringPart' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/EncapsedStringPart.php',
         'PhpParser\\Node\\Scalar\\Float_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/Float_.php',
         'PhpParser\\Node\\Scalar\\Int_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/Int_.php',
         'PhpParser\\Node\\Scalar\\InterpolatedString' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/InterpolatedString.php',
+        'PhpParser\\Node\\Scalar\\LNumber' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/LNumber.php',
         'PhpParser\\Node\\Scalar\\MagicConst' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/MagicConst.php',
         'PhpParser\\Node\\Scalar\\MagicConst\\Class_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/MagicConst/Class_.php',
         'PhpParser\\Node\\Scalar\\MagicConst\\Dir' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Scalar/MagicConst/Dir.php',
@@ -2530,6 +2604,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PhpParser\\Node\\Stmt\\Class_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Class_.php',
         'PhpParser\\Node\\Stmt\\Const_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Const_.php',
         'PhpParser\\Node\\Stmt\\Continue_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Continue_.php',
+        'PhpParser\\Node\\Stmt\\DeclareDeclare' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/DeclareDeclare.php',
         'PhpParser\\Node\\Stmt\\Declare_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Declare_.php',
         'PhpParser\\Node\\Stmt\\Do_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Do_.php',
         'PhpParser\\Node\\Stmt\\Echo_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Echo_.php',
@@ -2553,7 +2628,9 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PhpParser\\Node\\Stmt\\Namespace_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Namespace_.php',
         'PhpParser\\Node\\Stmt\\Nop' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Nop.php',
         'PhpParser\\Node\\Stmt\\Property' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Property.php',
+        'PhpParser\\Node\\Stmt\\PropertyProperty' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/PropertyProperty.php',
         'PhpParser\\Node\\Stmt\\Return_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Return_.php',
+        'PhpParser\\Node\\Stmt\\StaticVar' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/StaticVar.php',
         'PhpParser\\Node\\Stmt\\Static_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Static_.php',
         'PhpParser\\Node\\Stmt\\Switch_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Switch_.php',
         'PhpParser\\Node\\Stmt\\TraitUse' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/TraitUse.php',
@@ -2563,6 +2640,7 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'PhpParser\\Node\\Stmt\\Trait_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Trait_.php',
         'PhpParser\\Node\\Stmt\\TryCatch' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/TryCatch.php',
         'PhpParser\\Node\\Stmt\\Unset_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Unset_.php',
+        'PhpParser\\Node\\Stmt\\UseUse' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/UseUse.php',
         'PhpParser\\Node\\Stmt\\Use_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Use_.php',
         'PhpParser\\Node\\Stmt\\While_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/While_.php',
         'PhpParser\\Node\\UnionType' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/UnionType.php',
@@ -2679,11 +2757,13 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'Ramsey\\Uuid\\Generator\\TimeGeneratorFactory' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/TimeGeneratorFactory.php',
         'Ramsey\\Uuid\\Generator\\TimeGeneratorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/TimeGeneratorInterface.php',
         'Ramsey\\Uuid\\Generator\\UnixTimeGenerator' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/UnixTimeGenerator.php',
+        'Ramsey\\Uuid\\Generator\\UnixTimeSequence' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/UnixTimeSequence.php',
         'Ramsey\\Uuid\\Guid\\Fields' => __DIR__ . '/..' . '/ramsey/uuid/src/Guid/Fields.php',
         'Ramsey\\Uuid\\Guid\\Guid' => __DIR__ . '/..' . '/ramsey/uuid/src/Guid/Guid.php',
         'Ramsey\\Uuid\\Guid\\GuidBuilder' => __DIR__ . '/..' . '/ramsey/uuid/src/Guid/GuidBuilder.php',
         'Ramsey\\Uuid\\Lazy\\LazyUuidFromString' => __DIR__ . '/..' . '/ramsey/uuid/src/Lazy/LazyUuidFromString.php',
         'Ramsey\\Uuid\\Math\\BrickMathCalculator' => __DIR__ . '/..' . '/ramsey/uuid/src/Math/BrickMathCalculator.php',
+        'Ramsey\\Uuid\\Math\\BrickMathRoundingMode' => __DIR__ . '/..' . '/ramsey/uuid/src/Math/BrickMathRoundingMode.php',
         'Ramsey\\Uuid\\Math\\CalculatorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Math/CalculatorInterface.php',
         'Ramsey\\Uuid\\Math\\RoundingMode' => __DIR__ . '/..' . '/ramsey/uuid/src/Math/RoundingMode.php',
         'Ramsey\\Uuid\\Nonstandard\\Fields' => __DIR__ . '/..' . '/ramsey/uuid/src/Nonstandard/Fields.php',
@@ -2944,8 +3024,6 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'TCPDF_FONTS' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_fonts.php',
         'TCPDF_FONT_DATA' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_font_data.php',
         'TCPDF_IMAGES' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_images.php',
-        'TCPDF_IMPORT' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf_import.php',
-        'TCPDF_PARSER' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf_parser.php',
         'TCPDF_STATIC' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_static.php',
         'Tests\\Support\\Database\\Seeds\\ExampleSeeder' => __DIR__ . '/../..' . '/tests/_support/Database/Seeds/ExampleSeeder.php',
         'Tests\\Support\\Libraries\\ConfigReader' => __DIR__ . '/../..' . '/tests/_support/Libraries/ConfigReader.php',
@@ -2960,9 +3038,13 @@ class ComposerStaticInitb99f987eb9ce99ea7e18aec5d474bd68
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
         'julio101290\\boilerplate\\Commands\\InstallCommand' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Commands/InstallCommand.php',
         'julio101290\\boilerplate\\Commands\\PublishCommand' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Commands/PublishCommand.php',
+        'julio101290\\boilerplate\\Commands\\UpdateCommand' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Commands/UpdateCommand.php',
         'julio101290\\boilerplate\\Config\\Boilerplate' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Config/Boilerplate.php',
+        'julio101290\\boilerplate\\Controllers\\AutoCrudController' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Controllers/AutoCrudController.php',
+        'julio101290\\boilerplate\\Controllers\\AutoCrudControllerComposer' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Controllers/AutoCrudControllerComposer.php',
         'julio101290\\boilerplate\\Controllers\\BaseController' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Controllers/BaseController.php',
         'julio101290\\boilerplate\\Controllers\\DashboardController' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Controllers/DashboardController.php',
+        'julio101290\\boilerplate\\Controllers\\ErrorController' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Controllers/ErrorController.php',
         'julio101290\\boilerplate\\Controllers\\Users\\MenuController' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Controllers/Users/MenuController.php',
         'julio101290\\boilerplate\\Controllers\\Users\\PermissionController' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Controllers/Users/PermissionController.php',
         'julio101290\\boilerplate\\Controllers\\Users\\RoleController' => __DIR__ . '/..' . '/julio101290/boilerplate/src/Controllers/Users/RoleController.php',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -29,6 +31,7 @@ return [
     'differs'               => 'Pole {field} musi różnić się od pola {param}.',
     'equals'                => 'Pole {field} musi może mieć tylko wartość: {param}.',
     'exact_length'          => 'Pole {field} musi mieć dokładnie {param} długości.',
+    'field_exists'          => 'Pole {field} musi istnieć.',
     'greater_than'          => 'Pole {field} musi zawierać liczbę większą niż {param}.',
     'greater_than_equal_to' => 'Pole {field} musi zawierać liczbę większą lub równą {param}.',
     'hex'                   => 'Pole {field} może zawierać tylko znaki liczb szestnastkowych.',
@@ -62,7 +65,7 @@ return [
     'valid_json'            => 'Pole {field} musi zawierać poprawny json.',
 
     // Credit Cards
-    'valid_cc_num' => '{field} nie wydaje się być prawidłowym numerem karty kredytowej.',
+    'valid_cc_number' => '{field} nie wydaje się być prawidłowym numerem karty kredytowej.',
 
     // Files
     'uploaded' => '{field} nie jest prawidłowym przesłanym plikiem.',
@@ -71,4 +74,5 @@ return [
     'mime_in'  => '{field} nie ma prawidłowego typu MIME.',
     'ext_in'   => '{field} nie ma poprawnego rozszerzenia pliku.',
     'max_dims' => '{field} nie jest obrazem lub jest zbyt szeroki lub wysoki.',
+    'min_dims' => '{field} nie jest obrazem lub jego szerokość albo wysokość jest zbyt mała.',
 ];

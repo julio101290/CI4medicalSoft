@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -22,7 +24,6 @@ return [
     'unsupportedImageCreate' => 'Sunucunuz bu tür bir görüntüyü işlemek için gereken GD fonksiyonunu desteklemiyor.',
     'jpgOrPngRequired'       => 'Tercihlerinizde belirtilen görüntü yeniden boyutlandırma protokolü yalnızca JPEG veya PNG görüntü türleri ile çalışır.',
     'rotateUnsupported'      => 'Görüntü döndürme, sunucunuz tarafından desteklenmiyor gibi görünüyor.',
-    'libPathInvalid'         => 'Görüntü kütüphanenize giden yol doğru değil. Lütfen görüntü tercihlerinizde doğru yolu ayarlayın. "{0}"',
     'imageProcessFailed'     => 'Görüntü işleme başarısız oldu. Lütfen sunucunuzun seçilen protokolü desteklediğinden ve görüntü kütüphanenize giden yolun doğru olduğundan emin olun.',
     'rotationAngleRequired'  => 'Görüntüyü döndürmek için bir dönüş açısı gereklidir.',
     'invalidPath'            => 'Görüntünün yolu doğru değil.',
@@ -31,4 +32,7 @@ return [
     'saveFailed'             => 'Görüntü kaydedilemedi. Lütfen görüntü ve dosya dizininin yazılabilir olduğundan emin olun.',
     'invalidDirection'       => 'Çevirme yönü yalnızca "dikey" veya "yatay" olabilir. Verilen: "{0}"',
     'exifNotSupported'       => 'Bu PHP kurulumunda EXIF verilerini okuma desteklenmiyor.',
+
+    // @deprecated
+    'libPathInvalid' => 'Görüntü kütüphanenize giden yol doğru değil. Lütfen görüntü tercihlerinizde doğru yolu ayarlayın. "{0}"',
 ];

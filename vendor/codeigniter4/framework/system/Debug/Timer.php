@@ -13,22 +13,20 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Debug;
 
-use RuntimeException;
+use CodeIgniter\Exceptions\RuntimeException;
 
 /**
  * Class Timer
  *
  * Provides a simple way to measure the amount of time
  * that elapses between two points.
- *
- * @see \CodeIgniter\Debug\TimerTest
  */
 class Timer
 {
     /**
      * List of all timers.
      *
-     * @var array
+     * @var array<string, array{start: float, end: float|null}>
      */
     protected $timers = [];
 
@@ -46,7 +44,7 @@ class Timer
     public function start(string $name, ?float $time = null)
     {
         $this->timers[strtolower($name)] = [
-            'start' => ! empty($time) ? $time : microtime(true),
+            'start' => $time ?? microtime(true),
             'end'   => null,
         ];
 
@@ -67,7 +65,7 @@ class Timer
     {
         $name = strtolower($name);
 
-        if (empty($this->timers[$name])) {
+        if (! isset($this->timers[$name])) {
             throw new RuntimeException('Cannot stop timer: invalid name given.');
         }
 
@@ -90,15 +88,13 @@ class Timer
     {
         $name = strtolower($name);
 
-        if (empty($this->timers[$name])) {
+        if (! isset($this->timers[$name])) {
             return null;
         }
 
         $timer = $this->timers[$name];
 
-        if (empty($timer['end'])) {
-            $timer['end'] = microtime(true);
-        }
+        $timer['end'] ??= microtime(true);
 
         return (float) number_format($timer['end'] - $timer['start'], $decimals, '.', '');
     }
@@ -107,15 +103,15 @@ class Timer
      * Returns the array of timers, with the duration pre-calculated for you.
      *
      * @param int $decimals Number of decimal places
+     *
+     * @return array<string, array{start: float, end: float, duration: float}>
      */
     public function getTimers(int $decimals = 4): array
     {
         $timers = $this->timers;
 
         foreach ($timers as &$timer) {
-            if (empty($timer['end'])) {
-                $timer['end'] = microtime(true);
-            }
+            $timer['end'] ??= microtime(true);
 
             $timer['duration'] = (float) number_format($timer['end'] - $timer['start'], $decimals);
         }

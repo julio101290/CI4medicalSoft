@@ -17,13 +17,13 @@ use CodeIgniter\Database\Forge as BaseForge;
 
 /**
  * Forge for MySQLi
+ *
+ * @extends BaseForge<Connection>
  */
 class Forge extends BaseForge
 {
     /**
      * CREATE DATABASE statement
-     *
-     * @var string
      */
     protected $createDatabaseStr = 'CREATE DATABASE %s CHARACTER SET %s COLLATE %s';
 
@@ -36,8 +36,6 @@ class Forge extends BaseForge
 
     /**
      * DROP CONSTRAINT statement
-     *
-     * @var string
      */
     protected $dropConstraintStr = 'ALTER TABLE %s DROP FOREIGN KEY %s';
 
@@ -54,7 +52,7 @@ class Forge extends BaseForge
     /**
      * UNSIGNED support
      *
-     * @var array
+     * @var list<string>
      */
     protected $_unsigned = [
         'TINYINT',
@@ -74,7 +72,7 @@ class Forge extends BaseForge
     /**
      * Table Options list which required to be quoted
      *
-     * @var array
+     * @var list<string>
      */
     protected $_quoted_table_options = [
         'COMMENT',
@@ -98,7 +96,7 @@ class Forge extends BaseForge
     /**
      * CREATE TABLE attributes
      *
-     * @param array $attributes Associative array of table attributes
+     * @param array<string, mixed> $attributes Associative array of table attributes
      */
     protected function _createTableAttributes(array $attributes): string
     {
@@ -116,28 +114,17 @@ class Forge extends BaseForge
             }
         }
 
-        if ($this->db->charset !== '' && ! strpos($sql, 'CHARACTER SET') && ! strpos($sql, 'CHARSET')) {
+        if ($this->db->charset !== '' && ! str_contains($sql, 'CHARACTER SET') && ! str_contains($sql, 'CHARSET')) {
             $sql .= ' DEFAULT CHARACTER SET = ' . $this->db->escapeString($this->db->charset);
         }
 
-        if ($this->db->DBCollat !== '' && ! strpos($sql, 'COLLATE')) {
+        if ($this->db->DBCollat !== '' && ! str_contains($sql, 'COLLATE')) {
             $sql .= ' COLLATE = ' . $this->db->escapeString($this->db->DBCollat);
         }
 
         return $sql;
     }
 
-    /**
-     * ALTER TABLE
-     *
-     * @param string       $alterType       ALTER type
-     * @param string       $table           Table name
-     * @param array|string $processedFields Processed column definitions
-     *                                      or column names to DROP
-     *
-     * @return         list<string>|string                            SQL string
-     * @phpstan-return ($alterType is 'DROP' ? string : list<string>)
-     */
     protected function _alterTable(string $alterType, string $table, $processedFields)
     {
         if ($alterType === 'DROP') {
@@ -153,7 +140,7 @@ class Forge extends BaseForge
                 if ($alterType === 'ADD') {
                     $processedFields[$i]['_literal'] = "\n\tADD ";
                 } else {
-                    $processedFields[$i]['_literal'] = empty($field['new_name']) ? "\n\tMODIFY " : "\n\tCHANGE ";
+                    $processedFields[$i]['_literal'] = ($field['new_name'] ?? '') === '' ? "\n\tMODIFY " : "\n\tCHANGE ";
                 }
 
                 $processedFields[$i] = $processedFields[$i]['_literal'] . $this->_processColumn($processedFields[$i]);
@@ -170,27 +157,22 @@ class Forge extends BaseForge
     {
         $extraClause = isset($processedField['after']) ? ' AFTER ' . $this->db->escapeIdentifiers($processedField['after']) : '';
 
-        if (empty($extraClause) && isset($processedField['first']) && $processedField['first'] === true) {
+        if ($extraClause === '' && isset($processedField['first']) && $processedField['first'] === true) {
             $extraClause = ' FIRST';
         }
 
         return $this->db->escapeIdentifiers($processedField['name'])
-                . (empty($processedField['new_name']) ? '' : ' ' . $this->db->escapeIdentifiers($processedField['new_name']))
+                . (($processedField['new_name'] ?? '') === '' ? '' : ' ' . $this->db->escapeIdentifiers($processedField['new_name']))
                 . ' ' . $processedField['type'] . $processedField['length']
                 . $processedField['unsigned']
                 . $processedField['null']
                 . $processedField['default']
                 . $processedField['auto_increment']
                 . $processedField['unique']
-                . (empty($processedField['comment']) ? '' : ' COMMENT ' . $processedField['comment'])
+                . (($processedField['comment'] ?? '') === '' ? '' : ' COMMENT ' . $processedField['comment'])
                 . $extraClause;
     }
 
-    /**
-     * Generates SQL to add indexes
-     *
-     * @param bool $asQuery When true returns stand alone SQL, else partial SQL used with CREATE TABLE
-     */
     protected function _processIndexes(string $table, bool $asQuery = false): array
     {
         $sqls  = [''];
@@ -222,7 +204,7 @@ class Forge extends BaseForge
                 implode('_', $this->keys[$i]['fields']) :
                 $this->keys[$i]['keyName']);
 
-            if ($asQuery === true) {
+            if ($asQuery) {
                 $sqls[$index] = 'ALTER TABLE ' . $this->db->escapeIdentifiers($table) . " ADD {$unique}KEY "
                     . $keyName
                     . ' (' . implode(', ', $this->db->escapeIdentifiers($this->keys[$i]['fields'])) . ')';
@@ -258,7 +240,7 @@ class Forge extends BaseForge
     {
         $sql = sprintf(
             'ALTER TABLE %s DROP PRIMARY KEY',
-            $this->db->escapeIdentifiers($this->db->DBPrefix . $table)
+            $this->db->escapeIdentifiers($this->db->DBPrefix . $table),
         );
 
         return $this->db->query($sql);

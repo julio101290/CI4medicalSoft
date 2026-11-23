@@ -79,6 +79,7 @@ class HavingBuilder extends WhereBuilder {
             $sql .= $this->buildColRef($v);
             $sql .= $this->buildSubQuery($v);
             $sql .= $this->buildInList($v);
+            $sql .= $this->buildWindowFunction($v);
             $sql .= $this->buildFunction($v);
             $sql .= $this->buildHavingExpression($v);
             $sql .= $this->buildHavingBracketExpression($v);

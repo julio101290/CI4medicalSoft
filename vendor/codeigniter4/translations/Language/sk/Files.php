@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,6 +13,8 @@
 
 // Files language settings
 return [
-    'fileNotFound' => 'Súbor nebol nájdený: {0}',
-    'cannotMove'   => 'Súbor {0} nebolo možné presunúť do {1} ({2})',
+    'fileNotFound'      => 'Súbor nebol nájdený: "{0}"',
+    'cannotMove'        => 'Súbor "{0}" nebolo možné presunúť do "{1}". Dôvod: {2}',
+    'expectedDirectory' => '{0} očakáva platný adresár.',
+    'expectedFile'      => '{0} očakáva platný súbor.',
 ];

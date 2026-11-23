@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,6 +13,8 @@
 
 // Router language settings
 return [
-    'invalidParameter'    => 'Parameter sa nezhoduje s očakávaným typom.',
-    'missingDefaultRoute' => 'Nemôžné určiť, čo by malo byť zobrazené. Predvolená cesta nebola špecifikovaná v routing súbore.',
+    'invalidParameter'         => 'Parameter sa nezhoduje s očakávaným typom.',
+    'missingDefaultRoute'      => 'Nie je možné určiť, čo sa má zobraziť. V súbore smerovania nebola zadaná predvolená trasa.',
+    'invalidDynamicController' => 'Dynamický controller nie je z bezpečnostných dôvodov povolený. Route handler: "{0}"',
+    'invalidControllerName'    => 'Oddeľovačom namespace je spätná lomka (\), nie lomka (/). Route handler: "{0}"',
 ];

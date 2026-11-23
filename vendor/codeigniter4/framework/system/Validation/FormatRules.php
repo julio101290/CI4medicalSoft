@@ -17,8 +17,6 @@ use DateTime;
 
 /**
  * Format validation Rules.
- *
- * @see \CodeIgniter\Validation\FormatRulesTest
  */
 class FormatRules
 {
@@ -284,7 +282,13 @@ class FormatRules
             $str = (string) $str;
         }
 
-        return base64_encode(base64_decode($str, true)) === $str;
+        $decoded = base64_decode($str, true);
+
+        if ($decoded === false) {
+            return false;
+        }
+
+        return base64_encode($decoded) === $str;
     }
 
     /**
@@ -416,7 +420,7 @@ class FormatRules
      */
     public function valid_url_strict($str = null, ?string $validSchemes = null): bool
     {
-        if ($str === null || $str === '' || $str === '0') {
+        if (in_array($str, [null, '', '0'], true)) {
             return false;
         }
 
@@ -428,7 +432,7 @@ class FormatRules
         $scheme       = strtolower((string) parse_url($str, PHP_URL_SCHEME));
         $validSchemes = explode(
             ',',
-            strtolower($validSchemes ?? 'http,https')
+            strtolower($validSchemes ?? 'http,https'),
         );
 
         return in_array($scheme, $validSchemes, true)

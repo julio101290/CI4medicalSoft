@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -14,5 +16,6 @@ return [
     'invalidFormatter' => '"{0}" nem érvényes Formázási osztály.',
     'invalidJSON'      => 'Nem sikerült a json karakterlánc elemzése, hiba: "{0}".',
     'invalidMime'      => 'Nincs formátum definiálva a MIME típushoz: "{0}".',
+    'invalidXMLValue'  => 'A(z) „{0}” típusú érték nem alakítható át karakterlánccá XML-kimenet céljából.',
     'missingExtension' => 'Az XML formázásához a SimpleXML kiterjesztésre van szükség.',
 ];

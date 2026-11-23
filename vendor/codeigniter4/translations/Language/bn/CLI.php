@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -27,6 +29,7 @@ return [
             'migration'  => 'মাইগ্রেশন ক্লাসের নাম',
             'model'      => 'মডেল ক্লাসের নাম',
             'seeder'     => 'সিডার ক্লাসের নাম',
+            'test'       => 'পরীক্ষা ক্লাসের নাম',
             'validation' => 'বৈধতা ক্লাসের নাম',
         ],
         'commandType'      => 'কমান্ডের ধরন',

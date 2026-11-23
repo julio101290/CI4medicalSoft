@@ -16,13 +16,12 @@ namespace CodeIgniter\Commands\Database;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\Database\BaseConnection;
+use CodeIgniter\Database\TableName;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use Config\Database;
-use InvalidArgumentException;
 
 /**
  * Get table data if it exists in the database.
- *
- * @see \CodeIgniter\Commands\Database\ShowTableInfoTest
  */
 class ShowTableInfo extends BaseCommand
 {
@@ -144,7 +143,7 @@ class ShowTableInfo extends BaseCommand
             $tableNameNo = CLI::promptByKey(
                 ['Here is the list of your database tables:', 'Which table do you want to see?'],
                 $tables,
-                'required'
+                'required',
             );
             CLI::newLine();
 
@@ -174,7 +173,7 @@ class ShowTableInfo extends BaseCommand
         ]];
         CLI::table(
             $data,
-            ['hostname', 'database', 'username', 'DBDriver', 'DBPrefix', 'port']
+            ['hostname', 'database', 'username', 'DBDriver', 'DBPrefix', 'port'],
         );
     }
 
@@ -199,7 +198,7 @@ class ShowTableInfo extends BaseCommand
         CLI::newLine();
 
         $this->removeDBPrefix();
-        $thead = $this->db->getFieldNames($tableName);
+        $thead = $this->db->getFieldNames(TableName::fromActualName($this->db->DBPrefix, $tableName));
         $this->restoreDBPrefix();
 
         // If there is a field named `id`, sort by it.
@@ -240,9 +239,11 @@ class ShowTableInfo extends BaseCommand
      */
     private function makeTbodyForShowAllTables(array $tables): array
     {
+        $this->tbody = [];
+
         $this->removeDBPrefix();
 
-        foreach ($tables  as $id => $tableName) {
+        foreach ($tables as $id => $tableName) {
             $table = $this->db->protectIdentifiers($tableName);
             $db    = $this->db->query("SELECT * FROM {$table}");
 
@@ -272,12 +273,12 @@ class ShowTableInfo extends BaseCommand
         string $tableName,
         int $limitRows,
         int $limitFieldValue,
-        ?string $sortField = null
+        ?string $sortField = null,
     ): array {
         $this->tbody = [];
 
         $this->removeDBPrefix();
-        $builder = $this->db->table($tableName);
+        $builder = $this->db->table(TableName::fromActualName($this->db->DBPrefix, $tableName));
         $builder->limit($limitRows);
         if ($sortField !== null) {
             $builder->orderBy($sortField, $this->sortDesc ? 'DESC' : 'ASC');
@@ -290,7 +291,7 @@ class ShowTableInfo extends BaseCommand
                 static fn ($item): string => mb_strlen((string) $item) > $limitFieldValue
                     ? mb_substr((string) $item, 0, $limitFieldValue) . '...'
                     : (string) $item,
-                $row
+                $row,
             );
             $this->tbody[] = $row;
         }

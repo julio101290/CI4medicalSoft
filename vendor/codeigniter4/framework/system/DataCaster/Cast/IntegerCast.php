@@ -14,17 +14,17 @@ declare(strict_types=1);
 namespace CodeIgniter\DataCaster\Cast;
 
 /**
- * Class IntegerCast
- *
  * (PHP) [int --> int       ] --> (DB driver) --> (DB column) int
  *       [    <-- int|string] <-- (DB driver) <-- (DB column) int
+ *
+ * @extends BaseCast<int, int|string>
  */
 class IntegerCast extends BaseCast
 {
     public static function get(
         mixed $value,
         array $params = [],
-        ?object $helper = null
+        ?object $helper = null,
     ): int {
         if (! is_string($value) && ! is_int($value)) {
             self::invalidTypeValueError($value);

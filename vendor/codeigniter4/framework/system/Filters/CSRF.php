@@ -26,7 +26,6 @@ use CodeIgniter\Security\Security;
  * This filter is not intended to be used from the command line.
  *
  * @codeCoverageIgnore
- * @see \CodeIgniter\Filters\CSRFTest
  */
 class CSRF implements FilterInterface
 {
@@ -35,14 +34,14 @@ class CSRF implements FilterInterface
      *
      * @param list<string>|null $arguments
      *
-     * @return RedirectResponse|void
+     * @return RedirectResponse|null
      *
      * @throws SecurityException
      */
     public function before(RequestInterface $request, $arguments = null)
     {
         if (! $request instanceof IncomingRequest) {
-            return;
+            return null;
         }
 
         /** @var Security $security */
@@ -57,16 +56,17 @@ class CSRF implements FilterInterface
 
             throw $e;
         }
+
+        return null;
     }
 
     /**
      * We don't have anything to do here.
      *
      * @param list<string>|null $arguments
-     *
-     * @return void
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
+        return null;
     }
 }

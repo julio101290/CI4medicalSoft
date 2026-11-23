@@ -20,6 +20,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Config\Cache;
 
 /**
  * Page Cache filter
@@ -28,17 +29,25 @@ class PageCache implements FilterInterface
 {
     private readonly ResponseCache $pageCache;
 
-    public function __construct()
+    /**
+     * @var list<int>
+     */
+    private readonly array $cacheStatusCodes;
+
+    public function __construct(?Cache $config = null)
     {
-        $this->pageCache = service('responsecache');
+        $config ??= config('Cache');
+
+        $this->pageCache        = service('responsecache');
+        $this->cacheStatusCodes = $config->cacheStatusCodes ?? []; // @phpstan-ignore nullCoalesce.property
     }
 
     /**
      * Checks page cache and return if found.
      *
-     * @param array|null $arguments
+     * @param list<string>|null $arguments
      *
-     * @return ResponseInterface|void
+     * @return ResponseInterface|null
      */
     public function before(RequestInterface $request, $arguments = null)
     {
@@ -46,19 +55,13 @@ class PageCache implements FilterInterface
 
         $response = service('response');
 
-        $cachedResponse = $this->pageCache->get($request, $response);
-
-        if ($cachedResponse instanceof ResponseInterface) {
-            return $cachedResponse;
-        }
+        return $this->pageCache->get($request, $response);
     }
 
     /**
      * Cache the page.
      *
-     * @param array|null $arguments
-     *
-     * @return void
+     * @param list<string>|null $arguments
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
@@ -67,11 +70,16 @@ class PageCache implements FilterInterface
         if (
             ! $response instanceof DownloadResponse
             && ! $response instanceof RedirectResponse
+            && ($this->cacheStatusCodes === [] || in_array($response->getStatusCode(), $this->cacheStatusCodes, true))
         ) {
             // Cache it without the performance metrics replaced
             // so that we can have live speed updates along the way.
             // Must be run after filters to preserve the Response headers.
             $this->pageCache->make($request, $response);
+
+            return $response;
         }
+
+        return null;
     }
 }

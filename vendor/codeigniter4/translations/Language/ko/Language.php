@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,5 +13,5 @@
 
 // "Language" language settings
 return [
-    'invalidMessageFormat' => '정확하지 않은 메시지 형식: "{0}", 인수: "{1}"', // 'Invalid message format: "{0}", args: "{1}"',
+    'invalidMessageFormat' => '정확하지 않은 메시지 형식: "{0}", 인수: "{1}"', // 'Invalid message format: "{0}", args: "{1}"'
 ];

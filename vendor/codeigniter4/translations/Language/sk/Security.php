@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -12,5 +14,8 @@
 // Security language settings
 return [
     'disallowedAction' => 'Požadovaná akcia nie je povolená.',
-    'invalidSameSite'  => 'SameSite hodnota musí byť None, Lax, Strict, alebo prázdny reťazec. Zadané: {0}',
+    'insecureCookie'   => 'Pokus o odoslanie zabezpečeného cookie cez nezabezpečené pripojenie.',
+
+    // @deprecated
+    'invalidSameSite' => 'Hodnota SameSite musí byť None, Lax, Strict alebo prázdny reťazec. Zadané: "{0}"',
 ];

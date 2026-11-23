@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -12,6 +14,7 @@
 // Cache language settings
 return [
     'unableToWrite'   => 'A gyorsítótár nem írható ide: {0}.',
+    'invalidHandler'  => 'A(z) „{0}” gyorsítótár-illesztőprogram nem érvényes gyorsítótár-kezelő.',
     'invalidHandlers' => 'A gyorsítótár konfigurációjának tartalmaznia kell egy $validHandlers tömböt.',
     'noBackup'        => 'A gyorsítótár-konfigurációnak rendelkeznie kell egy kezelővel és egy backupHandler készlettel.',
     'handlerNotFound' => 'A gyorsítótár-konfiguráció érvénytelen kezelőt vagy tartalék kezelőt tartalmaz.',

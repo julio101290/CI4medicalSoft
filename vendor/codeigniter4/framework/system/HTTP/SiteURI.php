@@ -13,15 +13,13 @@ declare(strict_types=1);
 
 namespace CodeIgniter\HTTP;
 
-use BadMethodCallException;
+use CodeIgniter\Exceptions\BadMethodCallException;
 use CodeIgniter\Exceptions\ConfigException;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
 use Config\App;
 
 /**
  * URI for the application site
- *
- * @see \CodeIgniter\HTTP\SiteURITest
  */
 class SiteURI extends URI
 {
@@ -41,7 +39,7 @@ class SiteURI extends URI
     /**
      * The Index File.
      */
-    private string $indexPage;
+    private readonly string $indexPage;
 
     /**
      * List of URI segments in baseURL and indexPage.
@@ -53,6 +51,8 @@ class SiteURI extends URI
      *       1 => 'public',
      *       2 => 'index.php',
      *   ];
+     *
+     * @var list<string>
      */
     private array $baseSegments;
 
@@ -68,7 +68,7 @@ class SiteURI extends URI
      *       0 => 'test',
      *   ];
      *
-     * @var array
+     * @var array<int, string>
      *
      * @deprecated This property will be private.
      */
@@ -85,17 +85,16 @@ class SiteURI extends URI
     private string $routePath;
 
     /**
-     * @param         string              $relativePath URI path relative to baseURL. May include
-     *                                                  queries or fragments.
-     * @param         string|null         $host         Optional current hostname.
-     * @param         string|null         $scheme       Optional scheme. 'http' or 'https'.
-     * @phpstan-param 'http'|'https'|null $scheme
+     * @param string                 $relativePath URI path relative to baseURL. May include
+     *                                             queries or fragments.
+     * @param string|null            $host         Optional current hostname.
+     * @param ''|'http'|'https'|null $scheme       Optional scheme. 'http' or 'https'.
      */
     public function __construct(
         App $configApp,
         string $relativePath = '',
         ?string $host = null,
-        ?string $scheme = null
+        ?string $scheme = null,
     ) {
         $this->indexPage = $configApp->indexPage;
 
@@ -124,6 +123,9 @@ class SiteURI extends URI
         $this->setRoutePath($routePath);
     }
 
+    /**
+     * @return array{string, string, string}
+     */
     private function parseRelativePath(string $relativePath): array
     {
         $parts = parse_url('http://dummy/' . $relativePath);
@@ -142,7 +144,7 @@ class SiteURI extends URI
     private function determineBaseURL(
         App $configApp,
         ?string $host,
-        ?string $scheme
+        ?string $scheme,
     ): URI {
         $baseURL = $this->normalizeBaseURL($configApp);
 
@@ -184,7 +186,7 @@ class SiteURI extends URI
         $indexPageRoutePath = $indexPage . $routePath;
 
         if ($indexPageRoutePath === '/') {
-            $indexPageRoutePath = '';
+            return '';
         }
 
         return $indexPageRoutePath;
@@ -199,7 +201,7 @@ class SiteURI extends URI
         // Validate baseURL
         if (filter_var($baseURL, FILTER_VALIDATE_URL) === false) {
             throw new ConfigException(
-                'Config\App::$baseURL "' . $baseURL . '" is not a valid URL.'
+                'Config\App::$baseURL "' . $baseURL . '" is not a valid URL.',
             );
         }
 
@@ -266,7 +268,7 @@ class SiteURI extends URI
             $this->getAuthority(),
             $this->getPath(),
             $this->getQuery(),
-            $this->getFragment()
+            $this->getFragment(),
         );
     }
 
@@ -300,6 +302,8 @@ class SiteURI extends URI
 
     /**
      * Converts path to segments
+     *
+     * @return list<string>
      */
     private function convertToSegments(string $path): array
     {
@@ -331,35 +335,48 @@ class SiteURI extends URI
 
     /**
      * Saves our parts from a parse_url() call.
+     *
+     * @param array{
+     *  host?: string,
+     *  user?: string,
+     *  path?: string,
+     *  query?: string,
+     *  fragment?: string,
+     *  scheme?: string,
+     *  port?: int,
+     *  pass?: string,
+     * } $parts
      */
     protected function applyParts(array $parts): void
     {
-        if (! empty($parts['host'])) {
+        if (isset($parts['host']) && $parts['host'] !== '') {
             $this->host = $parts['host'];
         }
-        if (! empty($parts['user'])) {
+
+        if (isset($parts['user']) && $parts['user'] !== '') {
             $this->user = $parts['user'];
         }
+
         if (isset($parts['path']) && $parts['path'] !== '') {
             $this->path = $this->filterPath($parts['path']);
         }
-        if (! empty($parts['query'])) {
+
+        if (isset($parts['query']) && $parts['query'] !== '') {
             $this->setQuery($parts['query']);
         }
-        if (! empty($parts['fragment'])) {
+
+        if (isset($parts['fragment']) && $parts['fragment'] !== '') {
             $this->fragment = $parts['fragment'];
         }
 
-        // Scheme
         if (isset($parts['scheme'])) {
             $this->setScheme(rtrim($parts['scheme'], ':/'));
         } else {
             $this->setScheme('http');
         }
 
-        // Port
-        if (isset($parts['port']) && $parts['port'] !== null) {
-            // Valid port numbers are enforced by earlier parse_url() or setPort()
+        if (isset($parts['port'])) {
+            // Valid port numbers are enforced by earlier parse_url or setPort()
             $this->port = $parts['port'];
         }
 
@@ -371,10 +388,10 @@ class SiteURI extends URI
     /**
      * For base_url() helper.
      *
-     * @param array|string $relativePath URI string or array of URI segments.
-     * @param string|null  $scheme       URI scheme. E.g., http, ftp. If empty
-     *                                   string '' is set, a protocol-relative
-     *                                   link is returned.
+     * @param list<string>|string $relativePath URI string or array of URI segments.
+     * @param string|null         $scheme       URI scheme. E.g., http, ftp. If empty
+     *                                          string '' is set, a protocol-relative
+     *                                          link is returned.
      */
     public function baseUrl($relativePath = '', ?string $scheme = null): string
     {
@@ -396,12 +413,12 @@ class SiteURI extends URI
     }
 
     /**
-     * @param array|string $relativePath URI string or array of URI segments
+     * @param list<string>|string $relativePath URI string or array of URI segments
      */
     private function stringifyRelativePath($relativePath): string
     {
         if (is_array($relativePath)) {
-            $relativePath = implode('/', $relativePath);
+            return implode('/', $relativePath);
         }
 
         return $relativePath;
@@ -410,18 +427,18 @@ class SiteURI extends URI
     /**
      * For site_url() helper.
      *
-     * @param array|string $relativePath URI string or array of URI segments.
-     * @param string|null  $scheme       URI scheme. E.g., http, ftp. If empty
-     *                                   string '' is set, a protocol-relative
-     *                                   link is returned.
-     * @param App|null     $config       Alternate configuration to use.
+     * @param list<string>|string $relativePath URI string or array of URI segments.
+     * @param string|null         $scheme       URI scheme. E.g., http, ftp. If empty
+     *                                          string '' is set, a protocol-relative
+     *                                          link is returned.
+     * @param App|null            $config       Alternate configuration to use.
      */
     public function siteUrl($relativePath = '', ?string $scheme = null, ?App $config = null): string
     {
         $relativePath = $this->stringifyRelativePath($relativePath);
 
         // Check current host.
-        $host = $config === null ? $this->getHost() : null;
+        $host = $config instanceof App ? null : $this->getHost();
 
         $config ??= config(App::class);
 

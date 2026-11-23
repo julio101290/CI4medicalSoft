@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -12,4 +14,6 @@
 // RESTful language settings
 return [
     'notImplemented' => 'Acción "{0}" no implementada.', // '"{0}" action not implemented.',
+    'cannotPaginate' => 'No se pueden recuperar los datos paginados.', // Unable to retrieve paginated data.
+    'paginateError'  => 'Se produjo un error al paginar los resultados.', // An error occurred while paginating results.
 ];

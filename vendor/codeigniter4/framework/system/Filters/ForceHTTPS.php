@@ -30,16 +30,16 @@ class ForceHTTPS implements FilterInterface
      * as set the HTTP Strict Transport Security (HSTS) header for those browsers
      * that support it.
      *
-     * @param array|null $arguments
+     * @param list<string>|null $arguments
      *
-     * @return ResponseInterface|void
+     * @return ResponseInterface|null
      */
     public function before(RequestInterface $request, $arguments = null)
     {
         $config = config(App::class);
 
         if ($config->forceGlobalSecureRequests !== true) {
-            return;
+            return null;
         }
 
         $response = service('response');
@@ -49,16 +49,17 @@ class ForceHTTPS implements FilterInterface
         } catch (RedirectException $e) {
             return $e->getResponse();
         }
+
+        return null;
     }
 
     /**
      * We don't have anything to do here.
      *
-     * @param array|null $arguments
-     *
-     * @return void
+     * @param list<string>|null $arguments
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -12,6 +14,7 @@
 // Cache language settings
 return [
     'unableToWrite'   => 'Memoria cache nu poate scrie {0}.',
+    'invalidHandler'  => 'Driverul de cache „{0}” nu este un handler de cache valid.',
     'invalidHandlers' => 'Configurația cache trebuie să aibă un array de $validHandlers.',
     'noBackup'        => 'Configurația cache-ului trebuie să aibă setat un handler și backupHandler.',
     'handlerNotFound' => 'Configurația cache are un handler invalid sau un handler de rezervă specificat.',

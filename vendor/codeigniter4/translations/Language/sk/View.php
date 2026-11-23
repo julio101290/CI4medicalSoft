@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,8 +15,10 @@
 return [
     'invalidCellMethod'     => '{class}::{method} nie je platná metóda.',
     'missingCellParameters' => '{class}::{method} nemá žiadne parametre.',
-    'invalidCellParameter'  => '{0} nie je platný názov parametru.',
-    'noCellClass'           => 'Žiadna trieda zobrazenia.',
-    'invalidCellClass'      => 'Nebolo možné nájsť triedu zobrazenia: {0}.',
-    'tagSyntaxError'        => 'Chyba syntaxe vo vašich Parser značkách: {0}',
+    'invalidCellParameter'  => '"{0}" nie je platný názov parametra.',
+    'noCellClass'           => 'Nebola zadaná trieda view bunky (cell).',
+    'invalidCellClass'      => 'Nepodarilo sa nájsť triedu view bunky (cell): "{0}".',
+    'tagSyntaxError'        => 'Vo vašich Parser značkách je chyba syntaxe: "{0}"',
+    'invalidDecoratorClass' => '"{0}" nie je platný View Decorator.',
+    'restrictedConditional' => 'Podmienka Parsera nie je v obmedzenom režime povolená: "{0}"',
 ];

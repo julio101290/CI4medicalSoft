@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -20,6 +22,7 @@ return [
     'gap'           => 'Er is een gat in de migratie sequentie rond het versienummer: ',
     'classNotFound' => 'De migratie class "%s" werd niet gevonden.',
     'missingMethod' => 'De migratie class heeft geen methode: "%s".',
+    'locked'        => 'Er lopen reeds migraties in een ander process. Overlaan.',
 
     // Migration Command
     'migHelpLatest'   => "\t\tMigreert de database naar de laatste beschikbare migratie.",
@@ -31,19 +34,28 @@ return [
     'migCreate'       => "\tMaakt een nieuwe migratie aan met de naam [name]",
     'nameMigration'   => 'Geeft het migratiebestand een naam',
     'migNumberError'  => 'Migratie cijfer moet 3 cijfers bevatten, en er mag geen gat zijn in de sequentie.',
+    'rollBackConfirm' => 'Weet u zeker dat u de rollback wilt starten?',
+    'refreshConfirm'  => 'Weet u zeker dat u de refresh wilt starten?',
 
     'latest'            => 'Al de migraties worden uitgevoerd...',
     'generalFault'      => 'Migratie gefaald!',
+    'migrated'          => 'Migraties uitgevoerd.',
     'migInvalidVersion' => 'Ongeldige versienummer opgegeven',
     'toVersionPH'       => 'Migreren naar versie %s...',
     'toVersion'         => 'Migreren naar huidige versie...',
     'rollingBack'       => 'Verwijderen van migratie naar batch: ',
     'noneFound'         => 'Geen migraties gevonden.',
-    'on'                => 'Gemigreerd op: ',
     'migSeeder'         => 'Seeder naam',
     'migMissingSeeder'  => 'U moet een seeder naam opgeven.',
+    'nameSeeder'        => 'Geef naam voor het seeder bestand',
+    'removed'           => 'Ongedaan maken (rollback): ',
     'added'             => 'Uitvoeren: ',
 
-    'version'  => 'Versie',
-    'filename' => 'Bestandsnaam',
+    // Migrate Status
+    'namespace' => 'Namespace',
+    'filename'  => 'Bestandsnaam',
+    'version'   => 'Versie',
+    'group'     => 'Groep',
+    'on'        => 'Gemigreerd op: ',
+    'batch'     => 'Batch',
 ];

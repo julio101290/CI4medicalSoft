@@ -18,8 +18,6 @@ use CodeIgniter\CLI\CLI;
 
 /**
  * Displays a list of all migrations and whether they've been run or not.
- *
- * @see \CodeIgniter\Commands\Database\MigrateStatusTest
  */
 class MigrateStatus extends BaseCommand
 {
@@ -77,8 +75,6 @@ class MigrateStatus extends BaseCommand
 
     /**
      * Displays a list of all migrations and whether they've been run or not.
-     *
-     * @param array<string, mixed> $params
      */
     public function run(array $params)
     {
@@ -107,7 +103,7 @@ class MigrateStatus extends BaseCommand
 
             $migrations = $runner->findNamespaceMigrations($namespace);
 
-            if (empty($migrations)) {
+            if ($migrations === []) {
                 continue;
             }
 

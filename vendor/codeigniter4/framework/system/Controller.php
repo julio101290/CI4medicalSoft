@@ -15,6 +15,7 @@ namespace CodeIgniter;
 
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
+use CodeIgniter\HTTP\Exceptions\RedirectException;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -23,11 +24,6 @@ use CodeIgniter\Validation\ValidationInterface;
 use Config\Validation;
 use Psr\Log\LoggerInterface;
 
-/**
- * Class Controller
- *
- * @see \CodeIgniter\ControllerTest
- */
 class Controller
 {
     /**
@@ -75,9 +71,11 @@ class Controller
     /**
      * Constructor.
      *
+     * @param CLIRequest|IncomingRequest $request
+     *
      * @return void
      *
-     * @throws HTTPException
+     * @throws HTTPException|RedirectException
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -105,7 +103,7 @@ class Controller
      *
      * @return void
      *
-     * @throws HTTPException
+     * @throws HTTPException|RedirectException
      */
     protected function forceHTTPS(int $duration = 31_536_000)
     {
@@ -127,8 +125,8 @@ class Controller
     /**
      * A shortcut to performing validation on Request data.
      *
-     * @param array|string $rules
-     * @param array        $messages An array of custom error messages
+     * @param array<array-key, mixed>|string              $rules
+     * @param array<string, array<string, string>|string> $messages An array of custom error messages
      */
     protected function validate($rules, array $messages = []): bool
     {
@@ -140,10 +138,10 @@ class Controller
     /**
      * A shortcut to performing validation on any input data.
      *
-     * @param array        $data     The data to validate
-     * @param array|string $rules
-     * @param array        $messages An array of custom error messages
-     * @param string|null  $dbGroup  The database group to use
+     * @param array<array-key, mixed>                     $data     The data to validate
+     * @param array<array-key, mixed>|string              $rules
+     * @param array<string, array<string, string>|string> $messages An array of custom error messages
+     * @param string|null                                 $dbGroup  The database group to use
      */
     protected function validateData(array $data, $rules, array $messages = [], ?string $dbGroup = null): bool
     {
@@ -153,7 +151,8 @@ class Controller
     }
 
     /**
-     * @param array|string $rules
+     * @param array<array-key, mixed>|string              $rules
+     * @param array<string, array<string, string>|string> $messages
      */
     private function setValidator($rules, array $messages): void
     {

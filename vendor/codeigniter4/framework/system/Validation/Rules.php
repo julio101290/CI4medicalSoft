@@ -13,22 +13,21 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Validation;
 
+use CodeIgniter\Database\BaseBuilder;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use CodeIgniter\Helpers\Array\ArrayHelper;
 use Config\Database;
-use InvalidArgumentException;
 
 /**
  * Validation Rules.
- *
- * @see \CodeIgniter\Validation\RulesTest
  */
 class Rules
 {
     /**
      * The value does not match another field in $data.
      *
-     * @param string|null $str
-     * @param array       $data Other field/value pairs
+     * @param string|null             $str
+     * @param array<array-key, mixed> $data Other field/value pairs
      */
     public function differs($str, string $field, array $data): bool
     {
@@ -109,43 +108,28 @@ class Rules
      * Can ignore records by field/value to filter (currently
      * accept only one filter).
      *
-     * Example:
+     * ```
+     *    is_not_unique[dbGroup.table.field,where_field,where_value]
      *    is_not_unique[table.field,where_field,where_value]
      *    is_not_unique[menu.id,active,1]
+     * ```
      *
-     * @param string|null $str
+     * @param string|null             $str
+     * @param array<array-key, mixed> $data
      */
     public function is_not_unique($str, string $field, array $data): bool
     {
-        if (! is_string($str) && $str !== null) {
-            $str = (string) $str;
-        }
-
-        // Grab any data for exclusion of a single row.
-        [$field, $whereField, $whereValue] = array_pad(
-            explode(',', $field),
-            3,
-            null
-        );
-
-        // Break the table and field apart
-        sscanf($field, '%[^.].%[^.]', $table, $field);
-
-        $row = Database::connect($data['DBGroup'] ?? null)
-            ->table($table)
-            ->select('1')
-            ->where($field, $str)
-            ->limit(1);
+        [$builder, $whereField, $whereValue] = $this->prepareUniqueQuery($str, $field, $data);
 
         if (
             $whereField !== null && $whereField !== ''
             && $whereValue !== null && $whereValue !== ''
-            && ! preg_match('/^\{(\w+)\}$/', $whereValue)
+            && preg_match('/^\{(\w+)\}$/', $whereValue) !== 1
         ) {
-            $row = $row->where($whereField, $whereValue);
+            $builder = $builder->where($whereField, $whereValue);
         }
 
-        return $row->get()->getRow() !== null;
+        return $builder->get()->getRow() !== null;
     }
 
     /**
@@ -170,40 +154,67 @@ class Rules
      * record updates.
      *
      * Example:
+     *    is_unique[dbGroup.table.field,ignore_field,ignore_value]
      *    is_unique[table.field,ignore_field,ignore_value]
      *    is_unique[users.email,id,5]
      *
-     * @param string|null $str
+     * @param string|null             $str
+     * @param array<array-key, mixed> $data
      */
     public function is_unique($str, string $field, array $data): bool
     {
-        if (! is_string($str) && $str !== null) {
-            $str = (string) $str;
-        }
-
-        [$field, $ignoreField, $ignoreValue] = array_pad(
-            explode(',', $field),
-            3,
-            null
-        );
-
-        sscanf($field, '%[^.].%[^.]', $table, $field);
-
-        $row = Database::connect($data['DBGroup'] ?? null)
-            ->table($table)
-            ->select('1')
-            ->where($field, $str)
-            ->limit(1);
+        [$builder, $ignoreField, $ignoreValue] = $this->prepareUniqueQuery($str, $field, $data);
 
         if (
             $ignoreField !== null && $ignoreField !== ''
             && $ignoreValue !== null && $ignoreValue !== ''
-            && ! preg_match('/^\{(\w+)\}$/', $ignoreValue)
+            && preg_match('/^\{(\w+)\}$/', $ignoreValue) !== 1
         ) {
-            $row = $row->where("{$ignoreField} !=", $ignoreValue);
+            $builder = $builder->where("{$ignoreField} !=", $ignoreValue);
         }
 
-        return $row->get()->getRow() === null;
+        return $builder->get()->getRow() === null;
+    }
+
+    /**
+     * Prepares the database query for uniqueness checks.
+     *
+     * @param mixed                   $value The value to check.
+     * @param string                  $field The field parameters.
+     * @param array<array-key, mixed> $data  Additional data.
+     *
+     * @return array{0: BaseBuilder, 1: string|null, 2: string|null}
+     */
+    private function prepareUniqueQuery($value, string $field, array $data): array
+    {
+        if (! is_string($value) && $value !== null) {
+            $value = (string) $value;
+        }
+
+        // Split the field parameters and pad the array to ensure three elements.
+        [$field, $extraField, $extraValue] = array_pad(explode(',', $field), 3, null);
+
+        // Parse the field string to extract dbGroup, table, and field.
+        $parts    = explode('.', $field, 3);
+        $numParts = count($parts);
+
+        if ($numParts === 3) {
+            [$dbGroup, $table, $field] = $parts;
+        } elseif ($numParts === 2) {
+            [$table, $field] = $parts;
+        } else {
+            throw new InvalidArgumentException('The field must be in the format "table.field" or "dbGroup.table.field".');
+        }
+
+        // Connect to the database.
+        $dbGroup ??= $data['DBGroup'] ?? null;
+        $builder = Database::connect($dbGroup)
+            ->table($table)
+            ->select('1')
+            ->where($field, $value)
+            ->limit(1);
+
+        return [$builder, $extraField, $extraValue];
     }
 
     /**
@@ -237,8 +248,8 @@ class Rules
     /**
      * Matches the value of another field in $data.
      *
-     * @param string|null $str
-     * @param array       $data Other field/value pairs
+     * @param string|null             $str
+     * @param array<array-key, mixed> $data Other field/value pairs
      */
     public function matches($str, string $field, array $data): bool
     {
@@ -306,7 +317,7 @@ class Rules
     }
 
     /**
-     * @param array|bool|float|int|object|string|null $str
+     * @param mixed $str
      */
     public function required($str = null): bool
     {
@@ -333,9 +344,9 @@ class Rules
      *
      *     required_with[password]
      *
-     * @param string|null $str
-     * @param string|null $fields List of fields that we should check if present
-     * @param array       $data   Complete list of fields from the form
+     * @param string|null             $str
+     * @param string|null             $fields List of fields that we should check if present
+     * @param array<array-key, mixed> $data   Complete list of fields from the form
      */
     public function required_with($str = null, ?string $fields = null, array $data = []): bool
     {
@@ -359,10 +370,8 @@ class Rules
 
         foreach (explode(',', $fields) as $field) {
             if (
-                (array_key_exists($field, $data)
-                    && ! empty($data[$field]))  // @phpstan-ignore-line Use empty()
-                || (str_contains($field, '.')
-                    && ! empty(dot_array_search($field, $data)))  // @phpstan-ignore-line Use empty()
+                (array_key_exists($field, $data) && ! $this->isBlank($data[$field]))
+                || (str_contains($field, '.') && ! $this->isBlank(dot_array_search($field, $data)))
             ) {
                 $requiredFields[] = $field;
             }
@@ -379,16 +388,17 @@ class Rules
      *
      *     required_without[id,email]
      *
-     * @param string|null $str
-     * @param string|null $otherFields The param fields of required_without[].
-     * @param string|null $field       This rule param fields aren't present, this field is required.
+     * @param string|null             $str
+     * @param string|null             $otherFields The param fields of required_without[].
+     * @param string|null             $field       This rule param fields aren't present, this field is required.
+     * @param array<array-key, mixed> $data
      */
     public function required_without(
         $str = null,
         ?string $otherFields = null,
         array $data = [],
         ?string $error = null,
-        ?string $field = null
+        ?string $field = null,
     ): bool {
         if ($otherFields === null || $data === []) {
             throw new InvalidArgumentException('You must supply the parameters: otherFields, data.');
@@ -409,7 +419,7 @@ class Rules
             if (
                 (! str_contains($otherField, '.'))
                 && (! array_key_exists($otherField, $data)
-                    || empty($data[$otherField])) // @phpstan-ignore-line Use empty()
+                    || $this->isBlank($data[$otherField]))
             ) {
                 return false;
             }
@@ -421,15 +431,22 @@ class Rules
 
                 $fieldData       = dot_array_search($otherField, $data);
                 $fieldSplitArray = explode('.', $field);
-                $fieldKey        = $fieldSplitArray[1];
+                $fieldKey        = $fieldSplitArray[1] ?? null;
 
                 if (is_array($fieldData)) {
-                    return ! empty(dot_array_search($otherField, $data)[$fieldKey]);  // @phpstan-ignore-line Use empty()
+                    if ($this->isBlank($fieldData[$fieldKey] ?? null)) {
+                        return false;
+                    }
+
+                    continue;
                 }
-                $nowField      = str_replace('*', $fieldKey, $otherField);
+
+                $nowField      = str_replace('*', (string) $fieldKey, $otherField);
                 $nowFieldVaule = dot_array_search($nowField, $data);
 
-                return null !== $nowFieldVaule;
+                if ($nowFieldVaule === null) {
+                    return false;
+                }
             }
         }
 
@@ -439,22 +456,33 @@ class Rules
     /**
      * The field exists in $data.
      *
-     * @param array|bool|float|int|object|string|null $value The field value.
-     * @param string|null                             $param The rule's parameter.
-     * @param array                                   $data  The data to be validated.
-     * @param string|null                             $field The field name.
+     * @param mixed                   $value The field value.
+     * @param string|null             $param The rule's parameter.
+     * @param array<array-key, mixed> $data  The data to be validated.
+     * @param string|null             $field The field name.
      */
     public function field_exists(
         $value = null,
         ?string $param = null,
         array $data = [],
         ?string $error = null,
-        ?string $field = null
+        ?string $field = null,
     ): bool {
         if (str_contains($field, '.')) {
             return ArrayHelper::dotKeyExists($field, $data);
         }
 
         return array_key_exists($field, $data);
+    }
+
+    /**
+     * Whether the value counts as blank for the `required_with` and
+     * `required_without` rules.
+     *
+     * @param mixed $value
+     */
+    private function isBlank($value): bool
+    {
+        return in_array($value, [null, false, 0, 0.0, '', '0', []], true);
     }
 }

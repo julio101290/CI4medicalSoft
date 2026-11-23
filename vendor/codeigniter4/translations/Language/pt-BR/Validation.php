@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -63,7 +65,7 @@ return [
     'valid_json'            => 'O campo {field} deve conter um json válido.', // 'The {field} field must contain a valid json.',
 
     // Credit Cards
-    'valid_cc_num' => '{field} não parece ser um número de cartão de crédito válido.', // '{field} does not appear to be a valid credit card number.',
+    'valid_cc_number' => '{field} não parece ser um número de cartão de crédito válido.', // {field} does not appear to be a valid credit card number.
 
     // Files
     'uploaded' => '{field} não é um arquivo de upload válido.', // '{field} is not a valid uploaded file.',
@@ -72,4 +74,5 @@ return [
     'mime_in'  => '{field} não tem um tipo mime válido.', // '{field} does not have a valid mime type.',
     'ext_in'   => '{field} não tem uma extensão de arquivo válida.', // '{field} does not have a valid file extension.',
     'max_dims' => '{field} não é uma imagem, ou ela é muito larga ou muito grande.', // '{field} is either not an image, or it is too wide or tall.',
+    'min_dims' => '{field} não é uma imagem ou não é larga ou alta o suficiente.', // '{field} is either not an image, or it is not wide or tall enough.',
 ];

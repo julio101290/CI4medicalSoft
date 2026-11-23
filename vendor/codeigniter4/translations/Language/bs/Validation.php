@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -62,7 +64,7 @@ return [
     'valid_json'            => '{field} polje mora sadržavati validan JSON format.',
 
     // Credit Cards
-    'valid_cc_num' => '{field} izgleda da nije validan broj kreditne kartice.',
+    'valid_cc_number' => '{field} izgleda da nije validan broj kreditne kartice.',
 
     // Files
     'uploaded' => '{field} nije validna uploadovana datoteka.',

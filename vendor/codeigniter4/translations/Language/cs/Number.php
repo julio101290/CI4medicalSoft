@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -21,6 +23,6 @@ return [
     'thousand'    => ' tisíc',
     'million'     => ' milion',
     'billion'     => ' miliarda',
-    'trillion'    => ' trilion',
-    'quadrillion' => ' kvadrilion',
+    'trillion'    => ' bilion',
+    'quadrillion' => ' biliarda',
 ];

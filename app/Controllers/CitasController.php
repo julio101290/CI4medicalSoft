@@ -18,7 +18,6 @@ class CitasController extends BaseController {
         $this->citas = new CitasModel();
         $this->bitacora = new BitacoraModel();
         helper('menu');
-      
     }
 
     public function index() {
@@ -34,8 +33,8 @@ class CitasController extends BaseController {
               $dir = $this->request->getGet('order[0][dir]');
              */
 
-            $datos = $this->citas->mdlObtenerDatos();  
-                    //where('deleted_at', null);
+            $datos = $this->citas->mdlObtenerDatos();
+            //where('deleted_at', null);
             // $resultado = $this->bitacora->findAll();
             // $this->bitacora->getResource()->countAllResults(),
             // $this->bitacora->getResource($search)->countAllResults()
@@ -43,21 +42,30 @@ class CitasController extends BaseController {
 
 
             return \Hermawan\DataTables\DataTable::of($datos)->add('action', function ($row) {
-                                return " <div class=\"btn-group\">
-                          
-                  <button class=\"btn btn-warning btnEditarCita\" data-toggle=\"modal\" idCita=\"$row->id\" data-target=\"#modalAgregarCitas\">  <i class=\" fa fa-edit \"></i></button>
-                  <button class=\"btn btn-danger btnEliminarCita\" idCita=\"$row->id\"><i class=\"fa fa-times\"></i></button></div>";
+
+                                $btnConsulta = "";
+
+                                // Ajusta 'Atendida' al valor que manejes en tu columna estado (ej. 'Atendida', 'Cerrada' o 1)
+                                if ($row->estado != 'Atendida') {
+                                    $btnConsulta = "<button class=\"btn btn-success btnConvertirConsulta\" idCita=\"{$row->id}\" title=\"Convertir a Consulta\"><i class=\"fa fa-stethoscope\"></i></button>";
+                                }
+
+                                return "<div class=\"btn-group\">
+                {$btnConsulta}
+                <button class=\"btn btn-warning btnEditarCita\" data-toggle=\"modal\" idCita=\"{$row->id}\" data-target=\"#modalAgregarCitas\"><i class=\"fa fa-edit\"></i></button>
+                <button class=\"btn btn-danger btnEliminarCita\" idCita=\"{$row->id}\"><i class=\"fa fa-times\"></i></button>
+            </div>";
                             }, 'last')
                             ->toJson();
         }
 
-        
-        $fechaActual =  fechaMySQLADateTimeHTML5(fechaHoraActual());
-        
-        $hastaFecha = fechaMySQLADateTimeHTML5( agregarMinutos(fechaHoraActual(),30));
-        
-        $titulos["fecha"] =  $fechaActual;
-        $titulos["hastaFecha"] =  $hastaFecha;
+
+        $fechaActual = fechaMySQLADateTimeHTML5(fechaHoraActual());
+
+        $hastaFecha = fechaMySQLADateTimeHTML5(agregarMinutos(fechaHoraActual(), 30));
+
+        $titulos["fecha"] = $fechaActual;
+        $titulos["hastaFecha"] = $hastaFecha;
         $titulos["title"] = lang('citas.title');
         $titulos["subtitle"] = lang('citas.subtitle');
 
@@ -123,15 +131,14 @@ class CitasController extends BaseController {
 
 
             if ($this->citas->update($datos["idCita"], $datos) == false) {
-                
+
                 $errores = $this->citas->errors();
                 foreach ($errores as $field => $error) {
 
                     echo $error . " ";
                 }
-                
+
                 return;
-               
             } else {
 
                 $datosBitacora["descripcion"] = "Se actualizo el medicamento con los siguientes datos: " . json_encode($datos);
@@ -144,24 +151,18 @@ class CitasController extends BaseController {
         }
 
         return;
-
-
     }
-    
-    
-    
-     public function delete($id)
-    {
+
+    public function delete($id) {
         if (!$found = $this->citas->delete($id)) {
             return $this->failNotFound(lang('citas.msg.msg_get_fail'));
         }
-        
+
         $infoCita = $this->citas->find($id);
-        
-        $datosBitacora["descripcion"] = "Se elimino la medicamento que contenia los siguientes datos ". json_encode($infoCita);
-        
+
+        $datosBitacora["descripcion"] = "Se elimino la medicamento que contenia los siguientes datos " . json_encode($infoCita);
+
         $this->bitacora->save($datosBitacora);
         return $this->respondDeleted($found, lang('citas.msg.msg_delete'));
     }
-
 }

@@ -74,4 +74,6 @@ class Format extends BaseConfig
     {
         return Services::format()->getFormatter($mime);
     }
+    
+    public int $jsonEncodeDepth = 512;
 }

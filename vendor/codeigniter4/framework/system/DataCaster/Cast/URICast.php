@@ -16,17 +16,17 @@ namespace CodeIgniter\DataCaster\Cast;
 use CodeIgniter\HTTP\URI;
 
 /**
- * Class URICast
- *
  * (PHP) [URI --> string] --> (DB driver) --> (DB column) string
  *       [    <-- string] <-- (DB driver) <-- (DB column) string
+ *
+ * @extends BaseCast<URI, string>
  */
 class URICast extends BaseCast
 {
     public static function get(
         mixed $value,
         array $params = [],
-        ?object $helper = null
+        ?object $helper = null,
     ): URI {
         if (! is_string($value)) {
             self::invalidTypeValueError($value);
@@ -38,7 +38,7 @@ class URICast extends BaseCast
     public static function set(
         mixed $value,
         array $params = [],
-        ?object $helper = null
+        ?object $helper = null,
     ): string {
         if (! $value instanceof URI) {
             self::invalidTypeValueError($value);

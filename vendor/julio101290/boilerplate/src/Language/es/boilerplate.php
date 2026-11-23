@@ -1,122 +1,124 @@
- <?php
+<?php
 
 return [
     'global' => [
-        'save'   => 'Guardar',
-        'close'  => 'Cerrar',
+        'save' => 'Guardar',
+        'close' => 'Cerrar',
         'action' => 'Acción',
-        'logout' => 'Salir',
+        'logout' => 'Cerrar sesión',
         'search' => 'Buscar',
-        'sweet'  => [
-            'title'          => 'Estás Seguro?',
-            'text'           => 'Si no estas seguro da click en cancelar!',
-            'confirm_delete' => 'Si, Eliminalo!',
+        'sweet' => [
+            'title' => '¿Estás seguro?',
+            'text' => '¡No podrás revertir esto!',
+            'confirm_delete' => 'Sí, ¡bórralo!',
         ],
     ],
-
     /**
      * Permission.
      */
     'permission' => [
-        'add'      => 'Agregar permiso',
-        'edit'     => 'Editar permiso',
-        'title'    => 'Administración de permisos',
-        'subtitle' => 'Lista de Permisos',
-        'fields'   => [
-            'name'            => 'Permiso',
-            'description'     => 'Descripcion',
-            'plc_name'        => 'Nombre del permiso',
-            'plc_description' => 'Descripcion del Permiso',
+        'add' => 'Añadir permiso',
+        'edit' => 'Editar permiso',
+        'title' => 'Gestión de permisos',
+        'subtitle' => 'Lista de permisos',
+        'fields' => [
+            'name' => 'Permiso',
+            'description' => 'Descripción',
+            'plc_name' => 'Nombre del permiso',
+            'plc_description' => 'Descripción del permiso',
         ],
         'msg' => [
-            'msg_insert'   => 'El permiso se ha agregado correctamente.',
-            'msg_update'   => 'El permiso con id {0} ha sido modificado corecctamente.',
-            'msg_delete'   => 'El permiso con id {0} ha sido eliminado.',
-            'msg_get'      => 'El permiso con id {0} obtenido correctamente.',
-            'msg_get_fail' => 'El permiso con id {0} no se encontro o fue eliminado.',
+            'msg_insert' => 'El permiso se ha añadido correctamente.',
+            'msg_update' => 'El permiso id {0} se ha modificado correctamente.',
+            'msg_delete' => 'El permiso id {0} se ha eliminado correctamente.',
+            'msg_get' => 'El permiso id {0} se ha obtenido correctamente.',
+            'msg_get_fail' => 'El permiso id {0} no encontrado o ya eliminado.',
         ],
     ],
-
     /**
      * Role.
      */
     'role' => [
-        'add'      => 'Agregar rol',
-        'edit'     => 'Editar rol',
-        'title'    => 'Administrar rol',
+        'add' => 'Añadir rol',
+        'edit' => 'Editar rol',
+        'title' => 'Gestión de roles',
         'subtitle' => 'Lista de roles',
-        'fields'   => [
-            'name'            => 'Rol',
-            'description'     => 'Descripción',
-            'plc_name'        => 'Nombre del rol',
-            'plc_description' => 'Descripción para el rol',
+        'fields' => [
+            'name' => 'Rol',
+            'description' => 'Descripción',
+            'plc_name' => 'Nombre del rol',
+            'plc_description' => 'Descripción del rol',
         ],
         'msg' => [
-            'msg_insert'   => 'El rol ha sido agregado correctamente.',
-            'msg_update'   => 'El rol con id {0} ha sido modificado corecctamente.',
-            'msg_delete'   => 'El rol con id {0} ha sido eliminado.',
-            'msg_get'      => 'El rol con id {0} obtenido correctamente.',
-            'msg_get_fail' => 'El rol con id {0} no se encontro o fue eliminado.',
+            'msg_insert' => 'El rol se ha añadido correctamente.',
+            'msg_update' => 'El rol id {0} se ha modificado correctamente.',
+            'msg_delete' => 'El rol id {0} se ha eliminado correctamente.',
+            'msg_get' => 'El rol id {0} se ha obtenido correctamente.',
+            'msg_get_fail' => 'El rol id {0} no encontrado o ya eliminado.',
         ],
     ],
-
     /**
      * Menu.
      */
     'menu' => [
-        'expand'   => 'Expandir',
-        'collapse' => 'Colapsar',
-        'refresh'  => 'Refrescar',
-        'add'      => 'Agregar menu',
-        'edit'     => 'Editar menu',
-        'title'    => 'Administrar menu',
-        'subtitle' => 'Lista del Menu',
-        'fields'   => [
-            'parent'         => 'Padre',
-            'warning_parent' => '¡Tenga en cuenta! el menu solo es compatible con la profundidad máxima 2',
-            'active'         => 'Activo',
-            'non_active'     => 'No Activo',
-            'icon'           => 'Icono',
-            'info_icon'      => 'Para mas iconos, por favor ver',
-            'place_icon'     => 'Iconos desde fontawesome.',
-            'name'           => 'Titulo',
-            'place_title'    => 'Nombre del menu.',
-            'route'          => 'Ruta',
-            'place_route'    => 'Menu de ruta para enlace.',
+        'expand' => 'Expandir',
+        'collapse' => 'Contraer',
+        'refresh' => 'Actualizar',
+        'add' => 'Añadir menú',
+        'edit' => 'Editar menú',
+        'title' => 'Gestión de menús',
+        'subtitle' => 'Lista de menús',
+        'fields' => [
+            'parent' => 'Padre',
+            'warning_parent' => '¡Atención! El menú solo admite una profundidad máxima de 2.',
+            'active' => 'Activo',
+            'non_active' => 'No activo',
+            'icon' => 'Icono',
+            'info_icon' => 'Para más iconos, por favor vea',
+            'place_icon' => 'Icono de fontawesome.',
+            'name' => 'Título',
+            'place_title' => 'Nombre del menú.',
+            'route' => 'Ruta',
+            'place_route' => 'Ruta para el enlace del menú.',
         ],
         'msg' => [
-            'msg_insert'     => 'El menu ha sido agregado correctamente.',
-            'msg_update'     => 'El menu ha sido modificado correctamente.',
-            'msg_delete'     => 'El menu ha sido eliminado correctamente.',
-            'msg_get'        => 'El menu ha sido obtenido satisfactoriamente.',
-            'msg_get_fail'   => 'El menu no se encontro o fue eliminado.',
-            'msg_fail_order' => 'El menu falló el reordenamiento.',
+            'msg_insert' => 'El menú se ha añadido correctamente.',
+            'msg_update' => 'El menú se ha modificado correctamente.',
+            'msg_delete' => 'El menú se ha eliminado correctamente.',
+            'msg_get' => 'El menú se ha obtenido correctamente.',
+            'msg_get_fail' => 'El menú no encontrado o ya eliminado.',
+            'msg_fail_order' => 'El menú falló al reordenar.',
         ],
     ],
-
     /**
      * user.
      */
     'user' => [
-        'add'      => 'Agregar usuario',
-        'edit'     => 'Editar usuario',
-        'title'    => 'Administrar usuario',
+        'add' => 'Añadir usuario',
+        'edit' => 'Editar usuario',
+        'title' => 'Gestión de usuarios',
         'subtitle' => 'Lista de usuarios',
-        'lastname' => 'Apellidos',
-        'firstname' => 'Nombres',
-        'fields'   => [
-            'active'          => 'Activo',
-            'profile'         => 'Perfil',
-            'join'            => 'Miembro desde',
-            'setting'         => 'Configuraciones',
-            'non_active'      => 'No activo',
+        'lastname' => 'Apellido',
+        'firstname' => 'Nombre',
+        'fields' => [
+            'active' => 'Activo',
+            'profile' => 'Perfil',
+            'join' => 'Miembro desde',
+            'setting' => 'Configuración',
+            'non_active' => 'No activo',
         ],
         'msg' => [
-            'msg_insert'   => 'El usuario ha sido agregado correctamente.',
-            'msg_update'   => 'El usuario ha sido modificado correctamente.',
-            'msg_delete'   => 'El usuario ha sido eliminado correctamente.',
-            'msg_get'      => 'El usuario ha sido obtenido correctamente.',
-            'msg_get_fail' => 'El usuario no existe o fue eliminado.',
+            'msg_insert' => 'El usuario se ha añadido correctamente.',
+            'msg_update' => 'El usuario se ha modificado correctamente.',
+            'msg_delete' => 'El usuario se ha eliminado correctamente.',
+            'msg_get' => 'El usuario se ha obtenido correctamente.',
+            'msg_get_fail' => 'El usuario no encontrado o ya eliminado.',
         ],
     ],
+     /**
+     * Auth
+     */
+    'Auth' => [
+        'showPassword' => 'Ver Contraseña',
+        ]
 ];

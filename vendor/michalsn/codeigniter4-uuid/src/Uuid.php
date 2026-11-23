@@ -132,6 +132,18 @@ class Uuid
 		);
 	}
 
+    /**
+     * UUID Version 7
+     *
+     * @param \DateTimeImmutable|null $dateTimeImmutable    To use an existing date and time to generate a version 7 UUID, you may pass a \DateTimeInterface instance to the uuid7() method.
+     *
+     * @return \Ramsey\Uuid\UuidInterface
+     */
+    public function uuid7(?\DateTimeImmutable $dateTimeImmutable = null) : \Ramsey\Uuid\UuidInterface
+    {
+        return RamseyUuid::uuid7($dateTimeImmutable);
+    }
+
 	/**
 	 * From string to UUID object
 	 *
@@ -155,6 +167,22 @@ class Uuid
 	{
 		return RamseyUuid::fromBytes($bytes);
 	}
+
+    /**
+     * From string or byte string to UUID object
+     *
+     * @param string $value The input value, which can be either a printable string or raw bytes.
+     *
+     * @return \Ramsey\Uuid\UuidInterface UUID interface.
+     */
+    public function fromValue(string $value) : \Ramsey\Uuid\UuidInterface
+    {
+        if (ctype_print($value) === true)
+        {
+            return $this->fromString($value);
+        }
+        return $this->fromBytes($value);
+    }
 
 	/**
 	 * From 128-bit integer string to UUID object

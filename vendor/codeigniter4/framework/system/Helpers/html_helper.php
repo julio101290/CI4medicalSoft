@@ -24,8 +24,8 @@ if (! function_exists('ul')) {
      * Generates an HTML unordered list from a single or
      * multidimensional array.
      *
-     * @param array               $list       List entries
-     * @param array|object|string $attributes HTML attributes string, array, object
+     * @param array<array-key, array<array-key, mixed>|string> $list       List entries
+     * @param array<string, scalar|null>|object|string         $attributes HTML attributes string, array, object
      */
     function ul(array $list, $attributes = ''): string
     {
@@ -39,8 +39,8 @@ if (! function_exists('ol')) {
      *
      * Generates an HTML ordered list from a single or multidimensional array.
      *
-     * @param array               $list       List entries
-     * @param array|object|string $attributes HTML attributes string, array, object
+     * @param array<array-key, array<array-key, mixed>|string> $list       List entries
+     * @param array<string, scalar|null>|object|string         $attributes HTML attributes string, array, object
      */
     function ol(array $list, $attributes = ''): string
     {
@@ -54,8 +54,8 @@ if (! function_exists('_list')) {
      *
      * Generates an HTML ordered list from a single or multidimensional array.
      *
-     * @param array               $list       List entries
-     * @param array|object|string $attributes HTML attributes string, array, object
+     * @param array<array-key, array<array-key, mixed>|string> $list       List entries
+     * @param array<string, scalar|null>|object|string         $attributes HTML attributes string, array, object
      */
     function _list(string $type = 'ul', $list = [], $attributes = '', int $depth = 0): string
     {
@@ -93,27 +93,23 @@ if (! function_exists('img')) {
      *
      * Generates an image element
      *
-     * @param array|string        $src        Image source URI, or array of attributes and values
-     * @param bool                $indexPage  Should `Config\App::$indexPage` be added to the source path
-     * @param array|object|string $attributes Additional HTML attributes
+     * @param array<string, scalar|null>|string        $src        Image source URI, or array of attributes and values
+     * @param bool                                     $indexPage  Should `Config\App::$indexPage` be added to the source path
+     * @param array<string, scalar|null>|object|string $attributes Additional HTML attributes
      */
     function img($src = '', bool $indexPage = false, $attributes = ''): string
     {
         if (! is_array($src)) {
             $src = ['src' => $src];
         }
-        if (! isset($src['src'])) {
-            $src['src'] = $attributes['src'] ?? '';
-        }
-        if (! isset($src['alt'])) {
-            $src['alt'] = $attributes['alt'] ?? '';
-        }
+        $src['src'] ??= $attributes['src'] ?? '';
+        $src['alt'] ??= $attributes['alt'] ?? '';
 
         $img = '<img';
 
         // Check for a relative URI
-        if (! preg_match('#^([a-z]+:)?//#i', $src['src']) && ! str_starts_with($src['src'], 'data:')) {
-            if ($indexPage === true) {
+        if (preg_match('#^([a-z]+:)?//#i', $src['src']) !== 1 && ! str_starts_with($src['src'], 'data:')) {
+            if ($indexPage) {
                 $img .= ' src="' . site_url($src['src']) . '"';
             } else {
                 $img .= ' src="' . slash_item('baseURL') . $src['src'] . '"';
@@ -193,8 +189,8 @@ if (! function_exists('script_tag')) {
      *
      * Generates link to a JS file
      *
-     * @param array|string $src       Script source or an array of attributes
-     * @param bool         $indexPage Should `Config\App::$indexPage` be added to the JS path
+     * @param array<string, scalar|null>|string $src       Script source or an array of attributes
+     * @param bool                              $indexPage Should `Config\App::$indexPage` be added to the JS path
      */
     function script_tag($src = '', bool $indexPage = false): string
     {
@@ -206,8 +202,8 @@ if (! function_exists('script_tag')) {
         }
 
         foreach ($src as $k => $v) {
-            if ($k === 'src' && ! preg_match('#^([a-z]+:)?//#i', $v)) {
-                if ($indexPage === true) {
+            if ($k === 'src' && preg_match('#^([a-z]+:)?//#i', $v) !== 1) {
+                if ($indexPage) {
                     $script .= 'src="' . site_url($v) . '" ';
                 } else {
                     $script .= 'src="' . slash_item('baseURL') . $v . '" ';
@@ -238,7 +234,7 @@ if (! function_exists('link_tag')) {
         string $title = '',
         string $media = '',
         bool $indexPage = false,
-        string $hreflang = ''
+        string $hreflang = '',
     ): string {
         $attributes = [];
         // extract fields if needed
@@ -252,7 +248,7 @@ if (! function_exists('link_tag')) {
             $href      = $href['href'] ?? '';
         }
 
-        if (! preg_match('#^([a-z]+:)?//#i', $href)) {
+        if (preg_match('#^([a-z]+:)?//#i', $href) !== 1) {
             $attributes['href'] = $indexPage ? site_url($href) : slash_item('baseURL') . $href;
         } else {
             $attributes['href'] = $href;
@@ -287,10 +283,11 @@ if (! function_exists('video')) {
      * Generates a video element to embed videos. The video element can
      * contain one or more video sources
      *
-     * @param array|string $src                Either a source string or an array of sources
-     * @param string       $unsupportedMessage The message to display if the media tag is not supported by the browser
-     * @param string       $attributes         HTML attributes
-     * @param bool         $indexPage          Should `Config\App::$indexPage` be added to the source path
+     * @param list<string>|string $src                Either a source string or an array of sources
+     * @param string              $unsupportedMessage The message to display if the media tag is not supported by the browser
+     * @param string              $attributes         HTML attributes
+     * @param list<string>        $tracks             Track elements
+     * @param bool                $indexPage          Should `Config\App::$indexPage` be added to the source path
      */
     function video($src, string $unsupportedMessage = '', string $attributes = '', array $tracks = [], bool $indexPage = false): string
     {
@@ -302,7 +299,7 @@ if (! function_exists('video')) {
 
         if (_has_protocol($src)) {
             $video .= ' src="' . $src . '"';
-        } elseif ($indexPage === true) {
+        } elseif ($indexPage) {
             $video .= ' src="' . site_url($src) . '"';
         } else {
             $video .= ' src="' . slash_item('baseURL') . $src . '"';
@@ -334,10 +331,11 @@ if (! function_exists('audio')) {
      *
      * Generates an audio element to embed sounds
      *
-     * @param array|string $src                Either a source string or an array of sources
-     * @param string       $unsupportedMessage The message to display if the media tag is not supported by the browser.
-     * @param string       $attributes         HTML attributes
-     * @param bool         $indexPage          Should `Config\App::$indexPage` be added to the source path
+     * @param list<string>|string $src                Either a source string or an array of sources
+     * @param string              $unsupportedMessage The message to display if the media tag is not supported by the browser.
+     * @param string              $attributes         HTML attributes
+     * @param list<string>        $tracks             Track elements
+     * @param bool                $indexPage          Should `Config\App::$indexPage` be added to the source path
      */
     function audio($src, string $unsupportedMessage = '', string $attributes = '', array $tracks = [], bool $indexPage = false): string
     {
@@ -349,7 +347,7 @@ if (! function_exists('audio')) {
 
         if (_has_protocol($src)) {
             $audio .= ' src="' . $src . '"';
-        } elseif ($indexPage === true) {
+        } elseif ($indexPage) {
             $audio .= ' src="' . site_url($src) . '"';
         } else {
             $audio .= ' src="' . slash_item('baseURL') . $src . '"';
@@ -377,7 +375,9 @@ if (! function_exists('_media')) {
     /**
      * Generate media based tag
      *
-     * @param string $unsupportedMessage The message to display if the media tag is not supported by the browser.
+     * @param list<string> $types              Source elements
+     * @param string       $unsupportedMessage The message to display if the media tag is not supported by the browser.
+     * @param list<string> $tracks             Track elements
      */
     function _media(string $name, array $types = [], string $unsupportedMessage = '', string $attributes = '', array $tracks = []): string
     {
@@ -422,7 +422,7 @@ if (! function_exists('source')) {
     function source(string $src, string $type = 'unknown', string $attributes = '', bool $indexPage = false): string
     {
         if (! _has_protocol($src)) {
-            $src = $indexPage === true ? site_url($src) : slash_item('baseURL') . $src;
+            $src = $indexPage ? site_url($src) : slash_item('baseURL') . $src;
         }
 
         $source = '<source src="' . $src
@@ -466,15 +466,16 @@ if (! function_exists('object')) {
      * as either image or a resource plugin such as audio, video,
      * Java applets, ActiveX, PDF and Flash
      *
-     * @param string $data       A resource URL
-     * @param string $type       Content-type of the resource
-     * @param string $attributes HTML attributes
-     * @param bool   $indexPage  Should `Config\App::$indexPage` be added to the data path
+     * @param string       $data       A resource URL
+     * @param string       $type       Content-type of the resource
+     * @param string       $attributes HTML attributes
+     * @param list<string> $params     Param elements
+     * @param bool         $indexPage  Should `Config\App::$indexPage` be added to the data path
      */
     function object(string $data, string $type = 'unknown', string $attributes = '', array $params = [], bool $indexPage = false): string
     {
         if (! _has_protocol($data)) {
-            $data = $indexPage === true ? site_url($data) : slash_item('baseURL') . $data;
+            $data = $indexPage ? site_url($data) : slash_item('baseURL') . $data;
         }
 
         $object = '<object data="' . $data . '" '
@@ -527,7 +528,7 @@ if (! function_exists('embed')) {
     function embed(string $src, string $type = 'unknown', string $attributes = '', bool $indexPage = false): string
     {
         if (! _has_protocol($src)) {
-            $src = $indexPage === true ? site_url($src) : slash_item('baseURL') . $src;
+            $src = $indexPage ? site_url($src) : slash_item('baseURL') . $src;
         }
 
         return '<embed src="' . $src
@@ -539,10 +540,8 @@ if (! function_exists('embed')) {
 if (! function_exists('_has_protocol')) {
     /**
      * Test the protocol of a URI.
-     *
-     * @return false|int
      */
-    function _has_protocol(string $url)
+    function _has_protocol(string $url): false|int
     {
         return preg_match('#^([a-z]+:)?//#i', $url);
     }

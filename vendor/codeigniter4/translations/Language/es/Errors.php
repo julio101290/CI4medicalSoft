@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,7 +15,8 @@
 return [
     'pageNotFound'    => '404 Pagina no encontrada', // '404 - Page Not Found',
     'sorryCannotFind' => '¡Lo siento! Parece que no puedo encontrar la página que estabas buscando.', // 'Sorry! Cannot seem to find the page you were looking for.',
+    'badRequest'      => '400 - Solicitud incorrecta', // '400 - Bad Request',
+    'sorryBadRequest' => '¡Lo siento!, algo no está bien con tu solicitud.', // 'Sorry! Something is wrong with your request.',
     'whoops'          => '¡Vaya!', // 'Whoops!',
-    'weHitASnag'      => 'Parece que nos hemos topado con un problema. Por favor, inténtelo de nuevo más tarde...
-', // 'We seem to have hit a snag. Please try again later...',
+    'weHitASnag'      => 'Parece que nos hemos topado con un problema. Por favor, inténtelo de nuevo más tarde...', // 'We seem to have hit a snag. Please try again later...',
 ];

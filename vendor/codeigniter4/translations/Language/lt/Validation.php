@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -35,6 +37,7 @@ return [
                                     few {Laukas „{field}“ turi būti tiksliai # ženklų ilgio.}
                                     other {Laukas „{field}“ turi būti tiksliai # ženklų ilgio.}
                                 }',
+    'field_exists'          => 'Laukas „{field}“ turi egzistuoti.',
     'greater_than'          => 'Lauke „{field}“ turi būti skaičius, didesnis nei {param}.',
     'greater_than_equal_to' => 'Lauke „{field}“ turi būti skaičius, didesnis ar lygus {param}.',
     'hex'                   => 'Lauke „{field}“ turi būti šešioliktainiai simboliai.',
@@ -80,7 +83,7 @@ return [
     'valid_json'       => 'Lauke „{field}“ turi būti taisyklingas json.',
 
     // Credit Cards
-    'valid_cc_num' => 'Nepanašu, kad lauke „{field}“ būtų įrašytas taisyklingas kredito kortelės numeris.',
+    'valid_cc_number' => 'Nepanašu, kad lauke „{field}“ būtų įrašytas taisyklingas kredito kortelės numeris.',
 
     // Files
     'uploaded' => '„{field}“ nėra realus įkeltas failas.',
@@ -89,4 +92,5 @@ return [
     'mime_in'  => '„{field}“ nėra taisyklingo mime tipo.',
     'ext_in'   => '„{field}“ neturi taisyklingo failo praplėtimo.',
     'max_dims' => '„{field}“ nėra paveikslėlis, arba paveikslėlis yra per platus ar per aukštas.',
+    'min_dims' => '„{field}“ nepasiekia minimalaus dydžio {param}x{param}.',
 ];
